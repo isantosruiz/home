@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>LaTeX</title>
+  <meta charset="UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js"></script>
+  <style type="text/css" media="screen">
+    .ace_editor {
+      border: 1px solid lightgray;
+      margin-bottom: 1px !important;
+      width: 100%;
+    }
+
+    div.spacer {
+      margin-top: 16px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #5555FF
+    }
+
+    a:hover {
+      text-decoration: underline
+    }
+  </style>
+  <script src="https://davidcarlisle.github.io/latexcgi/runlatex.js"></script>
+  <script>
+
+    runlatex.editorlines = 40;
+    runlatex.adddefaultpreamble = true;
+    runlatex.adddefaultengine = true;
+
+    runlatex.overleafURI = null;
+    runlatex.overleafURI = "https://www.overleaf.com/docs";
+
+    runlatex.texts = {
+      "Open in Overleaf": "",
+      "TeXLive.net": "Compilar",
+      "Delete Output": "Borrar salida",
+      "Open in Overleaf": "Abrir en Overleaf",
+      "Compiling PDF": "Compilando...",
+      "Added Code": "",
+      "End Added Code": "",
+      "Top Caption": ""
+    }
+    function updateURL() {
+      var t = editors["pre0"].getValue();
+      var newl = "?" + encodeURI(t);
+      // copy to clipboard
+      var nn = document.createElement("textarea");
+      nn.value = document.location.protocol + "//" + document.location.host + document.location.pathname + newl;
+      document.body.appendChild(nn);
+      nn.select();
+      document.execCommand("copy");
+      document.body.removeChild(nn);
+      // update
+      if (newl != document.location.search) {
+        document.location.search = "?" + encodeURI(t);
+      }
+    }
+
+    function fillForm() {
+      if (document.location.search != "") {
+        editors["pre0"].setValue(decodeURIComponent(document.location.search.substring(1)), 0);
+        editors["pre0"].clearSelection();
+        latexcgi("pre0");
+      }
+    }
+
+    window.addEventListener('load', fillForm, false);
+
+
+  </script>
+  <style>
+    body {
+      margin: auto;
+      max-width: 70em;
+    }
+
+    div.h {
+      background-color: #F5F5FF;
+      margin: .5em 0;
+    }
+
+    pre {
+      background-color: #EEE;
+      margin: 0;
+      padding: .5em;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="h">
+    <pre id="pre0">
+\documentclass[12pt]{article}
+\usepackage[spanish,mexico]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathtools,graphicx,fourier}
+\begin{document}
+¡Hola mundo!
+\end{document}
+</pre>
+  </div>
+</body>

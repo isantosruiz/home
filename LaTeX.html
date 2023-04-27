@@ -110,10 +110,15 @@
     <pre id="pre0">
 \documentclass[12pt]{article}
 \usepackage[spanish,mexico]{babel}
-\usepackage[margin=2.5cm]{geometry}
-\usepackage{mathtools,graphicx,fourier}
+\usepackage[letterpaper,margin=2.5cm]{geometry}
+\usepackage{mathtools,graphicx,fourier,kantlipsum}
+\title{La cuadratura del círculo}
+\author{A. Uthor}
+\date{}
 \begin{document}
-¡Hola mundo!
+\maketitle
+\kant[1]
+$$ f(z_0) = \frac{1}{j2\pi} \oint_{\gamma} \frac{f(z)}{z-z_0} ~ \mathrm{d}z $$
 \end{document}
 </pre>
   </div>

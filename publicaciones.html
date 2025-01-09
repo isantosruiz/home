@@ -4,22 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Publicaciones</title>
+    <style>
+        iframe {
+            width: 100%; /* Ocupa todo el ancho disponible */
+            border: none; /* Sin bordes */
+        }
+    </style>
 </head>
 <body>
     <h1>Mis Publicaciones</h1>
-    <div id="publicaciones"></div>
+    <iframe id="publicaciones" src="https://bibbase.org/show?bib=https://bibbase.org/f/FffMjhsCncMM2Wp8P/ildeberto.bib&style=apa&group=year&sort=desc"></iframe>
 
     <script>
-        const bibBaseURL = 'https://bibbase.org/show?bib=https://bibbase.org/f/FffMjhsCncMM2Wp8P/ildeberto.bib';
+        // Función para ajustar la altura del iframe
+        function ajustarAlturaIframe() {
+            const iframe = document.getElementById('publicaciones');
+            iframe.onload = () => {
+                // Obtiene la altura del contenido dentro del iframe
+                iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+            };
+        }
 
-        // Obtener contenido de BibBase
-        fetch(bibBaseURL)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('publicaciones').innerHTML = data;
-            })
-            .catch(error => console.error('Error al cargar las publicaciones:', error));
+        // Llama a la función después de cargar la página
+        ajustarAlturaIframe();
     </script>
 </body>
 </html>
-

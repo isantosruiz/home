@@ -27,6 +27,11 @@
         }
     </style>
     <style>
+        #projects li:not(:last-child) {
+            margin-bottom: 8px;
+        }
+    </style>
+    <style>
         @font-face {
             font-family: Chocolate Covered Raindrops;
             src: url(./Chocolate_Covered_Raindrops.ttf);
@@ -153,7 +158,6 @@
                     <h2 class="w3-text-grey w3-padding-16"><i
                             class="fa fa-newspaper-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Publicaciones
                         recientes</h2>
-                    <p align="right"><a href="https://bibbase.org/show?bib=https://bibbase.org/f/FffMjhsCncMM2Wp8P/ildeberto.bib">[Todas las publicaciones]</a></p>
                     <div class="w3-container">
                         <ul class="fa-ul" id="publications">
                             <li><i class="fa-li fa fa-chevron-right"></i>
@@ -476,6 +480,7 @@
                             </li>
                         </ul>
                     </div>
+                    <div align="right"><a href="https://bibbase.org/show?bib=https://bibbase.org/f/FffMjhsCncMM2Wp8P/ildeberto.bib"> >> Todas las publicaciones << </a></div>
                 </div>
 
 
@@ -485,7 +490,7 @@
                         de investigación financiados</h2>
                     <div class="w3-container">
                         <h5 class="w3-opacity"><b>Tecnológico Nacional de México, TecNM</b></h5>
-                        <ul class="fa-ul">
+                        <ul class="fa-ul" id="projects">
                             <li><i class="fa-li fa fa-chevron-right"></i><b>Diagnóstico de fugas en redes de
                                     distribución de agua mediante cómputo en la nube y aprendizaje profundo</b><br>
                                 Convocatoria 2024: Proyectos de Investigación Científica, Desarrollo Tecnológico e

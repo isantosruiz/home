@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Ildeberto de los Santos Ruiz" />
+  <title>Modelado dinámico por el método de Euler-Lagrange</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title"><strong>Modelado dinámico por el método de
+Euler-Lagrange</strong></h1>
+<p class="author">Ildeberto de los Santos Ruiz</p>
+</header>
+<h1 id="introducción">Introducción</h1>
+<p>En la ingeniería mecatrónica, el modelado de sistemas mecánicos es
+una tarea fundamental para comprender y predecir su comportamiento
+dinámico. Uno de los métodos más poderosos y utilizados para este
+propósito es el <strong>método de Euler-Lagrange</strong>, el cual
+permite derivar las ecuaciones del movimiento a partir de principios
+energéticos. En este artículo, exploraremos los fundamentos de este
+método, su aplicación a sistemas mecánicos y algunos ejemplos
+prácticos.</p>
+<h1 id="método-de-euler-lagrange">Método de Euler-Lagrange</h1>
+<p>En el estudio de la mecánica clásica, es fundamental comprender cómo
+evolucionan los sistemas físicos en el tiempo y qué principios rigen su
+movimiento. A lo largo de la historia, se han desarrollado distintas
+formulaciones matemáticas para describir estos sistemas, entre las
+cuales destaca el enfoque variacional.</p>
+<p>Uno de los principios fundamentales en este contexto es el
+<strong>principio de mínima acción</strong>, también conocido como
+<strong>principio de Hamilton</strong>. Este establece que, de todas las
+trayectorias posibles que un sistema físico puede seguir entre dos
+estados dentro de un intervalo de tiempo <span class="math inline">\(t_1
+\leq t \leq t_2\)</span>, aquella que realmente se observa en la
+naturaleza es la que minimiza (o hace estacionaria) una cantidad <span
+class="math inline">\(S\)</span> denominada acción. Esta acción se
+define como la integral del <strong>lagrangiano</strong> <span
+class="math inline">\(L\)</span> a lo largo del tiempo: <span
+class="math display">\[L = \int_{t_1}^{t_2}
+L(q,\dot{q},t)\,\mathrm{d}t\]</span> donde <span
+class="math inline">\(q\)</span> representa las coordenadas
+generalizadas del sistema, <span class="math inline">\(\dot{q}\)</span>
+son las velocidades generalizadas, y <span
+class="math inline">\(L(q,\dot{q},t) = T-V\)</span> es el
+<span>lagrangiano</span>, que es la diferencia entre la <strong>energía
+cinética</strong> <span class="math inline">\(T\)</span> y la
+<strong>energía potencial</strong> <span
+class="math inline">\(V\)</span>.</p>
+<p>El principio de mínima acción establece que la trayectoria real del
+sistema es aquella para la cual la variación de <span
+class="math inline">\(S\)</span> es cero: <span
+class="math display">\[\delta S = 0\]</span></p>
+<p>Para hallar las ecuaciones de movimiento que describen al sistema, se
+requiere que la acción sea estacionaria (mínima o un punto crítico).
+Aplicando el cálculo de variaciones, para sistemas conservativos, se
+obtiene la <strong>ecuación de Euler-Lagrange</strong>:</p>
+<p><span class="math display">\[\frac{\mathrm{d}}{\mathrm{d}t} \left(
+\frac{\partial L}{\partial \dot{q}_i} \right) - \frac{\partial
+L}{\partial q_i} = 0\]</span></p>
+<p>Esta ecuación describe la dinámica del sistema en términos de sus
+coordenadas generalizadas <span class="math inline">\(q_i\)</span>,
+proporcionando una alternativa a la formulación newtoniana. Las
+coordenadas generalizadas <span class="math inline">\(q_i\)</span> son
+un conjunto de variables independientes que describen completamente la
+configuración de un sistema mecánico. Se eligen de manera conveniente
+para reducir la complejidad del problema y adaptarse mejor a la
+geometría y restricciones del sistema. En un sistema con <span
+class="math inline">\(N\)</span> grados de libertad, se requieren <span
+class="math inline">\(N\)</span> coordenadas generalizadas para
+especificar completamente su estado.</p>
+<p>Por lo tanto, las <strong>coordenadas generalizadas</strong> son el
+conjunto de variables que se utilizan para describir el estado del
+sistema; no son necesariamente las tradicionales coordenadas
+cartesianas. Por ejemplo, para una partícula moviéndose en un espacio
+tridimensional, en lugar de las coordenadas cartesianas <span
+class="math inline">\((x,y,z)\)</span>, se pueden usar las coordenadas
+esféricas <span class="math inline">\((r,\theta,\phi)\)</span>. Para un
+péndulo simple, en lugar de las coordenadas cartesianas <span
+class="math inline">\((x,y)\)</span>, se puede usar como única
+coordenada generalizada el ángulo de oscilación <span
+class="math inline">\(\theta\)</span>, ya que la longitud de la cuerda
+es fija e impone una restricción geométrica (solo existe un grado de
+libertad). Para un brazo robótico de <span
+class="math inline">\(n\)</span> eslabones, en lugar de las posiciones
+<span class="math inline">\((x_i,y_i,z_i)\)</span> de cada articulación,
+se pueden usar los ángulos <span class="math inline">\(\theta_1,
+\theta_2, \ldots, \theta_n\)</span> de las articulaciones, porque estos
+describen completamente la configuración del robot.</p>
+<h1 id="aplicación-a-un-sistema-mecánico-simple">Aplicación a un sistema
+mecánico simple</h1>
+<p>Para ilustrar el método, consideremos un <strong>péndulo
+simple</strong> formado por una barra rígida de longitud <span
+class="math inline">\(l\)</span> y en su extremo una bola de masa <span
+class="math inline">\(m\)</span>, cuyo desplazamiento ángular se denota
+como <span class="math inline">\(\theta\)</span>. El extremo opuesto de
+la barra está articulado mediante una revoluta que permite su libre
+rotación. Se toma en cuenta sólo la masa de la bola, ignorando la masa
+de la barra por ser muy pequeña.</p>
+<figure id="fig:pendulo">
+<embed src="media/images/pendulo.pdf" />
+<figcaption>Péndulo simple</figcaption>
+</figure>
+<p>Se considera la masa de la bola concentrada en su centro geométrico
+(centro de gravedad). La posición del centro de la bola está dada por:
+<span class="math display">\[\mathbf{r} = \begin{bmatrix}l\sin\theta\\
+-l\cos\theta\end{bmatrix},\]</span> y su velocidad por: <span
+class="math display">\[\mathbf{v} =
+\frac{\mathrm{d}}{\mathrm{d}t}\mathbf{r} =
+\frac{\mathrm{d}}{\mathrm{d}t}\begin{bmatrix}l\sin\theta\\
+-l\cos\theta\end{bmatrix}
+= \begin{bmatrix}l\dot{\theta}\cos\theta\\
+l\dot{\theta}\sin\theta\end{bmatrix}.\]</span></p>
+<p>La altura (ordenada, la segunda componente) en la posición de la bola
+determina su energía potencial: <span class="math display">\[V = m g h =
+m g r_2 = - m g l \cos\theta,\]</span> y la magnitud de la velocidad
+determina su energía cinética: <span class="math display">\[T =
+\frac{1}{2} m v^2 = \frac{1}{2} m \left(\mathbf{v}^\top\mathbf{v}\right)
+= \frac{1}{2} m l^2 \dot{\theta}^2\]</span></p>
+<p>Por lo tanto, el Lagrangiano del sistema está dado por: <span
+class="math display">\[L = T - V = \frac{1}{2} m l^2 \dot{\theta}^2 - m
+g l \cos\theta.
+\label{eq:lagps}\]</span></p>
+<p>La dinámica del péndulo se obtiene aplicando la ecuación de
+Euler-Lagrange: <span
+class="math display">\[\frac{\mathrm{d}}{\mathrm{d}t} \left(
+\frac{\partial L}{\partial \dot{\theta}} \right) - \frac{\partial
+L}{\partial \theta} = 0
+\label{eq:elpendulo}\]</span></p>
+<p>Sustituyendo <a href="#eq:lagps" data-reference-type="eqref"
+data-reference="eq:lagps">[eq:lagps]</a> en <a href="#eq:elpendulo"
+data-reference-type="eqref"
+data-reference="eq:elpendulo">[eq:elpendulo]</a>, y simplificando, se
+obtiene: <span class="math display">\[l \ddot{\theta} + g \sin\theta =
+0\]</span></p>
+<p>Esta es la ecuación diferencial que describe el movimiento del
+péndulo simple.</p>
+<p>La expresión en el lado izquierdo de <a href="#eq:elpendulo"
+data-reference-type="eqref"
+data-reference="eq:elpendulo">[eq:elpendulo]</a> es el negativo de la
+denominada “<span>derivada funcional</span>” de <span
+class="math inline">\(L\)</span>, que puede ser obtenida con
+<span><strong></strong></span> del <em>Symbolic Math Toolbox</em> de
+MATLAB:</p>
+<div class="tcbmatlab">
+<p>syms m l g positive syms t real syms theta(t) r =
+formula([l*sin(theta); -l*cos(theta)]); v = formula(diff(r)); V =
+m*g*r(2) T = 1/2*m*(v.’*v) L = simplify(T - V) pendulo =
+-functionalDerivative(L, theta) == 0</p>
+</div>
+<p>El uso de <span><strong>formula()</strong></span> en la expresión del
+vector de posición <span class="math inline">\(\mathbf{r}(t)\)</span>,
+es para permitir que <span><strong>r(2)</strong></span> extraiga el
+segundo elemento (la componente <span class="math inline">\(y\)</span>)
+de <span class="math inline">\(\mathbf{r}\)</span>, en lugar de evaluar
+<span class="math inline">\(\mathbf{r}\)</span> para <span
+class="math inline">\(t=2\)</span>.</p>
+<p>Como se mostró en el ejemplo anterior, las coordenadas generalizadas
+reducen el número de ecuaciones eliminando redundancias, se adaptan a
+restricciones sin necesidad de fuerzas de restricción explícitas (no fue
+necesario calcular la tensión en la barra ni las reacciones en la
+revoluta) y facilitan el modelado al expresar la dinámica en términos de
+energía cinética y potencial.</p>
+<h1 id="modelado-de-sistemas-con-fuerzas-no-conservativas">Modelado de
+sistemas con fuerzas no conservativas</h1>
+<p>En muchos sistemas mecánicos reales, existen fuerzas disipativas y
+externas que afectan la dinámica. Para estos sistemas, la ecuación de
+Euler-Lagrange se modifica agregando términos no conservativos <span
+class="math inline">\(Q_i\)</span>, que representan las <strong>fuerzas
+generalizadas</strong>, que son comúnmente fuerzas en el caso
+traslacional y torques en el caso rotacional: <span
+class="math display">\[\frac{\mathrm{d}}{\mathrm{d}t} \left(
+\frac{\partial L}{\partial \dot{q}_i} \right) - \frac{\partial
+L}{\partial q_i} = Q_{i}\]</span></p>
+<p>Un ejemplo común es un <strong>péndulo motorizado</strong>
+(<em>i.e.</em>, actuado por un torque externo) y con fricción rotacional
+viscosa. Para este ejemplo: <span class="math display">\[\frac{d}{dt}
+\left( \frac{\partial L}{\partial \dot{\theta}} \right) - \frac{\partial
+L}{\partial \theta} = Q_{\theta},
+\label{eq:eld}\]</span> donde <span
+class="math inline">\(Q_\theta\)</span> incluirá el torque motriz <span
+class="math inline">\(Q_{\theta,\,\text{motor}}\)</span> y una fricción
+rotacional <span
+class="math inline">\(Q_{\theta,\,\text{fricción}}\)</span> que afectan
+a la coordenada generalizada <span
+class="math inline">\(\theta\)</span>.</p>
+<figure id="fig:pendulom">
+<embed src="media/images/pendulom.pdf" />
+<figcaption>Péndulo motorizado y con fricción rotacional
+viscosa</figcaption>
+</figure>
+<p>Las energías cinética y potencial —por consiguiente, también el
+lagrangiano— son iguales que en el péndulo simple: <span
+class="math display">\[\begin{aligned}
+T &amp;= \frac{1}{2} m l^2 \dot{\theta}^2
+\\
+V &amp;= - m g l \cos\theta
+\\
+L &amp;= \frac{1}{2} m l^2 \dot{\theta}^2 - m g l \cos\theta
+\end{aligned}\]</span></p>
+<p>Ahora, en el lado derecho de <a href="#eq:eld"
+data-reference-type="eqref" data-reference="eq:eld">[eq:eld]</a> se
+deben agregar las fuerzas no conservativas correspondientes a la
+<span>fricción rotacional viscosa</span>, <span
+class="math inline">\(Q_{\theta,\,\text{fricción}} = -b
+\dot{\theta}\)</span>, donde <span class="math inline">\(b\)</span> es
+el coeficiente de fricción, y el <span>torque externo motorizado</span>,
+<span class="math inline">\(Q_{\theta,\,\text{motor}} = \tau\)</span>,
+donde <span class="math inline">\(\tau\)</span> es el torque aplicado
+por el motor.</p>
+<p>Por lo tanto, agregando las dos componentes de <span
+class="math inline">\(Q_\theta\)</span>, la ecuación de Euler-Lagrange
+para el péndulo motorizado queda expresada por: <span
+class="math display">\[m l^2 \ddot{\theta} + m g l \sin\theta = \tau - b
+\dot{\theta}\]</span></p>
+<p>Esta ecuación describe el movimiento del péndulo con la influencia de
+fricción y un torque externo. Este tipo de modelado es fundamental en el
+diseño de sistemas de control para robots, actuadores eléctricos y
+mecanismos que requieren compensación de efectos disipativos.</p>
+<h1 id="conclusión">Conclusión</h1>
+<p>El método de Euler-Lagrange ofrece ventajas significativas,
+especialmente en sistemas complejos, al permitir el uso de coordenadas
+generalizadas para modelar restricciones con mayor facilidad. Además, su
+enfoque basado en energías evita el uso directo de fuerzas,
+simplificando el análisis de sistemas multi-cuerpo. Su versatilidad
+también permite su aplicación en sistemas electromecánicos y de control,
+ampliando su utilidad a distintos dominios de la ingeniería.</p>
+<p>El método de Euler-Lagrange se aplica en diversas áreas, como la
+robótica para modelar brazos manipuladores, la automoción en el análisis
+de sistemas de suspensión, la biomecánica para estudiar el movimiento
+humano y exoesqueletos, y en sistemas aeroespaciales para la dinámica de
+satélites y drones. A medida que la automatización y la robótica
+avanzan, dominar este enfoque se vuelve fundamental para el diseño y
+control de sistemas mecatrónicos.</p>
+</body>
+</html>

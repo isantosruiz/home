@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recursos didácticos</title>
+  <style>
+    /* Reset básico */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+    .layout {
+      display: flex;
+      height: 100%;
+    }
+    /* Sidebar de navegación */
+    .sidebar {
+      width: 240px;
+      background-color: #bbddff;
+      border-right: 1px solid #ddd;
+      padding: 20px;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      overflow-y: auto;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .sidebar li {
+      margin-bottom: 0.5rem;
+    }
+    .sidebar a {
+      color: #0366d6;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+    .sidebar .section-title {
+      font-size: 1.1rem;
+      color: #222;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    /* Área de contenido */
+    .content {
+      margin-left: 240px;
+      padding: 40px;
+      flex: 1;
+      overflow-y: auto;
+    }
+    .content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #222;
+    }
+    .content h2 {
+      font-size: 2rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #eaeaea;
+      padding-bottom: 0.5rem;
+    }
+    .content h3 {
+      font-size: 1.5rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: #444;
+    }
+    .content ul {
+      list-style: disc inside;
+      margin-bottom: 1rem;
+    }
+    .content li {
+      margin-bottom: 0.5rem;
+    }
+    .content a {
+      color: #0366d6;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .content a:hover {
+      text-decoration: underline;
+    }
+    .site-footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    /* Responsive */
+    @media(max-width: 768px) {
+      .layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+      }
+      .content {
+        margin-left: 0;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav class="sidebar">
+      <div class="section-title">Matemáticas</div>
+      <ul>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+      </ul>
+      <div class="section-title">Modelado</div>
+      <ul>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+      </ul>
+      <div class="section-title">Simulación</div>
+      <ul>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+      </ul>
+      <div class="section-title">Control</div>
+      <ul>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+      </ul>
+      <div class="section-title">Cómputo</div>
+      <ul>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+      </ul>
+    </nav>
+
+    <main class="content">
+      <h1 id="top">Recursos didácticos</h1>
+
+      <section id="cuadernos">
+        <h2>Recientes</h2>
+        <ul>
+          <li><a href="ilc.pdf#zoom=page-width" target="_blank">Control por aprendizaje iterativo</a></li>
+          <li><a href="fourier.pdf#zoom=page-width" target="_blank">Series de Fourier</a> (MATLAB, 23/05/2023)</li>
+        </ul>
+      </section>
+
+      <section id="matematicas">
+        <h2>Matemáticas</h2>
+        <ul>
+          <li><a href="fourier.pdf">Series de Fourier</a> (MATLAB, 23/05/2023)</li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+        </ul>
+      </section>
+
+      <section id="modelado">
+        <h2>Modelado</h2>
+        <ul>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+        </ul>
+      </section>
+
+      <section id="simulacion">
+        <h2>Simulación</h2>
+        <ul>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+        </ul>
+      </section>
+
+      <section id="control">
+        <h2>Control</h2>
+        <ul>
+          <li><a href="ilc.pdf">Control por aprendizaje iterativo</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+        </ul>
+      </section>
+
+      <section id="computo">
+        <h2>Cómputo</h2>
+        <ul>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+        </ul>
+      </section>
+
+      <footer class="site-footer">
+        <p>© <span id="year"></span>, Ildeberto de los Santos Ruiz</p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Actualiza el año automáticamente
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

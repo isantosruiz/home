@@ -1,209 +1,126 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Divulgación</title>
-  <style>
-    /* Reset básico */
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
-      color: #333;
-      background-color: #f9f9f9;
-      line-height: 1.6;
-    }
-    .layout {
-      display: flex;
-      flex-wrap: nowrap;
-    }
-    /* Botón de menú (oculto en desktop) */
-    .menu-toggle {
-      display: none;
-      position: fixed;
-      top: 16px;
-      left: 16px;
-      z-index: 1100;
-      background: none;
-      border: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-    }
-    /* Sidebar de navegación */
-    .sidebar {
-      width: 240px;
-      background-color: #f5f5f5;
-      border-right: 1px solid #ddd;
-      padding: 20px;
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      overflow-y: auto;
-      z-index: 1000;
-      transition: transform 0.3s ease;
-    }
-    /* Estado oculto del sidebar en móvil */
-    .sidebar.mobile-hidden {
-      transform: translateX(-100%);
-    }
-    .sidebar ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    .sidebar li {
-      margin-bottom: 0.5rem;
-    }
-    .sidebar a {
-      color: #0366d6;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .sidebar a:hover {
-      text-decoration: underline;
-    }
-    .sidebar .section-title {
-      font-size: 1.1rem;
-      color: #222;
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
-    }
-    /* Área de contenido */
-    .content {
-      margin-left: 260px; /* ancho sidebar + margen */
-      padding: 40px;
-      transition: margin 0.3s ease;
-    }
-    .content h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: #222;
-    }
-    .content h2 {
-      font-size: 2rem;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      border-bottom: 2px solid #eaeaea;
-      padding-bottom: 0.5rem;
-    }
-    .content ul {
-      list-style: disc inside;
-      margin-bottom: 1rem;
-    }
-    .content li {
-      margin-bottom: 0.5rem;
-    }
-    .content a {
-      color: #0366d6;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .content a:hover {
-      text-decoration: underline;
-    }
-    .site-footer {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      color: #666;
-    }
-    /* Responsive */
-    @media (max-width: 768px) {
-      /* Mostrar botón y ocultar sidebar */
-      .menu-toggle {
-        display: block;
-      }
-      .sidebar {
-        width: 240px;
-        position: fixed;
-        left: 0;
-        height: 100%;
-      }
-      .content {
-        margin-left: 0;
-        padding: 20px;
-      }
-    }
-    /* Tipografía especial */
-    @font-face {
-      font-family: Chocolate Covered Raindrops;
-      src: url(./Chocolate_Covered_Raindrops.ttf);
-    }
-    h1, h2 {
-      font-family: Chocolate Covered Raindrops;
-      font-size: xxx-large;
-      color: rgb(0, 32, 64);
-    }
-  </style>
-</head>
+<html>
+<title>Divulgación</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body {
+  font-family: "Roboto", sans-serif;
+}
+.w3-bar-block .w3-bar-item {
+  padding: 16px;
+  font-weight: bold;
+}
+h1 {
+  font-family: "Great Vibes", "Allura", "Roboto";
+  }
+</style>
 <body>
-  <!-- Botón hamburguesa -->
-  <button class="menu-toggle" aria-label="Abrir menú">☰</button>
 
-  <div class="layout">
-    <nav class="sidebar mobile-hidden">
-      <div class="section-title"><a href="#matematicas">Matemáticas</a></div>
-      <ul>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-      </ul>
-      <div class="section-title"><a href="#modelado">Modelado</a></div>
-      <ul>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-      </ul>
-      <div class="section-title"><a href="#simulacion">Simulación</a></div>
-      <ul>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-      </ul>
-      <div class="section-title"><a href="#control">Control</a></div>
-      <ul>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-      </ul>
-      <div class="section-title"><a href="#computo">Cómputo</a></div>
-      <ul>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-      </ul>
-    </nav>
-
-    <main class="content">
-      <h1>Divulgación</h1>
-      <section id="matematicas">
-        <h2>Matemáticas</h2>
-        <ul>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-        </ul>
-      </section>
-      <!-- ... resto de secciones ... -->
-      <footer class="site-footer">
-        <p>© <span id="year"></span>, Ildeberto de los Santos Ruiz</p>
-      </footer>
-    </main>
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-animate-left w3-card" style="z-index:3;width:250px;" id="mySidebar">
+  <a class="w3-bar-item w3-button w3-border-bottom w3-large" href="#"><img src="ilde_foto.avif" style="width:100%;"></a>
+  <a class="w3-bar-item w3-button w3-hide-large w3-large" href="javascript:void(0)" onclick="w3_close()">Close <i class="fa fa-remove"></i></a>
+  <a class="w3-bar-item w3-button w3-teal" href="#">Home</a>
+  <a class="w3-bar-item w3-button" href="javascript:void(0)"
+   onclick="loadContent('home.html')">Modelado</a>
+  <a class="w3-bar-item w3-button" href="#">Simulación</a>
+  <a class="w3-bar-item w3-button" href="#">Control</a>
+  <div>
+    <a class="w3-bar-item w3-button" onclick="myAccordion('demo')" href="javascript:void(0)">Software <i class="fa fa-caret-down"></i></a>
+    <div id="demo" class="w3-hide">
+      <a class="w3-bar-item w3-button" href="#">Python</a>
+      <a class="w3-bar-item w3-button" href="#">MATLAB</a>
+      <a class="w3-bar-item w3-button" href="#">LaTeX</a>
+    </div>
   </div>
+</nav>
 
-  <script>
-    // Actualiza el año automáticamente
-    document.getElementById('year').textContent = new Date().getFullYear();
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
 
-    // Lógica para mostrar/ocultar la sidebar en móvil
-    const menuToggle = document.querySelector('.menu-toggle');
-    const sidebar = document.querySelector('.sidebar');
-    menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('mobile-hidden');
-    });
-  </script>
+<div class="w3-main" style="margin-left:250px;">
+
+<div id="myTop" class="w3-container w3-top w3-theme w3-large">
+  <p><i class="fa fa-bars w3-button w3-teal w3-hide-large w3-xlarge" onclick="w3_open()"></i>
+  <span id="myIntro" class="w3-hide">W3.CSS: Introduction</span></p>
+</div>
+
+<header class="w3-container w3-theme" style="padding:16px 32px">
+  <h1 class="w3-xxxlarge"><b>Divulgación</b></h1>
+</header>
+
+<div id="panel-content" class="w3-container" style="padding:32px">
+  <!-- Aquí irá el contenido cargado -->
+</div>
+
+<footer class="w3-container w3-teal w3-center w3-margin-top">
+    <a href="https://www.facebook.com/idlsantos"><i class="fa-brands fa-facebook w3-hover-opacity"></i></a>&nbsp;
+    <a href="https://www.instagram.com/idlsantos/"><i class="fa-brands fa-instagram w3-hover-opacity"></i></a>&nbsp;
+    <a href="https://twitter.com/idlsantos"><i class="fa-brands fa-twitter w3-hover-opacity"></i></a>&nbsp;
+    <a href="https://www.linkedin.com/in/idlsantos/"><i class="fa-brands fa-linkedin w3-hover-opacity"></i></a>
+</footer>
+
+     
+</div>
+
+<script>
+// Open and close the sidebar on medium and small screens
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Change style of top container on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+  if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+    document.getElementById("myTop").classList.add("w3-card-4", "w3-animate-opacity");
+    document.getElementById("myIntro").classList.add("w3-show-inline-block");
+  } else {
+    document.getElementById("myIntro").classList.remove("w3-show-inline-block");
+    document.getElementById("myTop").classList.remove("w3-card-4", "w3-animate-opacity");
+  }
+}
+
+// Accordions
+function myAccordion(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+    x.previousElementSibling.className += " w3-theme";
+  } else { 
+    x.className = x.className.replace("w3-show", "");
+    x.previousElementSibling.className = 
+    x.previousElementSibling.className.replace(" w3-theme", "");
+  }
+}
+</script>
+
+<script>
+async function loadContent(url) {
+  try {
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(resp.statusText);
+    const html = await resp.text();
+    document.getElementById('panel-content').innerHTML = html;
+  } catch (e) {
+    document.getElementById('panel-content').innerHTML =
+      '<p class="w3-text-red">Error cargando contenido.</p>';
+    console.error(e);
+  }
+}
+// Opción: cargar por defecto al inicio
+document.addEventListener('DOMContentLoaded', () => loadContent('home.html'));
+</script>
+     
 </body>
-</html>
+</html> 

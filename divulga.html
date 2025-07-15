@@ -45,9 +45,10 @@ h1 {
   <a class="w3-bar-item w3-button w3-hide-large w3-large" href="javascript:void(0)" onclick="w3_close()">Close <i class="fa fa-remove"></i></a>
   <a class="w3-bar-item w3-button w3-teal" href="#">Inicio</a>
   <a class="w3-bar-item w3-button" href="javascript:void(0)"
-   onclick="loadContent('home.html')">Modelado</a>
+   onclick="loadContent('inicio.html')">Modelado</a>
   <a class="w3-bar-item w3-button" href="#">Simulación</a>
-  <a class="w3-bar-item w3-button" href="#">Control</a>
+  <a class="w3-bar-item w3-button"  href="javascript:void(0)"
+   onclick="loadContent('control.html')">Control</a>
   <div>
     <a class="w3-bar-item w3-button" onclick="myAccordion('demo')" href="javascript:void(0)">Software <i class="fa fa-caret-down"></i></a>
     <div id="demo" class="w3-hide">
@@ -137,7 +138,7 @@ async function loadContent(url) {
   }
 }
 // Opción: cargar por defecto al inicio
-document.addEventListener('DOMContentLoaded', () => loadContent('home.html'));
+document.addEventListener('DOMContentLoaded', () => loadContent('inicio.html'));
 </script>
      
 </body>

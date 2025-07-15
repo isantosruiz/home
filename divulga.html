@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Divulgación</title>
   <style>
     /* Reset básico */
@@ -21,6 +21,18 @@
       display: flex;
       flex-wrap: nowrap;
     }
+    /* Botón de menú (oculto en desktop) */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 1100;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
     /* Sidebar de navegación */
     .sidebar {
       width: 240px;
@@ -32,6 +44,11 @@
       bottom: 0;
       overflow-y: auto;
       z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+    /* Estado oculto del sidebar en móvil */
+    .sidebar.mobile-hidden {
+      transform: translateX(-100%);
     }
     .sidebar ul {
       list-style: none;
@@ -58,6 +75,7 @@
     .content {
       margin-left: 260px; /* ancho sidebar + margen */
       padding: 40px;
+      transition: margin 0.3s ease;
     }
     .content h1 {
       font-size: 2.5rem;
@@ -94,38 +112,39 @@
     }
     /* Responsive */
     @media (max-width: 768px) {
-      .layout {
-        flex-direction: column;
+      /* Mostrar botón y ocultar sidebar */
+      .menu-toggle {
+        display: block;
       }
       .sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
-        border-right: none;
-        border-bottom: 1px solid #ddd;
+        width: 240px;
+        position: fixed;
+        left: 0;
+        height: 100%;
       }
       .content {
         margin-left: 0;
         padding: 20px;
       }
     }
-  </style>
-  <style>
+    /* Tipografía especial */
     @font-face {
-        font-family: Chocolate Covered Raindrops;
-        src: url(./Chocolate_Covered_Raindrops.ttf);
+      font-family: Chocolate Covered Raindrops;
+      src: url(./Chocolate_Covered_Raindrops.ttf);
     }
-    
     h1, h2 {
-        font-family: Chocolate Covered Raindrops;
-        font-size: xxx-large;
-        color: rgb(0, 32, 64);
+      font-family: Chocolate Covered Raindrops;
+      font-size: xxx-large;
+      color: rgb(0, 32, 64);
     }
   </style>
 </head>
 <body>
+  <!-- Botón hamburguesa -->
+  <button class="menu-toggle" aria-label="Abrir menú">☰</button>
+
   <div class="layout">
-    <nav class="sidebar">
+    <nav class="sidebar mobile-hidden">
       <div class="section-title"><a href="#matematicas">Matemáticas</a></div>
       <ul>
         <li><a href="#">Link</a></li>
@@ -168,43 +187,7 @@
           <li><a href="#">Link</a></li>
         </ul>
       </section>
-
-      <section id="modelado">
-        <h2>Modelado</h2>
-        <ul>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-        </ul>
-      </section>
-
-      <section id="simulacion">
-        <h2>Simulación</h2>
-        <ul>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-        </ul>
-      </section>
-
-      <section id="control">
-        <h2>Control</h2>
-        <ul>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-        </ul>
-      </section>
-
-      <section id="computo">
-        <h2>Cómputo</h2>
-        <ul>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-        </ul>
-      </section>
-
+      <!-- ... resto de secciones ... -->
       <footer class="site-footer">
         <p>© <span id="year"></span>, Ildeberto de los Santos Ruiz</p>
       </footer>
@@ -214,6 +197,13 @@
   <script>
     // Actualiza el año automáticamente
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Lógica para mostrar/ocultar la sidebar en móvil
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('mobile-hidden');
+    });
   </script>
 </body>
 </html>

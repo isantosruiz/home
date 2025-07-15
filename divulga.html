@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <title>Divulgación</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
@@ -11,18 +11,23 @@
 <style>
     html,
     body,
-    h2, h3, h4, h5, h6 {
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         font-family: "Roboto", sans-serif
     }
 </style>
 <style>
-.w3-bar-block .w3-bar-item {
-  padding: 16px;
-  font-weight: bold;
-}
-h1 {
-  font-family: "Great Vibes", "Allura", "Roboto";
-  }
+    .w3-bar-block .w3-bar-item {
+        padding: 16px;
+        font-weight: bold;
+    }
+
+    h1 {
+        font-family: "Great Vibes", "Allura", "Roboto";
+    }
 </style>
 <style>
     #publications li:not(:last-child) {
@@ -38,112 +43,130 @@ h1 {
         text-decoration: underline;
     }
 </style>
+
 <body>
 
-<nav class="w3-sidebar w3-bar-block w3-collapse w3-animate-left w3-card" style="z-index:3;width:250px;" id="mySidebar">
-  <a class="w3-bar-item w3-button w3-border-bottom w3-large" href="#"><img src="banner.png" style="width:100%;" alt="Logo"></a>
-  <a class="w3-bar-item w3-button w3-hide-large w3-large" href="javascript:void(0)" onclick="w3_close()">Close <i class="fa fa-remove"></i></a>
-  <a class="w3-bar-item w3-button w3-teal" href="javascript:void(0)"
-   onclick="loadContent('inicio.html')">Inicio</a>
-  <a class="w3-bar-item w3-button" href="javascript:void(0)"
-   onclick="loadContent('modelado.html')">Modelado</a>
-  <a class="w3-bar-item w3-button" href="javascript:void(0)"
-   onclick="loadContent('simulacion.html')">Simulación</a>
-  <a class="w3-bar-item w3-button"  href="javascript:void(0)"
-   onclick="loadContent('control.html')">Control</a>
-  <div>
-    <a class="w3-bar-item w3-button" onclick="myAccordion('demo')" href="javascript:void(0)">Software <i class="fa fa-caret-down"></i></a>
-    <div id="demo" class="w3-hide">
-      <a class="w3-bar-item w3-button" href="#">&nbsp;&nbsp; Python</a>
-      <a class="w3-bar-item w3-button" href="#">&nbsp;&nbsp; MATLAB</a>
-      <a class="w3-bar-item w3-button" href="#">&nbsp;&nbsp; LaTeX</a>
-    </div>
-  </div>
-</nav>
+    <nav class="w3-sidebar w3-bar-block w3-collapse w3-animate-left w3-card" style="z-index:3;width:250px;"
+        id="mySidebar">
+        <a class="w3-bar-item w3-button w3-border-bottom w3-large" href="#"><img src="banner.png"
+                style="width:100%;"></a>
+        <a class="w3-bar-item w3-button w3-hide-large w3-large" href="javascript:void(0)" onclick="w3_close()">Close <i
+                class="fa fa-remove"></i></a>
+        <a class="w3-bar-item w3-button w3-teal" href="javascript:void(0)"
+            onclick="loadContent('inicio.html')">Inicio</a>
+        <a class="w3-bar-item w3-button" href="javascript:void(0)" onclick="loadContent('modelado.html')">Modelado</a>
+        <a class="w3-bar-item w3-button" href="javascript:void(0)"
+            onclick="loadContent('simulacion.html')">Simulación</a>
+        <a class="w3-bar-item w3-button" href="javascript:void(0)" onclick="loadContent('control.html')">Control</a>
+        <div>
+            <a class="w3-bar-item w3-button" onclick="myAccordion('demo')" href="javascript:void(0)">Software <i
+                    class="fa fa-caret-down"></i></a>
+            <div id="demo" class="w3-hide">
+                <a class="w3-bar-item w3-button" href="#">&nbsp;&nbsp; Python</a>
+                <a class="w3-bar-item w3-button" href="#">&nbsp;&nbsp; MATLAB</a>
+                <a class="w3-bar-item w3-button" href="#">&nbsp;&nbsp; LaTeX</a>
+            </div>
+        </div>
+    </nav>
 
-<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay">
+    </div>
 
     <div class="w3-main" style="margin-left:250px;">
-    
+
         <div id="myTop" class="w3-container w3-top w3-theme">
-          <p><i class="fa fa-bars w3-button w3-teal w3-hide-large w3-xlarge" onclick="w3_open()"></i>
-          <span id="myIntro" class="w3-hide">Divulgación</span></p>
+            <p><i class="fa fa-bars w3-button w3-teal w3-hide-large w3-xlarge" onclick="w3_open()"></i>
+                <span id="myIntro" class="w3-hide">Divulgación</span>
+            </p>
         </div>
-        
+
         <header class="w3-container w3-theme" style="padding:16px 32px">
-          <h1 class="w3-xxxlarge"><b>Divulgación</b></h1>
+            <h1 class="w3-xxxlarge"><b>Divulgación</b></h1>
         </header>
-        
+
         <div id="panel-content" class="w3-container" style="padding:32px">
-          <!-- Aquí irá el contenido cargado -->
+            <!-- Aquí irá el contenido cargado -->
         </div>
 
         <div>
-            <a href="https://creativecommons.org">Divulgación</a> © 2024 by <a href="https://creativecommons.org">Ildeberto de los Santos Ruiz</a> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">            
+            <a href="https://creativecommons.org">Divulgación</a> © 2024 by <a
+                href="https://creativecommons.org">Ildeberto de los Santos Ruiz</a> is licensed under <a
+                href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a><img
+                src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt=""
+                style="max-width: 1em;max-height:1em;margin-left: .2em;"><img
+                src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt=""
+                style="max-width: 1em;max-height:1em;margin-left: .2em;"><img
+                src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt=""
+                style="max-width: 1em;max-height:1em;margin-left: .2em;">
         </div>
-        
+
         <footer class="w3-container w3-teal w3-center w3-margin-top">
-            <a href="https://www.facebook.com/idlsantos"><i class="fa-brands fa-facebook w3-hover-opacity"></i></a>&nbsp;
-            <a href="https://www.instagram.com/idlsantos/"><i class="fa-brands fa-instagram w3-hover-opacity"></i></a>&nbsp;
+            <a href="https://www.facebook.com/idlsantos"><i
+                    class="fa-brands fa-facebook w3-hover-opacity"></i></a>&nbsp;
+            <a href="https://www.instagram.com/idlsantos/"><i
+                    class="fa-brands fa-instagram w3-hover-opacity"></i></a>&nbsp;
             <a href="https://twitter.com/idlsantos"><i class="fa-brands fa-twitter w3-hover-opacity"></i></a>&nbsp;
             <a href="https://www.linkedin.com/in/idlsantos/"><i class="fa-brands fa-linkedin w3-hover-opacity"></i></a>
         </footer>
     </div>
 
-<script>
-// Open and close the sidebar on medium and small screens
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-  document.getElementById("myOverlay").style.display = "block";
-}
+    </div>
 
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-  document.getElementById("myOverlay").style.display = "none";
-}
+    <script>
+        // Open and close the sidebar on medium and small screens
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("myOverlay").style.display = "block";
+        }
 
-// Change style of top container on scroll
-window.onscroll = function() {myFunction()};
-function myFunction() {
-  if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-    document.getElementById("myTop").classList.add("w3-card-4", "w3-animate-opacity");
-    document.getElementById("myIntro").classList.add("w3-show-inline-block");
-  } else {
-    document.getElementById("myIntro").classList.remove("w3-show-inline-block");
-    document.getElementById("myTop").classList.remove("w3-card-4", "w3-animate-opacity");
-  }
-}
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
+        }
 
-// Accordions
-function myAccordion(id) {
-  var x = document.getElementById(id);
-  if (x.className.indexOf("w3-show") == -1) {
-    x.className += " w3-show";
-    x.previousElementSibling.className += " w3-theme";
-  } else { 
-    x.className = x.className.replace("w3-show", "");
-    x.previousElementSibling.className = 
-    x.previousElementSibling.className.replace(" w3-theme", "");
-  }
-}
-</script>
+        // Change style of top container on scroll
+        window.onscroll = function () { myFunction() };
+        function myFunction() {
+            if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+                document.getElementById("myTop").classList.add("w3-card-4", "w3-animate-opacity");
+                document.getElementById("myIntro").classList.add("w3-show-inline-block");
+            } else {
+                document.getElementById("myIntro").classList.remove("w3-show-inline-block");
+                document.getElementById("myTop").classList.remove("w3-card-4", "w3-animate-opacity");
+            }
+        }
 
-<script>
-async function loadContent(url) {
-  try {
-    const resp = await fetch(url);
-    if (!resp.ok) throw new Error(resp.statusText);
-    const html = await resp.text();
-    document.getElementById('panel-content').innerHTML = html;
-  } catch (e) {
-    document.getElementById('panel-content').innerHTML =
-      '<p class="w3-text-red">Error cargando contenido.</p>';
-    console.error(e);
-  }
-}
-// Opción: cargar por defecto al inicio
-document.addEventListener('DOMContentLoaded', () => loadContent('inicio.html'));
-</script>
-     
+        // Accordions
+        function myAccordion(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+                x.previousElementSibling.className += " w3-theme";
+            } else {
+                x.className = x.className.replace("w3-show", "");
+                x.previousElementSibling.className =
+                    x.previousElementSibling.className.replace(" w3-theme", "");
+            }
+        }
+    </script>
+
+    <script>
+        async function loadContent(url) {
+            try {
+                const resp = await fetch(url);
+                if (!resp.ok) throw new Error(resp.statusText);
+                const html = await resp.text();
+                document.getElementById('panel-content').innerHTML = html;
+            } catch (e) {
+                document.getElementById('panel-content').innerHTML =
+                    '<p class="w3-text-red">Error cargando contenido.</p>';
+                console.error(e);
+            }
+        }
+        // Opción: cargar por defecto al inicio
+        document.addEventListener('DOMContentLoaded', () => loadContent('inicio.html'));
+    </script>
+
 </body>
-</html> 
+
+</html>

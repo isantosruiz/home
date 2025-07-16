@@ -171,12 +171,10 @@
         <h2>Requisitos para comenzar</h2>
         <p>Antes de crear mapas mentales con PlantUML, debes preparar tu entorno de trabajo.
             Tienes dos enfoques principales: usar una plataforma en línea (sin instalar nada) o instalar PlantUML en tu
-            equipo e integrarlo con un editor como Visual Studio Code.
-            A continuación, detallamos ambas opciones:</p>
+            equipo e integrarlo con un editor como Visual Studio Code. A continuación, detallamos ambas opciones:</p>
         <ul>
             <li><strong>Usar una plataforma en línea:</strong> La forma más sencilla de iniciarse es utilizar un
-                servicio
-                web que soporte PlantUML. Por ejemplo, el servidor en línea oficial de PlantUML te permite escribir
+                servicio web que soporte PlantUML. Por ejemplo, el servidor en línea oficial de PlantUML te permite escribir
                 tu diagrama en un navegador y obtener la imagen generada al instante. Simplemente accede al servidor web
                 de PlantUML, pega tu código de diagrama y podrás ver el resultado en formato PNG o SVG. También existen
                 editores en línea como <b>PlantText</b> (<a href="https://www.planttext.com/">planttext.com</a>), una
@@ -201,6 +199,7 @@
             para crear tu primer mapa mental en PlantUML.</p>
 
         <h2>Estructura básica de un mapa mental en PlantUML</h2>
+        
         <p>La sintaxis de PlantUML para mapas mentales se basa en listas con viñetas, muy similar a escribir puntos
             y subpuntos en Markdown u Org-Mode. Un diagrama de mapa mental en PlantUML comienza con la directiva
             <code>@startmindmap</code> y termina con <code>@endmindmap</code>.
@@ -221,8 +220,8 @@
 ** Subtema 2
 @endmindmap</pre>
 
-        <p>En este caso, "<code>* Idea Central</code>" es el nodo raíz, y debajo se listan "<code>** Subtema 1</code>" y
-            "<code>** Subtema 2</code>" como hijos de esa idea central. PlantUML interpretará esta lista y generará
+        <p>En este caso, <code>* Idea Central</code> es el nodo raíz, y debajo se listan <code>** Subtema 1</code> y
+            <code>** Subtema 2</code> como hijos de esa idea central. PlantUML interpretará esta lista y generará
             un diagrama con "Idea Central" al centro (o a un lado, según el layout automático) y dos ramas
             conectadas rotuladas "Subtema 1" y "Subtema 2".</p>
 

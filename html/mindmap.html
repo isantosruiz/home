@@ -544,10 +544,30 @@
             organiza las partes de un proyecto personal, o resume un libro en un mapa mental) usando PlantUML.
             Verás que con el tiempo encontrarás tu propio estilo y atajos.</p>
             <p>¡Felices diagramas y buena suerte creando tus mapas mentales con PlantUML!</p>
+
+            <div class="imagen"><b>Mapas mentales con PlantUML</b> &copy; 2025 by <b>Ildeberto de los Santos Ruiz</b> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"></div>
+
     </div>
 
-    <div class="imagen"><b>Mapas mentales con PlantUML</b> &copy; 2025 by <b>Ildeberto de los Santos Ruiz</b> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"></div>
+<button id="download-pdf">📄 Descargar PDF</button>
 
+  <!-- Incluir html2pdf.js desde CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+  <script>
+    document.getElementById('download-pdf').addEventListener('click', () => {
+      const elemento = document.getElementById('panel-content');
+      // Opciones personalizables
+      const opciones = {
+        margin:       0.5,
+        filename:     'articulo.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      // Genera y descarga el PDF
+      html2pdf().set(opciones).from(elemento).save();
+    });
+  </script>
 </body>
 
 </html>

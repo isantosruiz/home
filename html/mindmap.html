@@ -4,7 +4,103 @@
 <head>
     <meta charset="UTF-8">
     <title>Tutorial Mapas mentales con PlantUML</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        html,
+        body,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Roboto", sans-serif
+        }
+    </style>
+    <style>
+        .w3-bar-block .w3-bar-item {
+            padding: 16px;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-family: "Great Vibes", "Allura", "Roboto";
+        }
+    </style>
+    <style>
+        #publications li:not(:last-child) {
+            margin-bottom: 8px;
+        }
+
+        #publications a {
+            color: #0645ad;
+            text-decoration: none;
+        }
+
+        #publications a:hover {
+            text-decoration: underline;
+        }
+
+        #myfoot a {
+            text-decoration: none;
+        }
+
+        #myfoot a:hover {
+            text-decoration: underline;
+        }
+
+        .boton {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .boton:hover {
+            background-color: #0056b3;
+        }
+
+        details {
+            width: 85%;
+            max-width: 90%;
+            font-size: 0.9em;
+        }
+
+        details>summary {
+            padding: 4px 6px;
+            width: 12em;
+            background-color: #ddd;
+            border: none;
+            cursor: pointer;
+        }
+
+        details>p {
+            border-radius: 0 0 8px 8px;
+            background-color: #ddd;
+            padding: 8px 8px;
+            margin: 0;
+            box-shadow: 3px 3px 4px #303030;
+        }
+
+        details:open>summary {
+            background-color: #ccf;
+        }
+
+        details,
+        details>* {
+            word-wrap: break-word;
+        }
+    </style>
+
+        <style>
         code {
             display: inline;
             margin: 0;
@@ -23,9 +119,12 @@
             border-radius: 3px;           /* esquinas suavizadas */
         }
     </style>
+
 </head>
 
 <body>
+    <div id="panel-content" class="w3-container" style="padding:32px">
+        <!-- Aquí irá el contenido del artículo -->
     <h1>Mapas mentales con PlantUML: Guía paso a paso para principiantes e intermedios</h1>
 
     <h2>Introducción a PlantUML y los mapas mentales</h2>

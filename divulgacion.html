@@ -162,6 +162,14 @@
     .centrado img {
         display: inline-block;
     }
+
+    @media print {
+        /* Oculta todo excepto el artículo */
+        body * { visibility: hidden; }
+        #panel-content, #panel-content * { visibility: visible; }
+        #panel-content { position: absolute; top: 0; left: 0; }
+    }
+
 </style>
 </head>
 

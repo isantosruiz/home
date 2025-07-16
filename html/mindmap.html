@@ -272,13 +272,13 @@
         <h2>Ejemplos prácticos: código y explicación línea por línea</h2>
         <p>Veamos un ejemplo completo de mapa mental en PlantUML y analicemos cómo funciona.
             Supongamos que queremos hacer un mapa mental para planificar unas vacaciones.
-            Tendremos como idea central <i>"Planificar Vacaciones"</i>, con ramas para distintos aspectos:
-            el <i>Destino del viaje</i>, el <i>Presupuesto</i> y el <i>Itinerario</i> (plan de vuelos, alojamiento y actividades).
+            Tendremos como idea central el <i>Plan de vacaciones</i>, con ramas para distintos aspectos:
+            el <i>Destino</i> del viaje, el <i>Presupuesto</i> y el <i>Itinerario</i> (plan de vuelos, alojamiento y actividades).
             Dentro de "Destino" podríamos tener opciones como playa o montaña, y dentro de "Itinerario"
                 podríamos detallar componentes como vuelos, hoteles, etc.
             Escribamos el código PlantUML para este mapa mental:
         <pre>@startmindmap
-* Planificar Vacaciones
+* Plan de vacaciones
 ** Destino
 *** Playa
 *** Montaña
@@ -291,13 +291,13 @@
 
 <p>Con estas líneas, hemos descrito completamente nuestro mapa mental.
     PlantUML se encargará de interpretar la jerarquía y dibujar el diagrama correspondiente.
-    El resultado debería mostrar "Planificar Vacaciones" como nodo central, con tres ramas principales
+    El resultado debería mostrar "Plan de vacaciones" como nodo central, con tres ramas principales
     ("Destino", "Presupuesto", "Itinerario"), donde a su vez "Destino" e "Itinerario" tienen subramas propias.</p> 
 
         <p align="center"><img src="plantuml2.png" /></p>
 
 <p>El mapa mental generado refleja la estructura descrita en el código.
-    Se observa el nodo central <b>Planificar Vacaciones</b> (a la izquierda en este caso) y de él parten
+    Se observa el nodo central <b>Plan de vacaciones</b> (a la izquierda en este caso) y de él parten
     tres ramas principales hacia la derecha: <b>Destino</b>, <b>Presupuesto</b> e <b>Itinerario</b>.
     Cada rama principal aparece como un recuadro conectado al nodo central mediante un conector curvo.
     A su vez, las subramas se despliegan: por ejemplo, de Destino salen dos nodos hijos (<b>Playa</b> y <b>Montaña</b>),

@@ -549,24 +549,7 @@
 
     </div>
 
-<button id="download-pdf">📄 Descargar PDF</button>
-
-  <!-- Incluir html2pdf.js desde CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-  <script>
-    document.getElementById('download-pdf').addEventListener('click', () => {
-      const elemento = document.getElementById('panel-content');
-      // Opciones personalizables
-      const opciones = {
-        filename:     'articulo.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 1 },
-        jsPDF:        { format: 'letter', orientation: 'portrait' }
-      };
-      // Genera y descarga el PDF
-      html2pdf().set(opciones).from(elemento).save();
-    });
-  </script>
+<button onclick="window.print()">Imprimir/Guardar como PDF</button>
 </body>
 
 </html>

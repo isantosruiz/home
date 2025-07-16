@@ -389,7 +389,17 @@
                 debes ser consistente con los niveles (un <code>++</code> es hijo de un <code>+</code>,
                 y un <code>--</code> es hijo de un <code>-</code>, etc.). También es recomendable seguir teniendo un solo nodo central
                 (puedes indicarlo con <code>*</code> o con <code>+/-</code> solo uno de ellos).
-                A fecha reciente, PlantUML ya soporta múltiples raíces, pero manejar una sola hace el diagrama más claro.</li>
+                A fecha reciente, PlantUML ya soporta múltiples raíces, pero manejar una sola hace el diagrama más claro.
+
+                <p>El siguiente es un código para agregar ramas en ambos lados:</p>
+                <pre>@startmindmap
+* Idea Central
+- Rama izquierda 1
+- Rama izquierda 2
++ Rama derecha 1
++ Rama derecha 2
+@endmindmap</pre>
+            <span align="center"><img src="plantuml3.png" /></span></li>
             <li><b>Sé consistente con el estilo de texto:</b> Además de la longitud de las etiquetas, cuida la <b>coherencia</b>.
                 Por ejemplo, si usas sustantivos en un nivel ("Marketing", "Ventas", "Operaciones"),
                 no mezcles con verbos ("Implementar X") en ese mismo nivel; en su lugar, podrías cambiarlo a "Implementación de X".

@@ -558,11 +558,10 @@
       const elemento = document.getElementById('panel-content');
       // Opciones personalizables
       const opciones = {
-        margin:       2.5,
         filename:     'articulo.pdf',
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { scale: 1 },
-        jsPDF:        { unit: 'cm', format: 'letter', orientation: 'portrait' }
+        jsPDF:        { format: 'letter', orientation: 'portrait' }
       };
       // Genera y descarga el PDF
       html2pdf().set(opciones).from(elemento).save();

@@ -419,19 +419,17 @@
                 En esta notación, los nodos marcados con <code>+</code> se dibujarán como ramas
                 que salen hacia la derecha, mientras que los marcados con <code>-</code> saldrán hacia la izquierda.
                 Por ejemplo, <code>+ Tema A</code> y <code>- Tema B</code> como raíces producirían un mapa con "Tema A"
-                a la derecha
-                y "Tema B" a la izquierda del centro. Del mismo modo, dentro de una misma jerarquía,
+                a la derecha y "Tema B" a la izquierda del centro. Del mismo modo, dentro de una misma jerarquía,
                 podrías usar <code>++</code> y <code>--</code> para hijos a derecha e izquierda respectivamente.
                 Esto es útil para crear un mapa mental más equilibrado visualmente, similar a los que se dibujan a mano
                 donde las ideas rodean al centro. Ten en cuenta que, al usar esta notación,
                 debes ser consistente con los niveles (un <code>++</code> es hijo de un <code>+</code>,
                 y un <code>--</code> es hijo de un <code>-</code>, etc.). También es recomendable seguir teniendo un
-                solo nodo central
-                (puedes indicarlo con <code>*</code> o con <code>+/-</code> solo uno de ellos).
+                solo nodo central (puedes indicarlo con <code>*</code> o con <code>+/-</code> solo uno de ellos).
                 A fecha reciente, PlantUML ya soporta múltiples raíces, pero manejar una sola hace el diagrama más
                 claro.
 
-                <p>El siguiente es un código para agregar ramas en ambos lados:</p>
+                <p>El siguiente código agrega ramas en ambos lados del nodo central:</p>
                 <pre>@startmindmap
 * Idea central
 -- Rama izquierda 1

@@ -369,7 +369,7 @@
                 Esto ayuda a diferenciar secciones del mapa (por ejemplo, usar un color para cada categoría principal).
                 La otra forma es mediante estilos: usando el bloque <code>&lt;style&gt;</code> de PlantUML se pueden definir
                 clases de estilo para los nodos y luego aplicarlas con <code>&lt;&lt;nombreEstilo&gt;&gt;</code> después del texto.
-                Por simplicidad, muchos usuarios de PlantUML MindMap optan por la primera forma (inline), que es rápida.
+                Por simplicidad, muchos usuarios de PlantUML optan por la primera forma (inline), que es rápida.
                 Úsalos con moderación y consistencia: asigna colores significativos
                 (p.ej., todos los nodos relacionados a "Marketing" en verde, "Finanzas" en azul, etc.) para mejorar la comprensión.
                 Un mapa mental visualmente atractivo con colores puede ser más memorable,
@@ -390,8 +390,26 @@
                 y un <code>--</code> es hijo de un <code>-</code>, etc.). También es recomendable seguir teniendo un solo nodo central
                 (puedes indicarlo con <code>*</code> o con <code>+/-</code> solo uno de ellos).
                 A fecha reciente, PlantUML ya soporta múltiples raíces, pero manejar una sola hace el diagrama más claro.</li>
-            <li><strong>Estilo de texto:</strong> Sé consistente en gramática y capitalización.</li>
-            <li><strong>Evita cruces excesivos:</strong> Si el mapa es muy grande, divídelo en varios.</li>
+            <li><b>Sé consistente con el estilo de texto:</b> Además de la longitud de las etiquetas, cuida la <b>coherencia</b>.
+                Por ejemplo, si usas sustantivos en un nivel ("Marketing", "Ventas", "Operaciones"),
+                no mezcles con verbos ("Implementar X") en ese mismo nivel; en su lugar, podrías cambiarlo a "Implementación de X".
+                La consistencia gramatical y de formato ayuda a que el mapa se lea más fácilmente.
+                También puedes utilizar mayúsculas/minúsculas de forma consistente (todos los nodos con mayúscula inicial, por ejemplo).</li>
+            <li><b>Evita el cruce excesivo de ramas:</b> Aunque PlantUML posiciona automáticamente los nodos para minimizar cruces,
+                un mapa mental muy denso puede volverse confuso. Si notas que tu diagrama está muy recargado, considera <b>dividir el mapa</b>.
+                A veces es mejor crear dos mapas mentales separados con subtemas específicos que meter absolutamente todo en uno solo.
+                Por ejemplo, si tu mapa mental "Empresa XYZ" tenía una sección entera de "Plan de Marketing" con muchos detalles,
+                podrías hacer un mapa mental independiente solo para "Plan de Marketing" y en el mapa principal dejarlo como un nodo
+                que apunte a ese sub-mapa (conceptualmente, no hay hipervínculos en la imagen,
+                pero en un documento podrías mencionar que existe otro diagrama).</li>
+            <li><b>Usa imágenes o iconos con precaución:</b> En herramientas manuales de mapas mentales se suelen incluir dibujitos
+                o íconos para reforzar ideas. Con PlantUML, puedes llegar a embeber sprites o iconos
+                (por ejemplo, usando el estándar Font Awesome a través de la librería de iconos en PlantUML),
+                pero esto requiere un poco más de configuración (por ejemplo, <code>&lt;&lt;$star&gt;&gt;</code> insertaría un ícono de estrella
+                si la librería correspondiente está incluida). Dado que este es un tutorial introductorio, no profundizaremos en ello.
+                No obstante, si planeas exportar el diagrama e incorporarlo en una presentación,
+                podrías posteriormente superponer iconos o destacarlos de otra forma.
+                En general, la combinación de visuales atractivos con una buena estructura potenciará la efectividad del mapa mental</li>
             <li><strong>Revisa y actualiza:</strong> Ajusta el código según tu progreso y necesidades.</li>
         </ul>
         <p> <em>Ejemplo de ramas a izquierda y derecha:</em> Nodo central con ramas usando <code>+</code> a la

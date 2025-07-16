@@ -100,7 +100,7 @@
         }
     </style>
 
-        <style>
+    <style>
         code {
             display: inline;
             margin: 0;
@@ -109,14 +109,22 @@
             padding: 2px 2px;
             border-radius: 3px;
         }
+
         pre {
-            display: inline-block;        /* encaja al contenido */
-            width: auto;                  /* ancho según contenido */
-            white-space: pre;             /* conserva espacios y saltos */
-            padding: 4px 6px;             /* espacio interior */
-            background-color: #f0f0f0;    /* gris muy claro */
-            border: 1px solid #ccc;       /* borde un poco más oscuro */
-            border-radius: 3px;           /* esquinas suavizadas */
+            display: inline-block;
+            /* encaja al contenido */
+            width: auto;
+            /* ancho según contenido */
+            white-space: pre;
+            /* conserva espacios y saltos */
+            padding: 4px 6px;
+            /* espacio interior */
+            background-color: #f0f0f0;
+            /* gris muy claro */
+            border: 1px solid #ccc;
+            /* borde un poco más oscuro */
+            border-radius: 3px;
+            /* esquinas suavizadas */
         }
     </style>
 
@@ -125,107 +133,125 @@
 <body>
     <div id="panel-content" class="w3-container" style="padding:32px">
         <!-- Aquí irá el contenido del artículo -->
-    <h1>Mapas mentales con PlantUML: Guía paso a paso para principiantes e intermedios</h1>
+        <h1>Mapas mentales con PlantUML: Guía paso a paso para principiantes e intermedios</h1>
 
-    <h2>Introducción a PlantUML y los mapas mentales</h2>
-    <p>PlantUML es una herramienta de código abierto que permite crear una variedad de diagramas a partir de texto plano
-        de forma sencilla.
-        Esto incluye no solo diagramas UML tradicionales, sino también diagramas no UML como mapas mentales,
-        organigramas, diagramas de Gantt, entre otros.</p>
+        <h2>Introducción a PlantUML y los mapas mentales</h2>
+        <p>PlantUML es una herramienta de código abierto que permite crear una variedad de diagramas a partir de texto
+            plano
+            de forma sencilla.
+            Esto incluye no solo diagramas UML tradicionales, sino también diagramas no UML como mapas mentales,
+            organigramas, diagramas de Gantt, entre otros.</p>
 
-    <p>Por su parte, un <b>mapa mental</b> es un diagrama usado para representar ideas, conceptos o información
-        alrededor de una idea central, ramificándose en temas relacionados.
-        En esencia, es una representación visual tipo <i>árbol</i> o <i>telaraña</i>, útil para <b>brainstorming</b>,
-        organización de ideas y planificación de proyectos.
-        Cada rama del mapa mental parte de un nodo central y se expande en subramas que descomponen la idea en detalles
-        o categorías relacionadas.
-        Esta estructura jerárquica y radial ayuda a visualizar relaciones entre conceptos, facilitando la comprensión
-        del panorama general y fomentando la creatividad.</p>
+        <p>Por su parte, un <b>mapa mental</b> es un diagrama usado para representar ideas, conceptos o información
+            alrededor de una idea central, ramificándose en temas relacionados.
+            En esencia, es una representación visual tipo <i>árbol</i> o <i>telaraña</i>, útil para
+            <b>brainstorming</b>,
+            organización de ideas y planificación de proyectos.
+            Cada rama del mapa mental parte de un nodo central y se expande en subramas que descomponen la idea en
+            detalles
+            o categorías relacionadas.
+            Esta estructura jerárquica y radial ayuda a visualizar relaciones entre conceptos, facilitando la
+            comprensión
+            del panorama general y fomentando la creatividad.</p>
 
-    <p>PlantUML combina estas ideas proporcionando una manera de generar mapas mentales mediante texto.
-        Es decir, en lugar de dibujar manualmente el diagrama, se escribe una descripción textual de las ideas y sus
-        relaciones, y PlantUML genera automáticamente el gráfico correspondiente.
-        Gracias a este enfoque textual, los mapas mentales creados con PlantUML se pueden editar fácilmente, integrar en
-        control de versiones y combinar con documentación más amplia.
-        Además, la herramienta se integra bien con otros entornos, lo que permite incorporar mapas mentales en
-        documentación de proyectos, wikis o incluso en flujos de desarrollo de software de manera ágil.</p>
+        <p>PlantUML combina estas ideas proporcionando una manera de generar mapas mentales mediante texto.
+            Es decir, en lugar de dibujar manualmente el diagrama, se escribe una descripción textual de las ideas y sus
+            relaciones, y PlantUML genera automáticamente el gráfico correspondiente.
+            Gracias a este enfoque textual, los mapas mentales creados con PlantUML se pueden editar fácilmente,
+            integrar en
+            control de versiones y combinar con documentación más amplia.
+            Además, la herramienta se integra bien con otros entornos, lo que permite incorporar mapas mentales en
+            documentación de proyectos, wikis o incluso en flujos de desarrollo de software de manera ágil.</p>
 
-    <p><b>¿Por qué usar PlantUML para mapas mentales?</b> Imagina que estás planificando un proyecto complejo o
-        estudiando un tema con muchas ideas.
-        Un mapa mental te ayuda a desglosar y organizar esos conceptos.
-        Con PlantUML, puedes hacerlo simplemente escribiendo listas anidadas de ideas, sin preocuparte por alinear
-        cuadros o dibujar flechas: la disposición la calcula automáticamente la herramienta.
-        Esto ahorra tiempo y esfuerzo, y hace que actualizar el diagrama sea tan fácil como editar unas líneas de texto.
-        En resumen, PlantUML ofrece una forma rápida, editable y controlable de crear mapas mentales claros y bien
-        estructurados.</p>
+        <p><b>¿Por qué usar PlantUML para mapas mentales?</b> Imagina que estás planificando un proyecto complejo o
+            estudiando un tema con muchas ideas.
+            Un mapa mental te ayuda a desglosar y organizar esos conceptos.
+            Con PlantUML, puedes hacerlo simplemente escribiendo listas anidadas de ideas, sin preocuparte por alinear
+            cuadros o dibujar flechas: la disposición la calcula automáticamente la herramienta.
+            Esto ahorra tiempo y esfuerzo, y hace que actualizar el diagrama sea tan fácil como editar unas líneas de
+            texto.
+            En resumen, PlantUML ofrece una forma rápida, editable y controlable de crear mapas mentales claros y bien
+            estructurados.</p>
 
-    <h2>Requisitos para comenzar</h2>
-    <p>Antes de crear mapas mentales con PlantUML, debes preparar tu entorno de trabajo.
-        Tienes dos enfoques principales: usar una plataforma en línea (sin instalar nada) o instalar PlantUML en tu
-        equipo e integrarlo con un editor como Visual Studio Code.
-        A continuación, detallamos ambas opciones:</p>
-    <ul>
-        <li><strong>Usar una plataforma en línea:</strong> La forma más sencilla de iniciarse es utilizar un servicio
-            web que soporte PlantUML. Por ejemplo, el servidor en línea oficial de PlantUML te permite escribir
-            tu diagrama en un navegador y obtener la imagen generada al instante. Simplemente accede al servidor web de
-            PlantUML, pega tu código de diagrama y podrás ver el resultado en formato PNG o SVG. También existen
-            editores en línea como <b>PlantText</b> (<a href="https://www.planttext.com/">planttext.com</a>), una
-            herramienta gratuita que genera diagramas a partir de texto de PlantUML. Estas soluciones son ideales para
-            pruebas rápidas o si no deseas instalar software localmente. Otra alternativa web es el <b>Editor en línea
-                de PlantUML</b> (<a href="https://editor.plantuml.com/">editor.plantuml.com</a>), que ofrece una
-            interfaz dedicada para escribir y visualizar diagramas PlantUML. Usar plataformas en línea evita
-            configuraciones iniciales y te permite concentrarte directamente en el código del diagrama.</li>
-        <li><strong>Instalación local y uso con VS Code u otros editores:</strong> Si prefieres un entorno local o
-            integrar PlantUML a tu flujo de trabajo diario, puedes instalarlo en tu computadora. Los requisitos
-            fundamentales son tener <b>Java</b> instalado (PlantUML se ejecuta sobre Java) y <b>Graphviz</b> (necesario
-            para calcular la disposición de ciertos diagramas). En Windows, la versión de PlantUML viene con Graphviz
-            incorporado, por lo que suele funcionar sin configuraciones adicionales. En Linux o macOS, puedes instalar
-            Graphviz y PlantUML fácilmente (por ejemplo, usando un administrador de paquetes como
-            <code>apt</code> o <code>brew</code>).
-            Una vez instalado, PlantUML se puede usar desde la línea de comandos o mediante su pequeña GUI ejecutando el archivo <code>plantuml.jar</code>.</li>
+        <h2>Requisitos para comenzar</h2>
+        <p>Antes de crear mapas mentales con PlantUML, debes preparar tu entorno de trabajo.
+            Tienes dos enfoques principales: usar una plataforma en línea (sin instalar nada) o instalar PlantUML en tu
+            equipo e integrarlo con un editor como Visual Studio Code.
+            A continuación, detallamos ambas opciones:</p>
+        <ul>
+            <li><strong>Usar una plataforma en línea:</strong> La forma más sencilla de iniciarse es utilizar un
+                servicio
+                web que soporte PlantUML. Por ejemplo, el servidor en línea oficial de PlantUML te permite escribir
+                tu diagrama en un navegador y obtener la imagen generada al instante. Simplemente accede al servidor web
+                de
+                PlantUML, pega tu código de diagrama y podrás ver el resultado en formato PNG o SVG. También existen
+                editores en línea como <b>PlantText</b> (<a href="https://www.planttext.com/">planttext.com</a>), una
+                herramienta gratuita que genera diagramas a partir de texto de PlantUML. Estas soluciones son ideales
+                para
+                pruebas rápidas o si no deseas instalar software localmente. Otra alternativa web es el <b>Editor en
+                    línea
+                    de PlantUML</b> (<a href="https://editor.plantuml.com/">editor.plantuml.com</a>), que ofrece una
+                interfaz dedicada para escribir y visualizar diagramas PlantUML. Usar plataformas en línea evita
+                configuraciones iniciales y te permite concentrarte directamente en el código del diagrama.</li>
+            <li><strong>Instalación local y uso con VS Code u otros editores:</strong> Si prefieres un entorno local o
+                integrar PlantUML a tu flujo de trabajo diario, puedes instalarlo en tu computadora. Los requisitos
+                fundamentales son tener <b>Java</b> instalado (PlantUML se ejecuta sobre Java) y <b>Graphviz</b>
+                (necesario
+                para calcular la disposición de ciertos diagramas). En Windows, la versión de PlantUML viene con
+                Graphviz
+                incorporado, por lo que suele funcionar sin configuraciones adicionales. En Linux o macOS, puedes
+                instalar
+                Graphviz y PlantUML fácilmente (por ejemplo, usando un administrador de paquetes como
+                <code>apt</code> o <code>brew</code>).
+                Una vez instalado, PlantUML se puede usar desde la línea de comandos o mediante su pequeña GUI
+                ejecutando el archivo <code>plantuml.jar</code>.
+            </li>
         </ul>
-            <p>En resumen, para comenzar necesitas: un editor de texto cualquiera (o entorno web), y acceso a PlantUML
-                ya sea vía web o instalado localmente con Java (y posiblemente Graphviz). Con esto en pie, estarás listo
-                para crear tu primer mapa mental en PlantUML.</p>
+        <p>En resumen, para comenzar necesitas: un editor de texto cualquiera (o entorno web), y acceso a PlantUML
+            ya sea vía web o instalado localmente con Java (y posiblemente Graphviz). Con esto en pie, estarás listo
+            para crear tu primer mapa mental en PlantUML.</p>
 
-            <h2>Estructura básica de un mapa mental en PlantUML</h2>
-            <p>La sintaxis de PlantUML para mapas mentales se basa en listas con viñetas, muy similar a escribir puntos
-                y subpuntos en Markdown u Org-Mode. Un diagrama de mapa mental en PlantUML comienza con la directiva
-                <code>@startmindmap</code> y termina con <code>@endmindmap</code>.
-                Dentro de ese bloque, cada nodo del mapa se define en una nueva línea empezando con un asterisco (<code>*</code>),
-                de forma anidada para reflejar la jerarquía. En términos sencillos, cada <code>*</code> representa un nodo,
-                y la cantidad de asteriscos indica el nivel de profundidad (jerarquía) del nodo:
-      <ul>
-<li>Un solo <code>*</code> define el nodo raíz (la idea central del mapa mental).</li>
-<li><code>**</code> (dos asteriscos) define un nodo de primer nivel, es decir, un hijo directo del nodo raíz.</li>
-<li><code>***</code> (tres asteriscos) indica un nodo de segundo nivel (hijo de un nodo de primer nivel), y así sucesivamente.</li>
-      </ul>
-<p>Por ejemplo, si queremos una idea central con dos subtemas, escribiríamos algo así:</p>
-  <pre>@startmindmap
+        <h2>Estructura básica de un mapa mental en PlantUML</h2>
+        <p>La sintaxis de PlantUML para mapas mentales se basa en listas con viñetas, muy similar a escribir puntos
+            y subpuntos en Markdown u Org-Mode. Un diagrama de mapa mental en PlantUML comienza con la directiva
+            <code>@startmindmap</code> y termina con <code>@endmindmap</code>.
+            Dentro de ese bloque, cada nodo del mapa se define en una nueva línea empezando con un asterisco
+            (<code>*</code>),
+            de forma anidada para reflejar la jerarquía. En términos sencillos, cada <code>*</code> representa un nodo,
+            y la cantidad de asteriscos indica el nivel de profundidad (jerarquía) del nodo:
+        <ul>
+            <li>Un solo <code>*</code> define el nodo raíz (la idea central del mapa mental).</li>
+            <li><code>**</code> (dos asteriscos) define un nodo de primer nivel, es decir, un hijo directo del nodo
+                raíz.</li>
+            <li><code>***</code> (tres asteriscos) indica un nodo de segundo nivel (hijo de un nodo de primer nivel), y
+                así sucesivamente.</li>
+        </ul>
+        <p>Por ejemplo, si queremos una idea central con dos subtemas, escribiríamos algo así:</p>
+        <pre>@startmindmap
 * Idea Central
 ** Subtema 1
 ** Subtema 2
 @endmindmap</pre>
 
-<p>En este caso, "<code>* Idea Central</code>" es el nodo raíz, y debajo se listan "<code>** Subtema 1</code>" y
-                "<code>** Subtema 2</code>" como hijos de esa idea central. PlantUML interpretará esta lista y generará
-                un diagrama con "Idea Central" al centro (o a un lado, según el layout automático) y dos ramas
-                conectadas rotuladas "Subtema 1" y "Subtema 2".</p>
+        <p>En este caso, "<code>* Idea Central</code>" es el nodo raíz, y debajo se listan "<code>** Subtema 1</code>" y
+            "<code>** Subtema 2</code>" como hijos de esa idea central. PlantUML interpretará esta lista y generará
+            un diagrama con "Idea Central" al centro (o a un lado, según el layout automático) y dos ramas
+            conectadas rotuladas "Subtema 1" y "Subtema 2".</p>
 
-            <p>Es importante respetar la sintaxis de listas: cada nivel adicional puede indicarse añadiendo un asterisco
-                más o mediante indentación. PlantUML soporta ambas formas. Por ejemplo, la siguiente sintaxis con
-                indentación es equivalente a la anterior:</p>
+        <p>Es importante respetar la sintaxis de listas: cada nivel adicional puede indicarse añadiendo un asterisco
+            más o mediante indentación. PlantUML soporta ambas formas. Por ejemplo, la siguiente sintaxis con
+            indentación es equivalente a la anterior:</p>
 
-            <p>También puedes usar indentación en lugar de múltiples asteriscos:</p>
-            <pre>@startmindmap
+        <p>También puedes usar indentación en lugar de múltiples asteriscos:</p>
+        <pre>@startmindmap
 * Idea Central
     * Subtema 1
     * Subtema 2
 @endmindmap</pre>
 
-            <h2>Ejemplos prácticos: código y explicación línea por línea</h2>
-            <p>Ejemplo de mapa mental para <strong>planificar unas vacaciones</strong>:</p>
-            <pre>@startmindmap
+        <h2>Ejemplos prácticos: código y explicación línea por línea</h2>
+        <p>Ejemplo de mapa mental para <strong>planificar unas vacaciones</strong>:</p>
+        <pre>@startmindmap
 * Planificar Vacaciones
 ** Destino
 *** Playa
@@ -236,49 +262,51 @@
 *** Hoteles
 *** Actividades
 @endmindmap</pre>
-            <p>Explicación:</p>
-            <ul>
-                <li><code>@startmindmap</code>: inicio del diagrama.</li>
-                <li><code>* Planificar Vacaciones</code>: nodo raíz.</li>
-                <li><code>** Destino</code>: rama de primer nivel.</li>
-                <li><code>*** Playa</code> y <code>*** Montaña</code>: subramas bajo <em>Destino</em>.</li>
-                <li><code>** Presupuesto</code> y <code>** Itinerario</code>: ramas de primer nivel adicionales.</li>
-                <li><code>*** Vuelos</code>, <code>*** Hoteles</code>, <code>*** Actividades</code>: subramas bajo
-                    <em>Itinerario</em>.</li>
-                <li><code>@endmindmap</code>: fin del diagrama.</li>
-            </ul>
-            <p> <em>Diagrama resultante:</em> El mapa mental generado refleja la estructura descrita, con el nodo
-                central <strong>Planificar Vacaciones</strong> y ramas hacia <strong>Destino</strong>,
-                <strong>Presupuesto</strong> e <strong>Itinerario</strong>, cada una con sus subramas.</p>
+        <p>Explicación:</p>
+        <ul>
+            <li><code>@startmindmap</code>: inicio del diagrama.</li>
+            <li><code>* Planificar Vacaciones</code>: nodo raíz.</li>
+            <li><code>** Destino</code>: rama de primer nivel.</li>
+            <li><code>*** Playa</code> y <code>*** Montaña</code>: subramas bajo <em>Destino</em>.</li>
+            <li><code>** Presupuesto</code> y <code>** Itinerario</code>: ramas de primer nivel adicionales.</li>
+            <li><code>*** Vuelos</code>, <code>*** Hoteles</code>, <code>*** Actividades</code>: subramas bajo
+                <em>Itinerario</em>.
+            </li>
+            <li><code>@endmindmap</code>: fin del diagrama.</li>
+        </ul>
+        <p> <em>Diagrama resultante:</em> El mapa mental generado refleja la estructura descrita, con el nodo
+            central <strong>Planificar Vacaciones</strong> y ramas hacia <strong>Destino</strong>,
+            <strong>Presupuesto</strong> e <strong>Itinerario</strong>, cada una con sus subramas.
+        </p>
 
-            <h2>Consejos de estilo y buenas prácticas</h2>
-            <ul>
-                <li><strong>Idea central clara:</strong> Define un nodo raíz conciso y significativo.</li>
-                <li><strong>Palabras clave:</strong> Usa términos breves en cada nodo.</li>
-                <li><strong>Jerarquía coherente:</strong> Mantén la lógica de niveles y no sobrecargues un nivel.</li>
-                <li><strong>Uso de colores:</strong> Asigna colores inline con <code>[#color]</code> para diferenciar
-                    secciones.</li>
-                <li><strong>Ramas a izquierda/derecha:</strong> Usa <code>+</code> y <code>-</code> para distribuir
-                    ramas simétricamente.</li>
-                <li><strong>Estilo de texto:</strong> Sé consistente en gramática y capitalización.</li>
-                <li><strong>Evita cruces excesivos:</strong> Si el mapa es muy grande, divídelo en varios.</li>
-                <li><strong>Revisa y actualiza:</strong> Ajusta el código según tu progreso y necesidades.</li>
-            </ul>
-            <p> <em>Ejemplo de ramas a izquierda y derecha:</em> Nodo central con ramas usando <code>+</code> a la
-                derecha y <code>-</code> a la izquierda para mayor balance visual.</p>
+        <h2>Consejos de estilo y buenas prácticas</h2>
+        <ul>
+            <li><strong>Idea central clara:</strong> Define un nodo raíz conciso y significativo.</li>
+            <li><strong>Palabras clave:</strong> Usa términos breves en cada nodo.</li>
+            <li><strong>Jerarquía coherente:</strong> Mantén la lógica de niveles y no sobrecargues un nivel.</li>
+            <li><strong>Uso de colores:</strong> Asigna colores inline con <code>[#color]</code> para diferenciar
+                secciones.</li>
+            <li><strong>Ramas a izquierda/derecha:</strong> Usa <code>+</code> y <code>-</code> para distribuir
+                ramas simétricamente.</li>
+            <li><strong>Estilo de texto:</strong> Sé consistente en gramática y capitalización.</li>
+            <li><strong>Evita cruces excesivos:</strong> Si el mapa es muy grande, divídelo en varios.</li>
+            <li><strong>Revisa y actualiza:</strong> Ajusta el código según tu progreso y necesidades.</li>
+        </ul>
+        <p> <em>Ejemplo de ramas a izquierda y derecha:</em> Nodo central con ramas usando <code>+</code> a la
+            derecha y <code>-</code> a la izquierda para mayor balance visual.</p>
 
-            <h2>Recursos adicionales</h2>
-            <ul>
-                <li>Documentación oficial de PlantUML sobre mapas mentales: sección <em>MindMap Diagram</em> en
-                    plantuml.com.</li>
-                <li>Extensión PlantUML para Visual Studio Code (Marketplace de VS Code).</li>
-                <li>PlantUML Editor en línea / Servidor público: plantuml.com/plantuml y editor.plantuml.com.</li>
-                <li>Guía de referencia de PlantUML (PDF) con sintaxis de todos los diagramas.</li>
-                <li>Foros y comunidad en Stack Overflow (etiqueta <code>plantuml</code>) y PlantUML Q&A.</li>
-                <li>Alternativas: Mermaid, Graphviz/DOT, Ditaa para otros diagramas de texto.</li>
-            </ul>
-            <p>Practica con pequeños proyectos (planificación semanal, resúmenes de libros, etc.) para dominar PlantUML
-                y crear mapas mentales claros y efectivos.</p>
+        <h2>Recursos adicionales</h2>
+        <ul>
+            <li>Documentación oficial de PlantUML sobre mapas mentales: sección <em>MindMap Diagram</em> en
+                plantuml.com.</li>
+            <li>Extensión PlantUML para Visual Studio Code (Marketplace de VS Code).</li>
+            <li>PlantUML Editor en línea / Servidor público: plantuml.com/plantuml y editor.plantuml.com.</li>
+            <li>Guía de referencia de PlantUML (PDF) con sintaxis de todos los diagramas.</li>
+            <li>Foros y comunidad en Stack Overflow (etiqueta <code>plantuml</code>) y PlantUML Q&A.</li>
+            <li>Alternativas: Mermaid, Graphviz/DOT, Ditaa para otros diagramas de texto.</li>
+        </ul>
+        <p>Practica con pequeños proyectos (planificación semanal, resúmenes de libros, etc.) para dominar PlantUML
+            y crear mapas mentales claros y efectivos.</p>
 </body>
 
 </html>

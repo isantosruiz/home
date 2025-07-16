@@ -64,8 +64,11 @@
         background-color: #0056b3;
     }
     details {
-        width: 620px;
-        font-size: 0.9em;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: auto;
+        font-size: 0.9em;        
     }
 
     details > summary {
@@ -88,6 +91,11 @@
         background-color: #ccf;
     }
 
+    details, 
+    details > * {
+        word-wrap: break-word;
+    }
+    
 </style>
 
 <body>

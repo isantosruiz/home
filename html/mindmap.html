@@ -53,20 +53,25 @@
 <p>En resumen, para comenzar necesitas: un editor de texto cualquiera (o entorno web), y acceso a PlantUML ya sea vía web o instalado localmente con Java (y posiblemente Graphviz). Con esto en pie, estarás listo para crear tu primer mapa mental en PlantUML.</p>
 
   <h2>Estructura básica de un mapa mental en PlantUML</h2>
-  <p>La sintaxis de PlantUML para mapas mentales se basa en listas con viñetas. Un diagrama comienza con <code>@startmindmap</code> y termina con <code>@endmindmap</code>. Cada nodo se define en una línea iniciada por asteriscos (<code>*</code>), donde la cantidad de asteriscos indica el nivel de profundidad.</p>
-  <ul>
-    <li><code>*</code> Nivel raíz (nodo central)</li>
-    <li><code>**</code> Nivel 1 (hijo del nodo central)</li>
-    <li><code>***</code> Nivel 2 (hijo del nivel 1)</li>
-  </ul>
-  <p>Por ejemplo:</p>
-  <pre><code>
+  <p>La sintaxis de PlantUML para mapas mentales se basa en listas con viñetas, muy similar a escribir puntos y subpuntos en Markdown u Org-Mode. Un diagrama de mapa mental en PlantUML comienza con la directiva <pre>@startmindmap</pre> y termina con <pre>@endmindmap</pre>. Dentro de ese bloque, cada nodo del mapa se define en una nueva línea empezando con un asterisco (<pre>*</pre>), de forma anidada para reflejar la jerarquía. En términos sencillos, cada <pre>*</pre> representa un nodo, y la cantidad de asteriscos indica el nivel de profundidad (jerarquía) del nodo:
+      <ul>
+<li>Un solo <pre>*</pre> define el nodo raíz (la idea central del mapa mental).</li>
+<li><pre>**</pre> (dos asteriscos) define un nodo de primer nivel, es decir, un hijo directo del nodo raíz.</li>
+<li><pre>***</pre> (tres asteriscos) indica un nodo de segundo nivel (hijo de un nodo de primer nivel), y así sucesivamente.</li>
+      </ul>
+<p>Por ejemplo, si queremos una idea central con dos subtemas, escribiríamos algo así:</p>
+  <pre>
 @startmindmap
 * Idea Central
 ** Subtema 1
 ** Subtema 2
 @endmindmap
-  </code></pre>
+  </pre>
+
+<p>En este caso, "<code>* Idea Central</code>" es el nodo raíz, y debajo se listan "<code>** Subtema 1</code>" y "<code>** Subtema 2</code>" como hijos de esa idea central. PlantUML interpretará esta lista y generará un diagrama con "Idea Central" al centro (o a un lado, según el layout automático) y dos ramas conectadas rotuladas "Subtema 1" y "Subtema 2".</p>
+      
+<p>Es importante respetar la sintaxis de listas: cada nivel adicional puede indicarse añadiendo un asterisco más o mediante indentación. PlantUML soporta ambas formas. Por ejemplo, la siguiente sintaxis con indentación es equivalente a la anterior:</p>
+      
   <p>También puedes usar indentación en lugar de múltiples asteriscos:</p>
   <pre><code>
 @startmindmap

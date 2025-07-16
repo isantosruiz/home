@@ -285,6 +285,7 @@
                 if (!resp.ok) throw new Error(resp.statusText);
                 const html = await resp.text();
                 document.getElementById('panel-content').innerHTML = html;
+                renderMathInElement(panel);
             } catch (e) {
                 document.getElementById('panel-content').innerHTML =
                     '<p class="w3-text-red">Error cargando contenido.</p>';

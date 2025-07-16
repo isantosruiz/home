@@ -229,14 +229,28 @@
         <p>Es importante respetar la sintaxis de listas: cada nivel adicional puede indicarse añadiendo un asterisco
             más o mediante indentación. PlantUML soporta ambas formas. Por ejemplo, la siguiente sintaxis con
             indentación es equivalente a la anterior:</p>
-
-        <p>También puedes usar indentación en lugar de múltiples asteriscos:</p>
         <pre>@startmindmap
 * Idea Central
     * Subtema 1
     * Subtema 2
 @endmindmap</pre>
 
+        <p>Obsérvese que aquí usamos un asterisco para "Idea Central", y luego los subtemas se escriben con un asterisco pero indentados debajo del central (cada cuatro espacios o una tabulación indica un nivel más profundo). Esta es la sintaxis compatible con Markdown. En cambio, usando múltiples asteriscos sin indentar (sintaxis estilo Org-Mode), logramos lo mismo poniendo <code>**</code> para subtemas, <code>***</code> para sub-subtemas, etc., sin necesidad de indentar cada línea. En cualquier caso, PlantUML reconocerá la jerarquía: ya sea por conteo de asteriscos o por niveles de sangría, el resultado es un árbol de nodos conectados. Basta con colocar la lista de ítems jerárquicos entre <code>@startmindmap</code> y <code>@endmindmap</code> y PlantUML lo renderizará como un mapa mental.</p>
+
+<p>Algunas consideraciones básicas de la estructura:</p>
+        <ul>
+<li>Solo debes tener (idealmente) un nodo raíz (* ...) en cada mapa mental. Ese será el concepto principal del cual parten todas las ramas. Es posible tener múltiples raíces (dos o más líneas comenzando con * al mismo nivel) dentro del mismo diagrama, pero normalmente un mapa mental tradicional tiene una única idea central. En casos de usos avanzados se pueden colocar varios * para representar varios árboles independientes en el mismo dibujo, pero para principiantes es mejor ceñirse a un solo núcleo.</li>
+<li>Los nombres de los nodos pueden contener espacios y caracteres especiales (incluso tildes, eñes, etc.), PlantUML los manejará sin problema siempre que el texto esté en UTF-8. Si necesitas incluir comillas o ciertos símbolos especiales, podría requerir escaparlos, pero en la mayoría de los casos no es necesario.</li>
+<li>Puedes formatear el texto de los nodos con algunas etiquetas HTML simples. Por ejemplo, <b>texto</b> para negritas, <i>texto</i> para itálicas, o <s>texto</s> para tachado. El ejemplo oficial de PlantUML muestra cómo usar <s> para tachar texto e => para indicar una actualización/cambio de nombre. Esto es útil si quieres reflejar ideas descartadas o reemplazadas (aunque en un mapa mental básico quizá no lo usemos mucho).</li>
+<li>No es necesario (ni posible) dibujar conexiones manualmente entre nodos; PlantUML las genera automáticamente siguiendo la estructura dada. Todos los nodos con un nivel de profundidad mayor se conectarán visualmente a su "padre" inmediato en la lista.</li>
+</ul>
+        <p>Resumiendo, la estructura base es similar a hacer una lista de viñetas de varios niveles: Piensa en el mapa mental como un esquema jerárquico, donde los niveles superiores representan ideas más generales y los niveles más profundos representan detalles o desgloses de esas ideas.</p>
+        <p>A continuación, pondremos esto en práctica con un ejemplo concreto, explicando cada línea de código y el diagrama resultante.</p>
+
+
+
+
+        
         <h2>Ejemplos prácticos: código y explicación línea por línea</h2>
         <p>Ejemplo de mapa mental para <strong>planificar unas vacaciones</strong>:</p>
         <pre>@startmindmap

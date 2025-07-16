@@ -322,7 +322,7 @@
     Por simplicidad no se mostraron aquí, pero en la siguiente sección abordaremos algunas de estas posibilidades
     y buenas prácticas para mejorar la claridad de tus mapas mentales.</p>
         
-        <p>Elementos del mapa mental:</p>
+        <p>Resumen de elementos del mapa mental:</p>
         <ul>
             <li><code>@startmindmap</code>: inicio del diagrama.</li>
             <li><code>* Planificar Vacaciones</code>: nodo raíz.</li>
@@ -361,8 +361,19 @@
                 si un nodo tiene muchísimos subelementos, quizás puedas agrupar algunos en categorías intermedias.
                 Un mapa mental efectivo suele tener de 5 a 7 ramas principales saliendo del núcleo, como máximo,
                 para mantener la claridad (esto no es una regla fija, pero es una guía común de usabilidad).</li>
-            <li><strong>Uso de colores:</strong> Asigna colores inline con <code>[#color]</code> para diferenciar
-                secciones.</li>
+            <li><b>Aprovecha colores para destacar o categorizar:</b> PlantUML permite asignar colores de fondo a los nodos fácilmente.
+                Puedes hacerlo de dos maneras: usando la notación inline o definiendo un estilo.
+                Con la notación inline, simplemente se agrega [#Color] justo después del asterisco y antes del texto del nodo.
+                Por ejemplo: <code>*[#lightblue] Idea Central</code> coloreará ese nodo de azul claro.
+                De igual forma, los nodos hijos pueden llevar colores: <code>**[#yellow] Subtema Importante</code> tendría fondo amarillo, etc.
+                Esto ayuda a diferenciar secciones del mapa (por ejemplo, usar un color para cada categoría principal).
+                La otra forma es mediante estilos: usando el bloque <code>&lt;style&gt;</code> de PlantUML se pueden definir
+                clases de estilo para los nodos y luego aplicarlas con <code>&lt;&lt;nombreEstilo&gt;&gt;</code> después del texto.
+                Por simplicidad, muchos usuarios de PlantUML MindMap optan por la primera forma (inline), que es rápida.
+                Úsalos con moderación y consistencia: asigna colores significativos
+                (p.ej., todos los nodos relacionados a "Marketing" en verde, "Finanzas" en azul, etc.) para mejorar la comprensión.
+                Un mapa mental visualmente atractivo con colores puede ser más memorable,
+                pero asegúrate de que el contraste sea suficiente para la legibilidad.</li>
             <li><strong>Ramas a izquierda/derecha:</strong> Usa <code>+</code> y <code>-</code> para distribuir
                 ramas simétricamente.</li>
             <li><strong>Estilo de texto:</strong> Sé consistente en gramática y capitalización.</li>

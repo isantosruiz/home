@@ -315,28 +315,23 @@
         <div align="center"><img src="plantuml2.svg" style="transform: scale(0.9);" /></div>
 
         <p>El mapa mental generado refleja la estructura descrita en el código.
-            Se observa el nodo central <b>Plan de vacaciones</b> (a la izquierda en este caso) y de él parten
-            tres ramas principales hacia la derecha: <b>Destino</b>, <b>Presupuesto</b> e <b>Itinerario</b>.
+            Se observa el nodo central <i>Plan de vacaciones</i> (a la izquierda en este caso) y de él parten
+            tres ramas principales hacia la derecha: <i>Destino</i>, <i>Presupuesto</i> e <i>Itinerario</i>.
             Cada rama principal aparece como un recuadro conectado al nodo central mediante un conector curvo.
-            A su vez, las subramas se despliegan: por ejemplo, de Destino salen dos nodos hijos (<b>Playa</b> y
-            <b>Montaña</b>),
-            e Itinerario conecta con <b>Vuelos</b>, <b>Hoteles</b> y <b>Actividades</b>.
+            A su vez, las subramas se despliegan: por ejemplo, de Destino salen dos nodos hijos (<i>Playa</i> y
+            <i>Montaña</i>), e Itinerario conecta con <i>Vuelos</i>, <i>Hoteles</i> y <i>Actividades</i>.
             PlantUML decidió automáticamente colocar todas las ramas hacia la derecha del nodo raíz (por defecto suele
-            organizar así los mindmaps),
-            manteniendo la legibilidad. Nótese cómo la jerarquía se refleja en la visualización:
+            organizar así los mindmaps), manteniendo la legibilidad. Nótese cómo la jerarquía se refleja en la visualización:
             los recuadros anidados más hacia afuera corresponden a los niveles más profundos (tercer nivel en nuestro
-            código),
-            mientras que los más cercanos al centro son los temas generales de primer nivel.
+            código), mientras que los más cercanos al centro son los temas generales de primer nivel.
             Este diagrama confirma que nuestro código describe correctamente un mapa mental con la temática deseada.
 
         <p>En este ejemplo no usamos ningún formato especial aparte de texto plano,
             pero PlantUML permite agregar <i>estilos</i> adicionales en el código del mapa mental.
             Antes de pasar a consejos de estilo, vale la pena mencionar que es posible, por ejemplo, cambiar colores de
-            los nodos,
-            aplicar íconos o sprites, o incluso añadir notas.
+            los nodos, aplicar íconos o sprites, o incluso añadir notas.
             Por simplicidad no se mostraron aquí, pero en la siguiente sección abordaremos algunas de estas
-            posibilidades
-            y buenas prácticas para mejorar la claridad de tus mapas mentales.</p>
+            posibilidades y buenas prácticas para mejorar la claridad de tus mapas mentales.</p>
 
         <p>Resumen de elementos del mapa mental:</p>
         <ul>
@@ -351,7 +346,9 @@
             <li><code>@endmindmap</code>: fin del diagrama.</li>
         </ul>
 
+        
         <h2>Consejos de estilo y buenas prácticas</h2>
+        
         <p>Crear un mapa mental efectivo no solo depende de la estructura jerárquica, sino también de cómo presentas la
             información.
             Aquí van algunos consejos de estilo y buenas prácticas al usar PlantUML para mapas mentales:</p>
@@ -482,15 +479,16 @@
             categoría.
             Siguiendo estos consejos, lograrás diagramas más legibles y útiles.</p>
 
+        
         <h2>Conclusión</h2>
 
         <p>PlantUML ofrece una forma ágil y escalable de crear mapas mentales:
-            al escribir texto jerárquico en lugar de dibujar manualmente, se gana velocidad,
-            facilidad de edición y trazabilidad en control de versiones.
-            Su sintaxis de asteriscos o notación aritmética permite reflejar claramente la jerarquía de ideas,
-            mientras que el soporte de colores y estilos inline potencia la legibilidad.
-            Estas características hacen de PlantUML una herramienta poderosa y flexible para estructurar visualmente
-            conceptos y proyectos mediante mapas mentales.</p>
+        al escribir texto jerárquico en lugar de dibujar manualmente, se gana velocidad,
+        facilidad de edición y trazabilidad en control de versiones.
+        Su sintaxis de asteriscos o notación aritmética permite reflejar claramente la jerarquía de ideas,
+        mientras que el soporte de colores y estilos inline potencia la legibilidad.
+        Estas características hacen de PlantUML una herramienta poderosa y flexible para estructurar visualmente
+        conceptos y proyectos mediante mapas mentales.</p>
 
         <p>Para finalizar, recuerda que la mejor manera de dominar estas herramientas es practicando.
         Empieza por pequeños mapas mentales de cosas cotidianas (por ejemplo, planifica tu semana,
@@ -499,15 +497,28 @@
         ¡Felices diagramas y buena suerte creando tus mapas mentales con PlantUML!</p>
 
         <h2>Recursos adicionales</h2>
+
+        <p>Para seguir aprendiendo y sacarle el máximo partido a PlantUML en la creación de mapas mentales (y otros diagramas),
+            aquí tienes algunos recursos útiles:</p>
         <ul>
-            <li>Documentación oficial de PlantUML sobre mapas mentales: sección <em>MindMap Diagram</em> en
-                plantuml.com.</li>
-            <li>Extensión PlantUML para Visual Studio Code (Marketplace de VS Code).</li>
-            <li>PlantUML Editor en línea / Servidor público: plantuml.com/plantuml y editor.plantuml.com.</li>
-            <li>Guía de referencia de PlantUML (PDF) con sintaxis de todos los diagramas.</li>
-            <li>Foros y comunidad en Stack Overflow (etiqueta <code>plantuml</code>) y PlantUML Q&A.</li>
-            <li>Alternativas: Mermaid, Graphviz/DOT, Ditaa para otros diagramas de texto.</li>
-        </ul>
+            <li><b>Documentación oficial de PlantUML sobre mapas mentales:</b> La página oficial de PlantUML dedicada a
+                MindMap (mapas mentales) detalla todas las características disponibles, incluyendo ejemplos de sintaxis Org-Mode,
+                Markdown, notación aritmética, uso de colores y más.
+                Es altamente recomendable leerla para descubrir funciones avanzadas no cubiertas en su totalidad aquí
+                (como cajas multilínea, estilos CSS, íconos, etc.). La encontrarás en el sitio de PlantUML, sección "MindMap Diagram".</li>
+<li><b>PlantUML Editor en línea / Servidor público:</b> Para uso ocasional o compartir diagramas rápidos,
+    recuerda que dispones del servidor público de PlantUML. Además de planttext.com,
+    el propio PlantUML Web Server (www.plantuml.com/plantuml) permite codificar diagramas en la URL.
+    Incluso, existe un Live Editor comunitario (editor.plantuml.com) con panel dual código/gráfico que puedes usar sin instalar nada.
+    Estos editores en línea también son muy útiles para colaborar: puedes enviarle a un colega el texto del diagrama
+    y que lo visualice fácilmente, o viceversa.</li>
+    <li>Comunidades y foros: La comunidad de PlantUML es activa y muy dispuesta a ayudar.
+        El foro oficial (PlantUML Q&A) y plataformas como Stack Overflow (etiqueta plantuml) contienen muchas preguntas ya resueltas.
+        Si te atascas en cómo lograr algo específico (por ejemplo, "¿cómo centrar el nodo raíz?" o
+        "¿cómo agregar un enlace clickable en un nodo?"), probablemente alguien ya lo haya preguntado.
+        También puedes inspirarte viendo diagramas de ejemplo que otros han creado;
+        la galería en plantuml.com tiene algunos ejemplos interesantes.</li>
+    </ul>
 </body>
 
 </html>

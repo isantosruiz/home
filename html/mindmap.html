@@ -282,7 +282,33 @@
 *** Hoteles
 *** Actividades
 @endmindmap</pre>
+
+<p>Con estas líneas, hemos descrito completamente nuestro mapa mental.
+    PlantUML se encargará de interpretar la jerarquía y dibujar el diagrama correspondiente.
+    El resultado debería mostrar "Planificar Vacaciones" como nodo central, con tres ramas principales
+    ("Destino", "Presupuesto", "Itinerario"), donde a su vez "Destino" e "Itinerario" tienen subramas propias.</p> 
+
         <p align="center"><img src="plantuml2.png" /></p>
+
+<p><i>Diagrama resultante:</i> El mapa mental generado refleja la estructura descrita en el código.
+    Se observa el nodo central <b>Planificar Vacaciones</b> (a la izquierda en este caso) y de él parten
+    tres ramas principales hacia la derecha: <b>Destino</b>, <b>Presupuesto</b> e <b>Itinerario</b>.
+    Cada rama principal aparece como un recuadro conectado al nodo central mediante un conector curvo.
+    A su vez, las subramas se despliegan: por ejemplo, de Destino salen dos nodos hijos (<b>Playa</b> y <b>Montaña</b>),
+    e Itinerario conecta con <b>Vuelos</b>, <b>Hoteles</b> y <b>Actividades</b>.
+    PlantUML decidió automáticamente colocar todas las ramas hacia la derecha del nodo raíz (por defecto suele organizar así los mindmaps),
+    manteniendo la legibilidad. Nótese cómo la jerarquía se refleja en la visualización:
+    los recuadros anidados más hacia afuera corresponden a los niveles más profundos (tercer nivel en nuestro código),
+    mientras que los más cercanos al centro son los temas generales de primer nivel.
+    Este diagrama confirma que nuestro código describe correctamente un mapa mental con la temática deseada.
+    
+    <p>En este ejemplo no usamos ningún formato especial aparte de texto plano,
+    pero PlantUML permite agregar <i>estilos</i> adicionales en el código del mapa mental.
+    Antes de pasar a consejos de estilo, vale la pena mencionar que es posible, por ejemplo, cambiar colores de los nodos,
+    aplicar íconos o sprites, o incluso añadir notas.
+    Por simplicidad no se mostraron aquí, pero en la siguiente sección abordaremos algunas de estas posibilidades
+    y buenas prácticas para mejorar la claridad de tus mapas mentales.</p>
+        
         <p>Explicación:</p>
         <ul>
             <li><code>@startmindmap</code>: inicio del diagrama.</li>

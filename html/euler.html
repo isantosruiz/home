@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>KaTeX example</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+
+  <!-- The loading of KaTeX is deferred to speed up page rendering -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+
+  <!-- To automatically render math in text elements, include the auto-render extension: -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body);"></script>
+</head>
+
+<body>
+  <h1>La Identidad de Euler: \( e^{i\pi} + 1 = 0 \)</h1>
+  <p>
+
+¡Bienvenido a un viaje por una de las fórmulas más elegantes y profundas de las matemáticas:
+\[
+\exp(i \cdot \pi) + 1 = 0
+\]
+
+La identidad de Euler une en una sola ecuación cinco constantes fundamentales:
+
+
+    
+- \( e \): la base de los logaritmos naturales,
+    
+- \( i \): la unidad imaginaria \( (i^2 = -1) \),
+    
+- \( \pi \): la relación entre la circunferencia y el diámetro de un círculo,
+    
+- \( 1 \): la unidad multiplicativa,
+    
+- \( 0 \): la unidad aditiva.
+
+
+A continuación exploraremos su historia, su demostración y su interpretación gráfica, donde verás cómo una rotación de \( 180^\circ \) y un simple desplazamiento vectorial dan lugar a un asombroso resultado.
+
+<h2>1. Contexto histórico y matemático</h2>
+
+Leonhard Euler (1707–1783) desarrolló esta fórmula al estudiar la función exponencial compleja. Antes de él, se sabía que
+
+\[
+e^x = \sum_{n=0}^\infty \frac{x^n}{n!}
+\]
+
+para \( x \) real. Euler extendió esta serie al plano complejo, aplicándola a \( x = i\theta \):
+
+\[
+e^{i\theta} = \sum_{n=0}^\infty \frac{(i\theta)^n}{n!} = \sum_{k=0}^\infty \frac{(-1)^k \theta^{2k}}{(2k)!} + i \sum_{k=0}^\infty \frac{(-1)^k \theta^{2k+1}}{(2k+1)!},
+\]
+
+que, por comparación con las series de \( \cos(\theta) \) y \( \sin(\theta) \), da lugar a la fórmula de Euler:
+
+\[
+e^{i\theta} = \cos(\theta) + i\,\sin(\theta).
+\]
+
+<h2>2. Demostración de la identidad \( e^{i\pi} + 1 = 0 \)</h2>
+
+Partiendo de la fórmula de Euler, si tomamos \( \theta = \pi \), obtenemos:
+
+\[
+e^{i\pi} = \cos(\pi) + i\,\sin(\pi) = (-1) + i \cdot 0 = -1.
+\]
+
+A continuación, sumamos 1 a ambos lados:
+
+\[
+e^{i\pi} + 1 = -1 + 1 = 0.
+\]
+
+Y con ello, queda demostrado que:
+
+\[
+e^{i\pi} + 1 = 0.
+\]
+
+<h2>3. Interpretación geométrica en el plano complejo</h2>
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{/mnt/data/A_continuación,_un_diagrama_que_ilustra_la_ecuació.png}
+\end{center}
+
+\textbf{La rotación de \( e^{i\pi} \):}
+
+En el plano complejo, representar \( e^{i\theta} \) equivale a trazar un vector de longitud 1 (el “radio” de la circunferencia unitaria) que forma un ángulo \( \theta \) con el eje real positivo.
+
+Para \( \theta = \pi \), el vector gira \( 180^\circ \) desde el punto \( 1 \) (eje real positivo) hasta el punto \( -1 \) (eje real negativo).
+
+En el diagrama, esa flecha desde el origen hasta \( -1 \) (etiquetada como \( e^{i\pi} \)) ilustra exactamente esta rotación de media vuelta.
+
+\textbf{El vector ``+1''}
+
+Sumamos 1 al número complejo \( -1 \). Geométricamente, sumar 1 corresponde a un desplazamiento horizontal de una unidad hacia la derecha.
+
+Así, la flecha desde \( -1 \) hasta \( 0 \) (el origen), etiquetada como ``+1'', completa el camino hasta el punto \( 0 \).
+
+Esta secuencia de movimientos (rotación + traslación) explica por qué \( e^{i\pi} + 1 = 0 \).
+
+<h2>4. Significado y belleza de la identidad</h2>
+
+
+    
+- \textbf{Concisión:} En una sola ecuación relaciona las constantes más importantes del análisis matemático.
+    
+- \textbf{Puente entre áreas:} Une álgebra (\( 0 \) y \( 1 \)), geometría (rotaciones en el plano), análisis real (\( e \), \( \pi \)) y números complejos (\( i \)).
+    
+- \textbf{Fundamento teórico:} Aparece en física cuántica, teoría de señales, dinámica de sistemas, y más.
+
+
+<h2>5. Conclusión</h2>
+
+La identidad de Euler no es solo una curiosidad, es una ventana a la armonía interna de las matemáticas.
+
+Cada término—\( e \), \( i \), \( \pi \), \( 1 \), \( 0 \)—podría llenar volúmenes de historia y aplicaciones.
+
+Pero juntos, en la ecuación
+
+\[
+e^{i\pi} + 1 = 0,
+\]
+
+revelan una simetría y una elegancia que inspiran a matemáticos y científicos por igual.
+
+¡Comparte si te fascinó esta joya matemática y déjanos tu comentario sobre otras identidades que te hayan cautivado!
+</body>
+</html>

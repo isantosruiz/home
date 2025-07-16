@@ -110,6 +110,8 @@
 </head>
 
 <body>
+        <div id="panel-content" class="w3-container" style="padding:32px">
+            <!-- Aquí irá el contenido cargado -->    
     <h1>La identidad de Euler: \( e^{i\pi} + 1 = 0 \)</h1>
 
     ¡Bienvenido a un viaje por una de las fórmulas más elegantes y profundas de las matemáticas:
@@ -208,6 +210,27 @@
     revelan una simetría y una elegancia que inspiran a matemáticos y científicos por igual.
 
     ¡Comparte si te fascinó esta joya matemática y déjanos tu comentario sobre otras identidades que te hayan cautivado!
+
+        </div>
+
+        <footer class="w3-container w3-teal w3-center w3-margin-top">
+            <p id="myfoot">&copy; <span id="year"></span> by <a
+                href="https://isantosruiz.github.io/home/">Ildeberto de los Santos Ruiz</a>
+            </p>
+            <p>
+                <a href="https://www.facebook.com/idlsantos"><i
+                        class="fa-brands fa-facebook w3-hover-opacity"></i></a>&nbsp;
+                <a href="https://www.instagram.com/idlsantos/"><i
+                        class="fa-brands fa-instagram w3-hover-opacity"></i></a>&nbsp;
+                <a href="https://twitter.com/idlsantos"><i class="fa-brands fa-twitter w3-hover-opacity"></i></a>&nbsp;
+                <a href="https://www.linkedin.com/in/idlsantos/"><i class="fa-brands fa-linkedin w3-hover-opacity"></i></a>
+            </p>
+        </footer>
+        <!-- JavaScript para el año dinámico -->
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+
 </body>
 
 </html>

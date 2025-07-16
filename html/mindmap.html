@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Tutorial Mapas mentales con PlantUML</title>
+    <title>Mapas mentales con PlantUML</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
@@ -336,9 +336,23 @@
         </ul>
 
         <h2>Consejos de estilo y buenas prácticas</h2>
+        <p>Crear un mapa mental efectivo no solo depende de la estructura jerárquica, sino también de cómo presentas la información.
+        Aquí van algunos consejos de estilo y buenas prácticas al usar PlantUML para mapas mentales:</p>
         <ul>
-            <li><strong>Idea central clara:</strong> Define un nodo raíz conciso y significativo.</li>
-            <li><strong>Palabras clave:</strong> Usa términos breves en cada nodo.</li>
+            <li><b>Comienza con una idea central clara:</b> Asegúrate de definir bien tu nodo raíz, ya que será el foco del mapa.
+                Todos los mapas mentales deben iniciar con un tema principal fuerte y definido en el centro.
+                En PlantUML, esto significa darle un nombre conciso y significativo a tu primer <code>*</code>.
+                Un título claro (por ejemplo, "Lanzamiento de Producto 2025" en lugar de algo vago como "Cosas a hacer")
+                ayudará a mantener el enfoque del diagrama.</li>
+            <li><b>Usa palabras clave o frases cortas en cada nodo:</b> Evita poner oraciones largas dentro de los nodos.
+                Lo ideal es que cada rama del mapa mental sea fácilmente escaneable.
+                Utiliza palabras clave y términos concretos que capturen la esencia de la idea, en lugar de frases completas.
+                Esto no solo hará tu mapa más limpio visualmente, sino que facilitará la comprensión rápida.
+                Por ejemplo, es mejor un nodo titulado "Mercadeo" que "Estrategias de marketing para el producto",
+                a menos que necesites el detalle específico.
+                Si requieres más explicación, PlantUML ofrece la opción de múltiples líneas en un nodo usando <code>: :</code>
+                (dos puntos al comienzo y fin del texto multilínea), pero úsala con moderación;
+                la recomendación general es mantener los nodos lo más simples posible.</li>
             <li><strong>Jerarquía coherente:</strong> Mantén la lógica de niveles y no sobrecargues un nivel.</li>
             <li><strong>Uso de colores:</strong> Asigna colores inline con <code>[#color]</code> para diferenciar
                 secciones.</li>

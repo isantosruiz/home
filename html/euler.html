@@ -1,244 +1,106 @@
-<!DOCTYPE html>
-<html lang="es">
+<h1>La identidad de Euler</h1>
+<div class="author">Ildeberto de los Santos Ruiz</div>
 
-<head>
-    <meta charset="utf-8">
-    <title>La identidad de Euler</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+<h2>Introducción</h2>
+Bienvenido a un viaje por una de las fórmulas más elegantes y profundas de las matemáticas:
+\[
+e^{i\pi} + 1 = 0
+\]
 
-    <!-- The loading of KaTeX is deferred to speed up page rendering -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+La identidad de Euler une en una sola ecuación cinco constantes fundamentales:
+<ul>
+    <li>\( e \): la base de los logaritmos naturales,</li>
+    <li>\( i \): la unidad imaginaria \( (i^2 = -1) \),</li>
+    <li>\( \pi \): la relación entre la circunferencia y el diámetro de un círculo,</li>
+    <li>\( 1 \): la unidad multiplicativa,</li>
+    <li>\( 0 \): la unidad aditiva.</li>
+</ul>
 
-    <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"
-        onload="renderMathInElement(document.body);"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        html,
-        body,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: "Roboto", sans-serif
-        }
-    </style>
-    <style>
-        .w3-bar-block .w3-bar-item {
-            padding: 16px;
-            font-weight: bold;
-        }
+A continuación exploraremos su historia, su demostración y su interpretación gráfica, donde verás cómo una
+rotación
+de \( 180^\circ \) y un simple desplazamiento vectorial dan lugar a un asombroso resultado.
 
-        h1 {
-            font-family: "Great Vibes", "Allura", "Roboto";
-        }
-    </style>
-    <style>
-        #publications li:not(:last-child) {
-            margin-bottom: 8px;
-        }
+<h2>Contexto histórico y matemático</h2>
 
-        #publications a {
-            color: #0645ad;
-            text-decoration: none;
-        }
+Leonhard Euler (1707–1783) desarrolló esta fórmula al estudiar la función exponencial compleja. Antes de él, se
+sabía que
+\[
+e^x = \sum_{n=0}^\infty \frac{x^n}{n!}
+\]
+para \( x \) real. Euler extendió esta serie a los números complejos, aplicándola a \( x = i\theta \):
+\[
+e^{i\theta} = \sum_{n=0}^\infty \frac{(i\theta)^n}{n!} = \sum_{k=0}^\infty \frac{(-1)^k \theta^{2k}}{(2k)!} + i
+\sum_{k=0}^\infty \frac{(-1)^k \theta^{2k+1}}{(2k+1)!},
+\]
+que, por comparación con las series de \( \cos(\theta) \) y \( \sin(\theta) \), da lugar a la fórmula de Euler:
+\[
+e^{i\theta} = \cos(\theta) + i\,\sin(\theta).
+\]
 
-        #publications a:hover {
-            text-decoration: underline;
-        }
+<h2>Demostración de la identidad \( e^{i\pi} + 1 = 0 \)</h2>
 
-        #myfoot a {
-            text-decoration: none;
-        }
+Partiendo de la fórmula de Euler, si tomamos \( \theta = \pi \), obtenemos:
+\[
+e^{i\pi} = \cos(\pi) + i\,\sin(\pi) = (-1) + i \cdot 0 = -1.
+\]
 
-        #myfoot a:hover {
-            text-decoration: underline;
-        }
+A continuación, sumamos \( 1 \) a ambos lados:
+\[
+e^{i\pi} + 1 = -1 + 1 = 0.
+\]
 
-        .boton {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #007BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-        }
+Y con ello, queda demostrado que:
+\[
+e^{i\pi} + 1 = 0.
+\]
 
-        .boton:hover {
-            background-color: #0056b3;
-        }
-
-        details {
-            width: 85%;
-            max-width: 90%;
-            font-size: 0.9em;
-        }
-
-        details>summary {
-            padding: 4px 6px;
-            width: 12em;
-            background-color: #ddd;
-            border: none;
-            cursor: pointer;
-        }
-
-        details>p {
-            border-radius: 0 0 8px 8px;
-            background-color: #ddd;
-            padding: 8px 8px;
-            margin: 0;
-            box-shadow: 3px 3px 4px #303030;
-        }
-
-        details:open>summary {
-            background-color: #ccf;
-        }
-
-        details,
-        details>* {
-            word-wrap: break-word;
-        }
-    </style>
-
-</head>
-
-<body>
-    <div id="panel-content" class="w3-container" style="padding:32px">
-        <!-- Aquí irá el contenido del artículo -->
-        <h1>La identidad de Euler</h1>
-
-        <h2 class="w3-text-grey">Introducción</h2>
-        Bienvenido a un viaje por una de las fórmulas más elegantes y profundas de las matemáticas:
-        \[
-             e^{i\pi} + 1 = 0
-        \]
-
-        La identidad de Euler une en una sola ecuación cinco constantes fundamentales:
-        <ul>
-            <li>\( e \): la base de los logaritmos naturales,</li>
-            <li>\( i \): la unidad imaginaria \( (i^2 = -1) \),</li>
-            <li>\( \pi \): la relación entre la circunferencia y el diámetro de un círculo,</li>
-            <li>\( 1 \): la unidad multiplicativa,</li>
-            <li>\( 0 \): la unidad aditiva.</li>
-        </ul>
-
-        A continuación exploraremos su historia, su demostración y su interpretación gráfica, donde verás cómo una
-        rotación
-        de \( 180^\circ \) y un simple desplazamiento vectorial dan lugar a un asombroso resultado.
-
-        <h2 class="w3-text-grey">Contexto histórico y matemático</h2>
-
-        Leonhard Euler (1707–1783) desarrolló esta fórmula al estudiar la función exponencial compleja. Antes de él, se
-        sabía que
-        \[
-        e^x = \sum_{n=0}^\infty \frac{x^n}{n!}
-        \]
-        para \( x \) real. Euler extendió esta serie a los números complejos, aplicándola a \( x = i\theta \):
-        \[
-        e^{i\theta} = \sum_{n=0}^\infty \frac{(i\theta)^n}{n!} = \sum_{k=0}^\infty \frac{(-1)^k \theta^{2k}}{(2k)!} + i
-        \sum_{k=0}^\infty \frac{(-1)^k \theta^{2k+1}}{(2k+1)!},
-        \]
-        que, por comparación con las series de \( \cos(\theta) \) y \( \sin(\theta) \), da lugar a la fórmula de Euler:
-        \[
-        e^{i\theta} = \cos(\theta) + i\,\sin(\theta).
-        \]
-
-        <h2 class="w3-text-grey">Demostración de la identidad \( e^{i\pi} + 1 = 0 \)</h2>
-
-        Partiendo de la fórmula de Euler, si tomamos \( \theta = \pi \), obtenemos:
-        \[
-        e^{i\pi} = \cos(\pi) + i\,\sin(\pi) = (-1) + i \cdot 0 = -1.
-        \]
-
-        A continuación, sumamos \( 1 \) a ambos lados:
-        \[
-        e^{i\pi} + 1 = -1 + 1 = 0.
-        \]
-
-        Y con ello, queda demostrado que:
-        \[
-        e^{i\pi} + 1 = 0.
-        \]
-
-        <h2 class="w3-text-grey">Interpretación geométrica en el plano complejo</h2>
+<h2>Interpretación geométrica en el plano complejo</h2>
 
 
-        <ol>
-            <li><b>La rotación de \( e^{i\pi} \):</b>
-                En el plano complejo, representar \( e^{i\theta} \) equivale a trazar un vector de longitud 1 (el
-                “radio” de
-                la circunferencia unitaria) que forma un ángulo \( \theta \) con el eje real positivo.
-                Para \( \theta = \pi \), el vector gira \( 180^\circ \) desde el punto \( 1 \) (eje real positivo) hasta
-                el
-                punto \( -1 \) (eje real negativo).
-                En el diagrama, esa flecha desde el origen hasta \( -1 \) (etiquetada como \( e^{i\pi} \)) ilustra
-                exactamente esta rotación de media vuelta.</li>
-            <li><b>El vector \( +1 \)</b>:
-                Sumamos \( 1 \) al número complejo \( -1 \). Geométricamente, sumar \( 1 \) corresponde a un
-                desplazamiento
-                horizontal de una unidad hacia la derecha.
-                Así, la flecha desde \( -1 \) hasta \( 0 \) (el origen), etiquetada como "\( +1 \)", completa el camino
-                hasta el punto \( 0 \).</li>
-        </ol>
-        Esta secuencia de movimientos (rotación + traslación) explica por qué \( e^{i\pi} + 1 = 0 \).
+<ol>
+    <li><b>La rotación de \( e^{i\pi} \):</b>
+        En el plano complejo, representar \( e^{i\theta} \) equivale a trazar un vector de longitud 1 (el
+        “radio” de
+        la circunferencia unitaria) que forma un ángulo \( \theta \) con el eje real positivo.
+        Para \( \theta = \pi \), el vector gira \( 180^\circ \) desde el punto \( 1 \) (eje real positivo) hasta
+        el
+        punto \( -1 \) (eje real negativo).
+        En el diagrama, esa flecha desde el origen hasta \( -1 \) (etiquetada como \( e^{i\pi} \)) ilustra
+        exactamente esta rotación de media vuelta.</li>
+    <li><b>El vector \( +1 \)</b>:
+        Sumamos \( 1 \) al número complejo \( -1 \). Geométricamente, sumar \( 1 \) corresponde a un
+        desplazamiento
+        horizontal de una unidad hacia la derecha.
+        Así, la flecha desde \( -1 \) hasta \( 0 \) (el origen), etiquetada como "\( +1 \)", completa el camino
+        hasta el punto \( 0 \).</li>
+</ol>
+Esta secuencia de movimientos (rotación + traslación) explica por qué \( e^{i\pi} + 1 = 0 \).
 
-        <h2 class="w3-text-grey">Significado y belleza de la identidad</h2>
+<h2>Significado y belleza de la identidad</h2>
 
-        <ul>
-            <li><b>Concisión:</b> En una sola ecuación relaciona las constantes más importantes del análisis matemático.
-            </li>
-            <li><b>Puente entre áreas:</b> Une álgebra (\( 0 \) y \( 1 \)), geometría (rotaciones en el plano), análisis
-                real (\( e \), \( \pi \)) y números complejos (\( i \)).</li>
-            <li><b>Fundamento teórico:</b> Aparece en física cuántica, teoría de señales, dinámica de sistemas, y más.
-            </li>
-        </ul>
+<ul>
+    <li><b>Concisión:</b> En una sola ecuación relaciona las constantes más importantes del análisis matemático.
+    </li>
+    <li><b>Puente entre áreas:</b> Une álgebra (\( 0 \) y \( 1 \)), geometría (rotaciones en el plano), análisis
+        real (\( e \), \( \pi \)) y números complejos (\( i \)).</li>
+    <li><b>Fundamento teórico:</b> Aparece en física cuántica, teoría de señales, dinámica de sistemas, y más.
+    </li>
+</ul>
 
 
-        <h2 class="w3-text-grey">Conclusión</h2>
+<h2>Conclusión</h2>
 
-        La identidad de Euler no es solo una curiosidad, es una ventana a la armonía interna de las matemáticas.
+La identidad de Euler no es solo una curiosidad, es una ventana a la armonía interna de las matemáticas.
 
-        Cada término —\( e \), \( i \), \( \pi \), \( 1 \), \( 0 \)— podría llenar volúmenes de historia y aplicaciones.
+Cada término —\( e \), \( i \), \( \pi \), \( 1 \), \( 0 \)— podría llenar volúmenes de historia y aplicaciones.
 
-        Pero juntos, en la ecuación
+Pero juntos, en la ecuación
 
-        \[
-        e^{i\pi} + 1 = 0,
-        \]
+\[
+e^{i\pi} + 1 = 0,
+\]
 
-        revelan una simetría y una elegancia que inspiran a matemáticos y científicos por igual.
+revelan una simetría y una elegancia que inspiran a matemáticos y científicos por igual.
 
-        ¡Comparte si te fascinó esta joya matemática y déjanos tu comentario sobre otras identidades que te hayan
-        cautivado!
-
-    </div>
-
-    <footer class="w3-container w3-teal w3-center w3-margin-top">
-        <p id="myfoot">&copy; <span id="year"></span> by <a href="https://isantosruiz.github.io/home/">Ildeberto de los
-                Santos Ruiz</a>
-        </p>
-        <p>
-            <a href="https://www.facebook.com/idlsantos"><i
-                    class="fa-brands fa-facebook w3-hover-opacity"></i></a>&nbsp;
-            <a href="https://www.instagram.com/idlsantos/"><i
-                    class="fa-brands fa-instagram w3-hover-opacity"></i></a>&nbsp;
-            <a href="https://twitter.com/idlsantos"><i class="fa-brands fa-twitter w3-hover-opacity"></i></a>&nbsp;
-            <a href="https://www.linkedin.com/in/idlsantos/"><i class="fa-brands fa-linkedin w3-hover-opacity"></i></a>
-        </p>
-    </footer>
-    <!-- JavaScript para el año dinámico -->
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
-
-</body>
-
-</html>
+¡Comparte si te fascinó esta joya matemática y déjanos tu comentario sobre otras identidades que te hayan
+cautivado!

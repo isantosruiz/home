@@ -137,7 +137,7 @@
 </head>
 
 <body>
-    <div id="panel-content" class="w3-container contenedor" style="padding:32px">
+    <div id="panel-content" class="w3-container contenedor" style="padding:32px;">
         <!-- Aquí irá el contenido del artículo -->
         <h1>Mapas mentales con PlantUML</h1>
         <b style="font-size: 1.5rem;">Ildeberto de los Santos Ruiz</b>
@@ -234,7 +234,7 @@
             conectadas rotuladas "Subtema 1" y "Subtema 2".
         </p>
 
-        <div align="center"><img src="plantuml1.svg" style="transform: scale(0.9);"></div>
+        <div align="center"><img src="plantuml1.svg" style="transform: scale(0.9);" /></div>
 
         <p>Es importante respetar la sintaxis de listas: cada nivel adicional puede indicarse añadiendo un asterisco
             más o mediante indentación. PlantUML soporta ambas formas. Por ejemplo, la siguiente sintaxis con
@@ -269,9 +269,11 @@
                 ciertos símbolos especiales, podría requerir escaparlos, pero en la mayoría de los casos no es
                 necesario.</li>
             <li>Puedes formatear el texto de los nodos con algunas etiquetas HTML simples. Por ejemplo,
-                <code>&lt;b&gt;negritas&lt;/b&gt;</code> para <b>negritas</b>, <code>&lt;i&gt;itálicas&lt;/i&gt;</code> para
+                <code>&lt;b&gt;negritas&lt;/b&gt;</code> para <b>negritas</b>, <code>&lt;i&gt;itálicas&lt;/i&gt;</code>
+                para
                 <i>itálicas</i>, o
-                <code>&lt;s&gt;tachado&lt;/s&gt;</code> para <s>tachado</s>. El tachado es útil si quieres reflejar ideas
+                <code>&lt;s&gt;tachado&lt;/s&gt;</code> para <s>tachado</s>. El tachado es útil si quieres reflejar
+                ideas
                 descartadas o reemplazadas (aunque en un mapa mental básico quizá
                 no lo usemos mucho).
             </li>
@@ -313,7 +315,7 @@
             ("Destino", "Presupuesto", "Itinerario"), donde a su vez "Destino" e "Itinerario" tienen subramas propias.
         </p>
 
-        <div align="center"><img src="plantuml2.svg" style="transform: scale(0.9);"></div>
+        <div align="center"><img src="plantuml2.svg" style="transform: scale(0.9);" /></div>
 
         <p>El mapa mental generado refleja la estructura descrita en el código.
             Se observa el nodo central <i>Plan de vacaciones</i> (a la izquierda en este caso) y de él parten
@@ -398,8 +400,9 @@
                 Úsalos con moderación y consistencia: asigna colores significativos
                 (p.ej., todos los nodos relacionados a "Marketing" en verde, "Finanzas" en azul, etc.) para mejorar la
                 comprensión. Un mapa mental visualmente atractivo con colores puede ser más memorable,
-                pero asegúrate de que el contraste sea suficiente para la legibilidad.</li>
-                    <pre>@startmindmap
+                pero asegúrate de que el contraste sea suficiente para la legibilidad.
+            </li>
+            <pre>@startmindmap
 * Roles en el MCCEMS
 **[#cyan] Función del docente
 ***[#lightcyan] Mediador del conocimiento
@@ -410,7 +413,7 @@
 ***[#lightyellow] Aprendizaje autónomo
 ***[#lightyellow] Construcción de conocimiento
 @endmindmap</pre>
-                <div align="center"><img src="plantuml4.svg" style="transform: scale(0.9);"></div>
+            <div align="center"><img src="plantuml4.svg" style="transform: scale(0.9);" /></div>
             <li><b>Distribuye ramas a la izquierda y derecha si es necesario:</b> De forma predeterminada,
                 PlantUML suele ubicar todas las ramas hacia un lado (generalmente a la derecha del nodo central, como
                 vimos en nuestro ejemplo).
@@ -439,7 +442,7 @@
 ++ Rama derecha 1
 ++ Rama derecha 2
 @endmindmap</pre>
-                <div align="center"><img src="plantuml3.svg" style="transform: scale(0.9);"></div>
+                <div align="center"><img src="plantuml3.svg" style="transform: scale(0.9);" /></div>
             </li>
             <li><b>Sé consistente con el estilo de texto:</b> Además de la longitud de las etiquetas, cuida la
                 <b>coherencia</b>.
@@ -463,7 +466,8 @@
             <li><b>Usa imágenes o iconos con precaución:</b> En herramientas manuales de mapas mentales se suelen
                 incluir dibujitos o íconos para reforzar ideas. Se pueden embeber sprites o iconos
                 (por ejemplo, usando el estándar <b>Font Awesome</b> a través de la librería de iconos en PlantUML,
-                o directamente con caracteres unicode como 🎓, 📚, etc.), pero esto requiere un poco más de configuración.
+                o directamente con caracteres unicode como 🎓, 📚, etc.), pero esto requiere un poco más de
+                configuración.
                 Dado que este es un tutorial introductorio, no profundizaremos en ello.
                 No obstante, si planeas exportar el diagrama e incorporarlo en una presentación,
                 podrías posteriormente superponer iconos o destacarlos de otra forma.
@@ -495,11 +499,17 @@
                 MindMap (mapas mentales) detalla todas las características disponibles, incluyendo ejemplos de sintaxis
                 Org-Mode, Markdown, notación aritmética, uso de colores y más.
                 Es altamente recomendable leerla para descubrir funciones avanzadas no cubiertas en su totalidad aquí
-                (como cajas multilínea, estilos CSS, íconos, etc.). La encontrarás en el sitio de PlantUML (<a href="https://plantuml.com/es/mindmap-diagram"><code>plantuml.com/es/mindmap-diagram</code></a>).</li>
+                (como cajas multilínea, estilos CSS, íconos, etc.). La encontrarás en el sitio de PlantUML (<a
+                    href="https://plantuml.com/es/mindmap-diagram"><code>plantuml.com/es/mindmap-diagram</code></a>).
+            </li>
             <li><b>Editor en línea / Servidor público:</b> Para uso ocasional o compartir diagramas rápidos,
                 recuerda que dispones del servidor público de PlantUML. Además de planttext.com,
-                el propio <b>PlantUML Web Server</b> (<a href="https://www.plantuml.com/plantuml/"><code>www.plantuml.com/plantuml</code></a>) permite codificar diagramas en la URL.
-                Incluso, existe un <b>Live Editor</b> comunitario (<a href="https://editor.plantuml.com/"><code>editor.plantuml.com</code></a>) con panel dual código/gráfico
+                el propio <b>PlantUML Web Server</b> (<a
+                    href="https://www.plantuml.com/plantuml/"><code>www.plantuml.com/plantuml</code></a>) permite
+                codificar diagramas en la URL.
+                Incluso, existe un <b>Live Editor</b> comunitario (<a
+                    href="https://editor.plantuml.com/"><code>editor.plantuml.com</code></a>) con panel dual
+                código/gráfico
                 que puedes usar sin instalar nada.
                 Estos editores en línea también son muy útiles para colaborar: puedes enviarle a un colega el texto del
                 diagrama y que lo visualice fácilmente, o viceversa.</li>

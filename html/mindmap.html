@@ -73,7 +73,8 @@
             para calcular la disposición de ciertos diagramas). En Windows, la versión de PlantUML viene con Graphviz
             incorporado, por lo que suele funcionar sin configuraciones adicionales. En Linux o macOS, puedes instalar
             Graphviz y PlantUML fácilmente (por ejemplo, usando un administrador de paquetes como
-            <code>apt</code> o <code>brew</code>). Una vez instalado, PlantUML se puede usar desde la línea de comandos o mediante su pequeña GUI ejecutando el archivo <code>plantuml.jar</code>.
+            <code>apt</code> o <code>brew</code>).
+            Una vez instalado, PlantUML se puede usar desde la línea de comandos o mediante su pequeña GUI ejecutando el archivo <code>plantuml.jar</code>.
             <p>En resumen, para comenzar necesitas: un editor de texto cualquiera (o entorno web), y acceso a PlantUML
                 ya sea vía web o instalado localmente con Java (y posiblemente Graphviz). Con esto en pie, estarás listo
                 para crear tu primer mapa mental en PlantUML.</p>
@@ -81,7 +82,10 @@
             <h2>Estructura básica de un mapa mental en PlantUML</h2>
             <p>La sintaxis de PlantUML para mapas mentales se basa en listas con viñetas, muy similar a escribir puntos
                 y subpuntos en Markdown u Org-Mode. Un diagrama de mapa mental en PlantUML comienza con la directiva
-                <code>@startmindmap</code> y termina con <code>@endmindmap</code>. Dentro de ese bloque, cada nodo del mapa se define en una nueva línea empezando con un asterisco (<code>*</code>), de forma anidada para reflejar la jerarquía. En términos sencillos, cada <code>*</code> representa un nodo, y la cantidad de asteriscos indica el nivel de profundidad (jerarquía) del nodo:
+                <code>@startmindmap</code> y termina con <code>@endmindmap</code>.
+                Dentro de ese bloque, cada nodo del mapa se define en una nueva línea empezando con un asterisco (<code>*</code>),
+                de forma anidada para reflejar la jerarquía. En términos sencillos, cada <code>*</code> representa un nodo,
+                y la cantidad de asteriscos indica el nivel de profundidad (jerarquía) del nodo:
       <ul>
 <li>Un solo <code>*</code> define el nodo raíz (la idea central del mapa mental).</li>
 <li><code>**</code> (dos asteriscos) define un nodo de primer nivel, es decir, un hijo directo del nodo raíz.</li>

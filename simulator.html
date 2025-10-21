@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Simulador Falstad embebido – Circuito de ejemplo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Demostración de cómo embeber el simulador de Falstad (CircuitJS1) en una página web con un circuito precargado."
+  />
+  <style>
+    :root {
+      --max-width: 1200px;
+      --aspect: 3/2; /* relación para pantallas amplias */
+      --radius: 12px;
+      --shadow: 0 6px 24px rgba(0,0,0,.12);
+      --border: 1px solid #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color: #0f172a; background: #f8fafc;
+      display: grid; place-items: center; min-height: 100dvh; padding: 24px;
+    }
+    .wrap {
+      width: min(100%, var(--max-width));
+    }
+    header { margin-bottom: 16px; }
+    h1 { font-size: clamp(1.1rem, 1.8vw + .6rem, 1.6rem); margin: 0 0 6px; }
+    p { margin: 0; color: #334155; }
+    .player {
+      position: relative;
+      width: 100%;
+      aspect-ratio: var(--aspect);
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: var(--border);
+      overflow: clip;
+    }
+    iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+    .fallback {
+      margin-top: 10px; font-size: .95rem;
+    }
+    .fallback a { color: #2563eb; text-decoration: none; }
+    .fallback a:hover { text-decoration: underline; }
+    @media (max-width: 640px) {
+      :root { --aspect: 4/3; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Simulador Falstad embebido</h1>
+      <p>Ejemplo con un circuito precargado, interfaz simplificada y fondo blanco.</p>
+    </header>
+
+    <div class="player" role="region" aria-label="Simulador de circuitos">
+      <!--
+        Parámetros usados:
+          - cct=... (circuito incrustado en la URL)
+          - hideMenu=true, hideSidebar=true, hideInfoBox=true (UI minimalista)
+          - running=true (arranca corriendo)
+          - whiteBackground=true (fondo blanco)
+        Para cargar tu propio circuito:
+          En Falstad: File → Export → Export as Link y reemplaza todo el ?cct=... o ?ctz=... a continuación.
+      -->
+      <iframe
+        allowfullscreen
+        loading="lazy"
+        src="https://www.falstad.com/circuit/circuitjs.html?ctz=CQAgjCAMB0l3BWcMBMcUHYMGZIA4UA2ATmIxABZtlKUQEBTAWjDACgAXEFBQ8YutjT86kcCBZhoGYnjDYEeBBkgUc2ajAQVWMijpm5IhcmDggAJgwBmAQwCuAGw6duvbnjwghYlJ6gSEITQAhSYqmAYFIS65EwwOIQ6YXjYJHgUqabmVnZOLgDu3sJoXj7cFGKQbEXlKJXFvhiiNY3eqm0KLQBObnx+Xjx8XQEoaGy9QyJ94H6j4xYz9b7uA9yWNg7ObABKSw1gAhVV4g1IJ1qtUyPlI9VFU2Bz5U9e922vHxh81XuPc1M8BdKGIzAEqtAELsZiMppVgQ0WMDLotHkcpst1rktoU2pj4ccoBMQb4GgS7sg2ABzEneBB0ckZcFsADytPxmUJVTYAHsQF4kgFKrIQD9YDxRvzvLzwAKKELICKxfBFd9eBKIOwgA">
+      </iframe>
+    </div>
+
+    <div class="fallback">
+      Si tu navegador bloquea el iframe, puedes abrir el simulador directamente:
+      <a href="https://www.falstad.com/circuit/circuitjs.html?cct=%24+1+7.8125e-8+15.472767971186109+53+5+50%0Ar+304+160+400+160+0+1000%0Al+400+160+400+288+0+0.00011999999999999999+0.0032993409398656055%0Ad+400+160+480+160+2+1N4148%0Ac+480+160+480+288+0+1.0000000000000001e-7+1.9792242576134755%0Aw+480+160+544+160+0%0Ar+544+160+544+288+0+1000000%0Ar+400+288+400+336+0+0.2%0Ag+480+288+480+304+0%0Ag+544+288+544+304+0%0Ag+400+336+400+352+0%0Aw+544+160+608+160+0%0Ar+608+160+608+288+0+400000%0Ag+608+288+608+304+0%0AO+608+160+640+160+0%0AR+304+160+272+160+0+2+400000+1.65+1.65+0+0.84%0Ao+13+1+0+21250+5+0.1+0+1%0A38+0+0+1+1000+Resistance%0A38+1+0+0.000001+0.001+Inductance%0A38+5+0+1+1000000+Resistance%0A38+6+0+1+10+Coil%5CsResistance%0A38+3+0+0.00001+0.0022+Capacitance%0A&hideMenu=true&hideSidebar=true&hideInfoBox=true&running=true"
+         target="_blank" rel="noopener">Abrir en falstad.com</a>.
+    </div>
+  </div>
+</body>
+</html>

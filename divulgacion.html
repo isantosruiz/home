@@ -216,6 +216,22 @@
     .latex-logo {
         height: 24px;
     }
+
+    /* Estilos por defecto para PCs (50% del ancho) */
+.imagen-adaptable {
+    width: 50%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Media query para pantallas más pequeñas (celulares) */
+/* Se activa cuando el ancho de la ventana es menor a 768px */
+@media (max-width: 768px) {
+    .imagen-adaptable {
+        width: 100%;
+    }
+}
 </style>
 </head>
 

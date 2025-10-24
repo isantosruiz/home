@@ -1,1 +1,43 @@
+<h1 class="author">Seguidor de emisor push-pull</h1>
+<div class="author">Ildeberto de los Santos Ruiz</div>
+<hr>
 
+<h2>Introducción</h2>
+
+<p>Un circuito <b>seguidor de emisor push-pull</b> (push-pull follower) es una etapa de salida usada en amplificadores de audio y fuentes de señal, cuyo propósito principal es entregar corriente de salida significativa a una carga, siguiendo el voltaje de entrada pero sin amplificarlo.</p>
+
+<h2>Propósito</h2>
+
+<p>El objetivo del circuito push-pull es permitir que la carga reciba tanto corriente positiva como negativa, lo que lo hace adecuado para señales alternas (AC), como el audio. Además, mejora la eficiencia energética y permite obtener baja distorsión respecto a etapas de salida simples.</p>
+
+<h2>Función de los transistores</h2>
+<ul>
+<li>Transistor NPN: Conduce y "empuja" corriente hacia la carga durante los semi-ciclos positivos de la señal.</li>
+<li>Transistor PNP: Conduce y "jala" corriente desde la carga durante los semi-ciclos negativos de la señal.</li>
+<li>Ambos trabajan en configuración <b>seguidor de emisor</b> (colector común), lo que significa que la señal de salida sigue el voltaje de entrada, pero con mayor capacidad de corriente.</li>
+</ul>
+
+<h2>Función de los diodos</h2>
+
+<p>La función de los diodos es crear una "polarización" o separación de voltaje (aproximadamente 1.2 V para diodos de silicio) entre las bases de los transistores complementarios, de modo que ambos transistores estén listos para conducir en su respectivo semiciclo sin distorsión por "zona muerta" (crossover distortion). Esto mejora la linealidad y la fidelidad del circuito.</p>
+
+<h2>Diagrama completo y simulación</h2>
+
+<p class="w3-padding"><a href="https://www.falstad.com/circuit/circuitjs.html?ctz=CQAgjCAMB0l3BWcMBsBmALAJhQdgWgJwAcYKCFIGayVWICApgLRhgBQALiFgiuIXposkAfVERmCWBkIYMcNAmyZi-GPjAEwGXAuJzlxZKIAmjAGYBDAK4AbTlx58exY8NFY3UEK3AZoQgRICkJCFAwEXHIwGg0ELTQdPUgDSIxjMDgQc2t7RwB3EA8eVOKRHgUodiKSrCq63HEa8tE0SAxW4oRmgCVnfnqJQUrRCSpRJDGoaAQWkrAvLrBo6v6FpZLiadEqrJ8x2fZ1iqUhCoUdid99naPaiqGJzyrIdgAnZ9Gvs58s9gA5j8ej9iJ0xuwAPJfJ7yYxPCFFXiDKrI1zGN5IlxgEZohHsAD2DBAER8ChIJJmikWUx4xLQhPA9FJu0gFPUsHgGWIXhp4HA7CAA" class="latex-button" target="_blank">
+        <img src="./circuit.svg" alt="LaTeX Logo" class="latex-logo">Simulador en línea</a></p>
+
+<h2>Conclusión</h2>
+
+<p>El push-pull follower entrega corriente alterna a la carga siguiendo la señal de entrada. Los transistores NPN y PNP conducen alternadamente para semiciclos positivos y negativos. Los diodos en las bases aseguran una transición suave y reducen distorsión.</p>
+
+<p>¡Comparte si te resultó útil la explicación!</p>
+
+<hr>
+
+<div class="centrado">Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a><img
+        src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt=""
+        style="max-width: 1em;max-height:1em;margin-left: .2em;"><img
+        src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt=""
+        style="max-width: 1em;max-height:1em;margin-left: .2em;"><img
+        src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt=""
+        style="max-width: 1em;max-height:1em;margin-left: .2em;"></div>

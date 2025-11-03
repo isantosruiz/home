@@ -14,9 +14,9 @@
 
 <p><a href="https://www.falstad.com/circuit/circuitjs.html?ctz=CQAgjCAMB0l3BWcMBMcUHYMGZIA4UA2ATmIxAUgoqoQFMBaMMAKACdwAWTkbFLnmBR4oySO154efSYOGiwcFgHdZ4edinhi-cQBdekHmhGbj+BVGiE0KBN0IlCCHcSsk8xMAjClunIjByRSoAEzoAMwBDAFcAGz0VEBQUOVMjZItxVVw05NTMkX188xEwbkLLBk5oBCxIbGxCZk4XTiarBs9OSGIXBpRyhBkQkHDo+MTVcryZ7V0JXPVTLSEi5DQJObWS5YVITYBZNR3uMvkqFFqkuZkzXgXj7fk8Kh3L64AlAQeQV9+qFQetRAVYEBIUqVdks3vBFhkTIZpBlYUoADLQjL-GGiPRsGJ0EEsDFLJZnJGiKh4glEgAeFEEkCQfWQIkI4HZAHsYnoAA48lj0gL8UacQjYZASwRcnn8xL0jCXDAiLzJPAQaUgADOdHlIACbkw5E4eCQwiBHJAbDoOsSAHMfpDHQh2YCWA77k7PS7KYLkOzBiLMMlvPrLQBFVhCuAhqWDEPszXhlAsIA" class="latex-button" target="_blank">Simulación en línea</a></p>
 
-<h3>Cómo funciona (visión rápida)</h3>
+<h3>Cómo funciona</h3>
 
-<p>El colector de cada transistor se acopla a la base del otro por medio de resistencias (≈1&nbsp;kΩ). Si <b>Q1</b> está <i>encendido</i> (saturado), su colector cae a un voltaje bajo y, a través de la resistencia cruzada, <b>apaga Q2</b>. A la inversa, si <b>Q2</b> satura, fuerza a <b>Q1</b> a cortarse. Esta retroalimentación crea dos puntos de equilibrio estables: (Q1&nbsp;ON, Q2&nbsp;OFF) o (Q1&nbsp;OFF, Q2&nbsp;ON). Las resistencias superiores (≈100&nbsp;Ω en el esquema) actúan como <b>cargas de colector</b> hacia +5&nbsp;V, y las resistencias a tierra (≈1&nbsp;kΩ) en las bases fijan polarización/retorno para asegurar estados bien definidos cuando no hay pulsos.</p>
+<p>El colector de cada transistor se acopla a la base del otro por medio de resistencias (≈1&nbsp;kΩ). Si <b>Q1</b> está encendido (saturado), su colector cae a un voltaje bajo y, a través de la resistencia cruzada, <b>apaga Q2</b>. A la inversa, si <b>Q2</b> satura, fuerza a <b>Q1</b> a cortarse. Esta retroalimentación crea dos puntos de equilibrio estables: (Q1&nbsp;ON, Q2&nbsp;OFF) o (Q1&nbsp;OFF, Q2&nbsp;ON). Las resistencias superiores (≈100&nbsp;Ω en el esquema) actúan como <b>cargas de colector</b> hacia +5&nbsp;V, y las resistencias a tierra (≈1&nbsp;kΩ) en las bases fijan polarización/retorno para asegurar estados bien definidos cuando no hay pulsos.</p>
 
 <h3>Entradas SET y RESET</h3>
 
@@ -40,7 +40,7 @@
 
 <h3>Función de los transistores</h3>
 
-<p><b>Q1 y Q2 (NPN)</b> forman un par cruzado. Cada transistor actúa como <i>amplificador con carga resistiva</i> y a la vez como elemento de realimentación para el otro. Cuando uno entra en saturación, la caída de su colector <b>retira</b> corriente de base del opuesto, forzándolo al corte. Esta acción regenerativa produce conmutación rápida y estados bien definidos.</p>
+<p>Los transistores <b>Q1 y Q2 (NPN)</b> forman un par cruzado. Cada transistor actúa como amplificador con carga resistiva y a la vez como elemento de realimentación para el otro. Cuando uno entra en saturación, la caída de su colector retira corriente de base del opuesto, forzándolo al corte. Esta acción regenerativa produce conmutación rápida y estados bien definidos.</p>
 
 <h3>Función de las resistencias</h3>
 
@@ -53,8 +53,7 @@
 <h3>Detalles prácticos</h3>
 
 <ul>
-  <li><b>Entradas activas por pulso:</b> los nodos de <i>set</i> y <i>reset</i> se excitan brevemente a nivel bajo o alto (según el cableado) para conmutar. Añadir un capacitor pequeño y un
-    resistor en serie puede conformar pulsos y mitigar rebotes mecánicos.</li>
+  <li><b>Entradas activas por pulso:</b> los nodos de <b>set</b> y <b>reset</b> se excitan brevemente a nivel bajo o alto (según el cableado) para conmutar. Añadir un capacitor pequeño y un resistor en serie puede conformar pulsos y mitigar rebotes mecánicos.</li>
   <li><b>Niveles de salida:</b> al saturar un transistor, su colector queda cerca de 0&nbsp;V (en V<sub>CE(sat)</sub> ≈ 0.2&nbsp;V); el colector opuesto sube cerca de +5&nbsp;V a través de la resistencia de carga.</li>
   <li><b>Consumo:</b> en un estado, el transistor activo conduce a través de su resistencia de colector; dimensiona resistencias para limitar la corriente y evitar sobrecalentamiento.</li>
 </ul>

@@ -4,7 +4,7 @@
 
 <h3>Introducción</h3>
 
-<p>El <b>multivibrador biestable</b> es un circuito con <b>dos estados estables</b> que conserva su estado hasta que una entrada lo obliga a cambiar. La versión de la figura usa <b>dos transistores NPN cruzados</b> con realimentación positiva (regenerativa). Un transistor satura mientras el otro corta; al aplicar un pulso a SET o RESET el circuito conmuta y permanece en el nuevo estado, funcionando como una <b>celda de memoria de un bit</b>.</p>
+<p>El <b>multivibrador biestable</b> es un circuito con <b>dos estados estables</b> que conserva su estado hasta que una entrada lo obliga a cambiar. La versión de la figura usa dos transistores NPN con retroalimentación cruzada. Un transistor satura mientras el otro corta; al aplicar un pulso a SET o RESET el circuito conmuta y permanece en el nuevo estado, funcionando como una <b>celda de memoria de un bit</b>.</p>
 
 <h3>Propósito</h3>
 
@@ -53,7 +53,7 @@
 <h3>Detalles prácticos</h3>
 
 <ul>
-  <li><b>Entradas activas por pulso:</b> los nodos de <b>set</b> y <b>reset</b> se excitan brevemente a nivel bajo o alto (según el cableado) para conmutar. Añadir un capacitor pequeño y un resistor en serie puede conformar pulsos y mitigar rebotes mecánicos.</li>
+  <li><b>Entradas activas por pulso:</b> los nodos de <b>SET</b> y <b>RESET</b> se excitan brevemente a nivel bajo o alto (según el cableado) para conmutar. Añadir un capacitor pequeño y un resistor en serie puede conformar pulsos y mitigar rebotes mecánicos.</li>
   <li><b>Niveles de salida:</b> al saturar un transistor, su colector queda cerca de 0&nbsp;V (en V<sub>CE(sat)</sub> ≈ 0.2&nbsp;V); el colector opuesto sube cerca de +5&nbsp;V a través de la resistencia de carga.</li>
   <li><b>Consumo:</b> en un estado, el transistor activo conduce a través de su resistencia de colector; dimensiona resistencias para limitar la corriente y evitar sobrecalentamiento.</li>
 </ul>

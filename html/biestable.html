@@ -1,0 +1,74 @@
+<h1 class="author">Multivibrador biestable</h1>
+<div class="author">Ildeberto de los Santos Ruiz</div>
+<hr>
+
+<h3>Introducción</h3>
+
+<p>El <b>multivibrador biestable</b> es un circuito con <b>dos estados estables</b> que conserva su estado hasta que una entrada lo obliga a cambiar. La versión de la figura usa <b>dos transistores NPN cruzados</b> con realimentación positiva (regenerativa). Un transistor satura mientras el otro corta; al aplicar un pulso a <i>SET</i> o <i>RESET</i> (reiniciar) el circuito conmuta y permanece en el nuevo estado, funcionando como una <b>celda de memoria 1-bit</b>.</p>
+
+<h3>Propósito</h3>
+
+<p>El biestable almacena digitalmente un nivel lógico (H/L) y proporciona salidas complementarias con buena inmunidad al ruido. Es la base de pulsadores anti-rebote, memorias sencillas, divisores por 2 y etapas de control que requieren recordar un evento.</p>
+
+<p><img src="./html/biestable.png" alt="Multivibrador biestable con BJT" class="imagen-adaptable"></p>
+
+<p><a href="https://www.falstad.com/circuit/circuitjs.html?ctz=CQAgjCAMB0l3BWcMBMcUHYMGZIA4UA2ATmIxAUgoqoQFMBaMMAKACdwAWTkbFLnmBR4oySO154efSYOGiwcFgHdZ4edinhi-cQBdekHmhGbj+BVGiE0KBN0IlCCHcSsk8xMAjClunIjByRSoAEzoAMwBDAFcAGz0VEBQUOVMjZItxVVw05NTMkX188xEwbkLLBk5oBCxIbGxCZk4XTiarBs9OSGIXBpRyhBkQkHDo+MTVcryZ7V0JXPVTLSEi5DQJObWS5YVITYBZNR3uMvkqFFqkuZkzXgXj7fk8Kh3L64AlAQeQV9+qFQetRAVYEBIUqVdks3vBFhkTIZpBlYUoADLQjL-GGiPRsGJ0EEsDFLJZnJGiKh4glEgAeFEEkCQfWQIkI4HZAHsYnoAA48lj0gL8UacQjYZASwRcnn8xL0jCXDAiLzJPAQaUgADOdHlIACbkw5E4eCQwiBHJAbDoOsSAHMfpDHQh2YCWA77k7PS7KYLkOzBiLMMlvPrLQBFVhCuAhqWDEPszXhlAsIA" class="latex-button" target="_blank">Simulación en línea</a></p>
+
+<h3>Cómo funciona (visión rápida)</h3>
+
+<p>Cada colector se acopla a la base del otro por medio de resistencias (≈1&nbsp;kΩ). Si <b>Q1</b> está <i>encendido</i> (saturado), su colector cae a un voltaje bajo y, a través de la resistencia cruzada, <b>apaga Q2</b>. A la inversa, si <b>Q2</b> satura, fuerza a <b>Q1</b> a cortarse. Esta realimentación positiva crea dos puntos de equilibrio estables: (Q1&nbsp;ON, Q2&nbsp;OFF) o (Q1&nbsp;OFF, Q2&nbsp;ON). Las resistencias superiores (≈100&nbsp;Ω en el esquema) actúan como <b>cargas de colector</b> hacia +5&nbsp;V, y las resistencias a tierra (≈1&nbsp;kΩ) en las bases fijan polarización/retorno para asegurar estados bien definidos cuando no hay pulsos.</p>
+
+<h3>Entradas SET y RESET</h3>
+
+<p>Un pulso a <b>SET</b> inyecta corriente en la base de Q1 (o la lleva a nivel alto), provocando que Q1 conduzca y, por efecto cruzado, Q2 se apague. Un pulso a <b>RESET</b> hace lo opuesto: enciende Q2 y apaga Q1. Las salidas etiquetadas <b>H</b> y <b>L</b> son complementarias (una alta, la otra baja) y pueden tomarse de los colectores a través de sus resistencias de carga.</p>
+
+<table style="border-collapse:collapse;width:100%;max-width:520px">
+  <tr><th style="border:1px solid #ccc;padding:.4em">Pulso</th>
+      <th style="border:1px solid #ccc;padding:.4em">Estado resultante</th>
+      <th style="border:1px solid #ccc;padding:.4em">Salida H</th>
+      <th style="border:1px solid #ccc;padding:.4em">Salida L</th></tr>
+  <tr><td style="border:1px solid #ccc;padding:.4em">SET</td>
+      <td style="border:1px solid #ccc;padding:.4em">Q1 ON, Q2 OFF</td>
+      <td style="border:1px solid #ccc;padding:.4em">Alta</td>
+      <td style="border:1px solid #ccc;padding:.4em">Baja</td></tr>
+  <tr><td style="border:1px solid #ccc;padding:.4em">RESET</td>
+      <td style="border:1px solid #ccc;padding:.4em">Q1 OFF, Q2 ON</td>
+      <td style="border:1px solid #ccc;padding:.4em">Baja</td>
+      <td style="border:1px solid #ccc;padding:.4em">Alta</td></tr>
+</table>
+
+<h3>Función de los transistores</h3>
+
+<p><b>Q1 y Q2 (NPN)</b> forman un par cruzado. Cada transistor actúa como <i>amplificador con carga resistiva</i> y a la vez como elemento de realimentación para el otro. Cuando uno entra en saturación, la caída de su colector <b>retira</b> corriente de base del opuesto, forzándolo al corte. Esta acción regenerativa produce conmutación rápida y estados bien definidos.</p>
+
+<h3>Función de las resistencias</h3>
+
+<ul>
+  <li><b>Resistencias de colector (≈100&nbsp;Ω):</b> proveen carga a +5&nbsp;V y definen el nivel alto de salida. (En la práctica suelen usarse valores mayores —por ejemplo 1–10&nbsp;kΩ— según la corriente deseada y la carga de salida.)</li>
+  <li><b>Resistencias de acoplo cruzado (≈1&nbsp;kΩ):</b> implementan la realimentación positiva que provoca el comportamiento biestable.</li>
+  <li><b>Resistencias a tierra en las bases (≈1&nbsp;kΩ):</b> aseguran un estado conocido cuando las entradas están en reposo y limitan corriente de base durante los pulsos.</li>
+</ul>
+
+<h3>Detalles prácticos</h3>
+
+<ul>
+  <li><b>Entradas activas por pulso:</b> los nodos <i>set</i> y <i>reiniciar</i> se excitan brevemente a nivel bajo o alto (según el cableado) para conmutar. Añadir un condensador pequeño y una resistencia en serie puede conformar pulsos y mitigar rebotes mecánicos.</li>
+  <li><b>Niveles de salida:</b> al saturar un transistor, su colector queda cerca de 0–0.2&nbsp;V; el colector opuesto sube cerca de +5&nbsp;V a través de la resistencia de carga.</li>
+  <li><b>Consumo:</b> en un estado, el transistor activo conduce a través de su resistencia de colector; dimensiona resistencias para limitar la corriente y evitar sobrecalentamiento.</li>
+</ul>
+
+<h3>Conclusión</h3>
+
+<p>El <b>multivibrador biestable</b> guarda un bit con dos estados estables gracias a la realimentación positiva de dos BJT cruzados. Las entradas <i>SET</i> y <i>RESET</i> fuerzan la conmutación, y las salidas complementarias proporcionan niveles lógicos robustos para aplicaciones de memoria, control y anti-rebote.</p>
+
+<p>¡Comparte si te resultó útil la explicación!</p>
+
+<hr>
+
+<div class="centrado">Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a><img
+        src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt=""
+        style="max-width: 1em;max-height:1em;margin-left: .2em;"><img
+        src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt=""
+        style="max-width: 1em;max-height:1em;margin-left: .2em;"><img
+        src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt=""
+        style="max-width: 1em;max-height:1em;margin-left: .2em;"></div>

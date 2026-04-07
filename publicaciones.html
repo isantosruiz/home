@@ -1,720 +1,375 @@
 <!DOCTYPE html>
-<html lang="es">
-<title>Publicaciones</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- Estilos externos -->
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-
-<!-- KaTeX -->
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body);"></script>
-
-<style>
-    /* Tipografía global */
-    html,
-    body,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        font-family: "Roboto", sans-serif;
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publicaciones</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      background: transparent;
+      color: #14233f;
     }
-
-    /* Encabezados especiales */
-    .headerbar h1 {
-        color: #fafafa !important;
+    .bib2html-runtime {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 1.4rem 1rem 2rem;
+      font-family: Manrope, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      color: #14233f;
     }
-
-    h1 {
-        color: #373737 !important;
+    .bib2html-runtime .b2h-toolbar {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      margin-bottom: .85rem;
     }
-    
-    h2 {
-        color: #737373 !important;
+    .bib2html-runtime .b2h-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      color: #1e4670;
+      font-weight: 700;
+      font-size: .9rem;
     }
-
-    .author h1 {
-        color: #373773 !important;
-        margin-bottom: 0;
+    .bib2html-runtime .b2h-toggle input {
+      accent-color: #0a6dc2;
     }
-
-    .author div {
-        font-size: 1.4rem;
+    .bib2html-runtime .b2h-root {
+      margin-top: 0;
     }
-
-    /* Barra de navegación W3.CSS */
-    .w3-bar-block .w3-bar-item {
-        padding: 16px;
-        font-weight: bold;
+    .bib2html-runtime .b2h-group {
+      border: 1px solid #dbe3f2;
+      background: #fff;
+      border-radius: 14px;
+      margin-bottom: .85rem;
+      overflow: hidden;
+      box-shadow: 0 8px 18px rgba(18, 40, 74, .08);
     }
-
-    /* Publicaciones y pie de página */
-    li:not(:last-child) {
-        margin-bottom: 8px;
+    .bib2html-runtime .b2h-group summary {
+      list-style: none;
+      cursor: pointer;
+      padding: .8rem 1rem;
+      background: linear-gradient(180deg, #fefefe 0%, #f3f8ff 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 800;
     }
-
-    a {
-        color: #0645ad;
-        text-decoration: none;
+    .bib2html-runtime.b2h-no-boxes .b2h-group {
+      border: none;
+      background: transparent;
+      box-shadow: none;
+      border-radius: 0;
+      overflow: visible;
+      margin-bottom: .5rem;
     }
-
-    a:hover {
-        text-decoration: underline;
+    .bib2html-runtime.b2h-no-boxes .b2h-group summary {
+      background: transparent;
+      padding: .5rem 0 .45rem;
+      border-bottom: 1px solid #dbe3f2;
     }
-
-    .footbar a {
-        color: white;
-        text-decoration: none;
+    .bib2html-runtime .b2h-group summary::-webkit-details-marker {
+      display: none;
     }
-
-    .footbar a:hover {
-        text-decoration: underline;
+    .bib2html-runtime .b2h-year {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
     }
-
-    /* Botón */
-    .boton {
-        display: inline-block;
-        padding: 8px 16px;
-        background-color: #007BFF;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
+    .bib2html-runtime .b2h-year:before {
+      content: "▸";
+      font-size: .75rem;
+      color: #0a6dc2;
+      transition: transform .18s ease;
     }
-
-    .boton:hover {
-        background-color: #0056b3;
+    .bib2html-runtime details[open] .b2h-year:before {
+      transform: rotate(90deg);
     }
-
-    /* Detalles expandibles */
-    details {
-        width: 85%;
-        max-width: 90%;
-        font-size: 0.9em;
-        word-wrap: break-word;
+    .bib2html-runtime .b2h-count {
+      display: inline-flex;
+      min-width: 2rem;
+      justify-content: center;
+      background: #e9f4ff;
+      color: #0f5d99;
+      padding: .1rem .55rem;
+      border-radius: 999px;
+      font-size: .83rem;
     }
-
-    details>summary {
-        padding: 4px 6px;
-        width: 12em;
-        background-color: #ddd;
-        border: none;
-        cursor: pointer;
+    .bib2html-runtime .fa-ul.b2h-list {
+      margin: .75rem 1rem .95rem 2.1em;
+      padding: 0;
     }
-
-    details>p {
-        border-radius: 0 0 8px 8px;
-        background-color: #ddd;
-        padding: 8px;
-        margin: 0;
-        box-shadow: 3px 3px 4px #303030;
+    .bib2html-runtime .b2h-list li {
+      margin-bottom: .85rem;
+      color: #1d2945;
     }
-
-    details:open>summary {
-        background-color: #ccf;
+    .bib2html-runtime .fa-ul .fa-li {
+      top: .2em;
+      color: #5d739e;
     }
-
-    /* Código y preformateado */
-    code {
-        display: inline;
-        margin: 0;
-        white-space: pre;
-        background-color: #f0f0f0;
-        padding: 2px;
-        border-radius: 3px;
-        font-size: 0.95em;
+    .bib2html-runtime a {
+      color: #0a6dc2;
+      text-decoration: none;
+      word-break: break-word;
     }
-
-    pre {
-        display: inline-block;
-        width: auto;
-        white-space: pre;
-        padding: 4px 8px;
-        background-color: #f0f0f0;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        font-size: 0.95em;
+    .bib2html-runtime a:hover {
+      text-decoration: underline;
     }
-
-    /* Contenedor principal */
-    .contenedor {
-        width: 100%;
-        max-width: 1080px;
-        margin: 0 auto;
-        padding: 1rem;
+    .bib2html-runtime .b2h-bib-btn {
+      display: block;
+      width: fit-content;
+      margin: .45rem 0 0;
+      border: 1px solid #bfd3eb;
+      background: #f2f8ff;
+      color: #0f4f85;
+      padding: .22rem .58rem;
+      border-radius: 10px;
+      font-size: .8rem;
+      font-weight: 700;
+      cursor: pointer;
     }
-
-    /* Listas generales */
-    li:not(:last-child) {
-        margin-bottom: 8px;
+    .bib2html-runtime .b2h-bib-btn:hover {
+      background: #e4f1ff;
     }
-
-    /* Elementos centrados */
-    .centrado {
-        text-align: center;
+    .bib2html-runtime .b2h-empty {
+      border: 1px dashed #9db3d0;
+      background: #f7fbff;
+      padding: .85rem;
+      border-radius: 12px;
+      color: #54678c;
     }
-
-    .centrado img {
-        display: inline-block;
+    .bib2html-runtime .b2h-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(13, 24, 44, .58);
+      z-index: 9999;
     }
-
-    @media print {
-        /* Oculta todo excepto el artículo */
-        body * { visibility: hidden; }
-        #panel-content, #panel-content * { visibility: visible; }
-        #panel-content { position: absolute; top: 0; left: 0; }
+    .bib2html-runtime .b2h-modal[aria-hidden="false"] {
+      display: flex;
     }
-  .fa-ul li {
-    margin-bottom: 0.5em;
-  }
-  a {
-    color: #0645ad;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  details.bibtex-block {
-    margin-top: 0.5em;
-  }
-
-  details.bibtex-block pre {
-    white-space: pre-wrap;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    padding: 0.5em;
-    font-size: 0.8em;
-    font-family: monospace;
-    border-radius: 4px;
-  }
-</style>
-</head>
+    .bib2html-runtime .b2h-modal-box {
+      width: min(900px, 96vw);
+      max-height: 82vh;
+      overflow: auto;
+      border-radius: 16px;
+      background: #0f1a2d;
+      color: #e7efff;
+      border: 1px solid #223f72;
+    }
+    .bib2html-runtime .b2h-modal-head {
+      padding: .85rem 1rem;
+      border-bottom: 1px solid #26477b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .75rem;
+    }
+    .bib2html-runtime .b2h-modal-title {
+      margin: 0;
+      font-size: .95rem;
+      word-break: break-all;
+    }
+    .bib2html-runtime .b2h-modal-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+    }
+    .bib2html-runtime .b2h-icon-btn {
+      width: 2rem;
+      height: 2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #345d99;
+      background: transparent;
+      color: #cfe1ff;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform .14s ease, background-color .14s ease, border-color .14s ease;
+    }
+    .bib2html-runtime .b2h-icon-btn:hover {
+      transform: translateY(-1px);
+      background: #19325c;
+      border-color: #4f78b7;
+    }
+    .bib2html-runtime .b2h-icon-btn.copy.ok {
+      background: #184a33;
+      border-color: #2ca56d;
+      color: #defce9;
+    }
+    .bib2html-runtime .b2h-pre {
+      margin: 0;
+      padding: 1rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: .9rem;
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+  </style>
+<style id="demo-page-title-style">.demo-page-title{margin:0 0 .65rem;font-size:clamp(1.25rem,2.4vw,1.9rem);font-family:Manrope,'Segoe UI',sans-serif;color:#14233f;line-height:1.3;}</style></head>
 <body>
-<div id="panel-content" class="w3-container" style="padding:32px">
-<h2>Publicaciones</h2>
-<hr>
-<ul class="fa-ul">
-<li><i class='fa-li fa fa-file-lines'></i> Gómez-Coronel, L., Blesa, J., <b>Santos-Ruiz, I.</b>, López-Estrada, F. R., & Puig, V. (2025). Neural network-based leak localization in water distribution networks using the gravity center of pressure measurements. <i>Journal of Water Process Engineering</i>, <i>77</i>, 108348. DOI: <a href="https://doi.org/10.1016/j.jwpe.2025.108348" target="_blank">10.1016/j.jwpe.2025.108348</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{GOMEZCORONEL2025108348,
-  year = {2025},
-  author = {Leonardo Gómez-Coronel and Joaquim Blesa and Ildeberto Santos-Ruiz and Francisco Ronay López-Estrada and Vicenç Puig},
-  title = {Neural network-based leak localization in water distribution networks using the gravity center of pressure measurements},
-  issn = {2214-7144},
-  journal = {Journal of Water Process Engineering},
-  pages = {108348},
-  volume = {77},
-  doi = {10.1016/j.jwpe.2025.108348},
-  url = {https://www.sciencedirect.com/science/article/pii/S2214714425014205}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> López-Pérez, M., Domínguez-Zenteno, J., Valencia-Palomo, G., López-Estrada, F. R., Gómez-Peñate, S., & <b>Santos-Ruiz, I.</b> (2025). Performance-Driven Battery Pack Sizing for Light-Duty Electric Vehicles. <i>IEEE Access</i>, <i>13</i>, 117013&ndash;117023. DOI: <a href="https://doi.org/10.1109/ACCESS.2025.3585754" target="_blank">10.1109/ACCESS.2025.3585754</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{11071264,
-  year = {2025},
-  author = {López-Pérez, Manuel and Domínguez-Zenteno, Joaquín and Valencia-Palomo, Guillermo and López-Estrada, Francisco Ronay and Gómez-Peñate, Samuel and Santos-Ruiz, Ildeberto},
-  title = {Performance-Driven Battery Pack Sizing for Light-Duty Electric Vehicles},
-  journal = {IEEE Access},
-  pages = {117013--117023},
-  volume = {13},
-  doi = {10.1109/ACCESS.2025.3585754}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> López-Estrada, F. R., Gómez-Coronel, L., Torres, L., Valencia-Palomo, G., <b>Santos-Ruiz, I.</b>, & Cano, A. (2025). Online Nodal Demand Estimation in Branched Water Distribution Systems Using an Array of Extended Kalman Filters. <i>Sensors</i>, <i>25</i>(8). DOI: <a href="https://doi.org/10.3390/s25082632" target="_blank">10.3390/s25082632</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{s25082632,
-  year = {2025},
-  author = {López-Estrada, Francisco Ronay and Gómez-Coronel, Leonardo and Torres, Lizeth and Valencia-Palomo, Guillermo and Santos-Ruiz, Ildeberto and Cano, Arlette},
-  title = {Online Nodal Demand Estimation in Branched Water Distribution Systems Using an Array of Extended Kalman Filters},
-  article-number = {2632},
-  issn = {1424-8220},
-  journal = {Sensors},
-  number = {8},
-  pubmedid = {40285320},
-  volume = {25},
-  doi = {10.3390/s25082632},
-  url = {https://www.mdpi.com/1424-8220/25/8/2632}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Marquez-Zepeda, M. J., <b>Santos-Ruiz, I.</b>, Pérez-Pérez, E. J., Navarro-Díaz, A., & Delgado-Aguiñaga, J. A. (2025). Internet-of-Things-Based CO2 Monitoring and Forecasting System for Indoor Air Quality Management. <i>Mathematical and Computational Applications</i>, <i>30</i>(2). DOI: <a href="https://doi.org/10.3390/mca30020036" target="_blank">10.3390/mca30020036</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{mca30020036,
-  year = {2025},
-  author = {Marquez-Zepeda, Marya J. and Santos-Ruiz, Ildeberto and Pérez-Pérez, Esvan Jesús and Navarro-Díaz, Adrián and Delgado-Aguiñaga, Jorge Alejandro},
-  title = {Internet-of-Things-Based CO2 Monitoring and Forecasting System for Indoor Air Quality Management},
-  article-number = {36},
-  issn = {2297-8747},
-  journal = {Mathematical and Computational Applications},
-  number = {2},
-  volume = {30},
-  doi = {10.3390/mca30020036},
-  url = {https://www.mdpi.com/2297-8747/30/2/36}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Pérez-Pérez, E. J., González-Baldizón, Y., Fragoso-Mandujano, J. A., Guzmán-Rabasa, J. A., & <b>Santos-Ruiz, I.</b> (2025). Data-Driven Fault Diagnosis in Water Pipelines Based on Neuro-Fuzzy Zonotopic Kalman Filters. <i>Mathematical and Computational Applications</i>, <i>30</i>(1), 2. DOI: <a href="https://doi.org/10.3390/mca30010002" target="_blank">10.3390/mca30010002</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{PerezPerez2025,
-  year = {2025},
-  author = {Pérez-Pérez, E. J. and González-Baldizón, Y. and Fragoso-Mandujano, J. A. and Guzmán-Rabasa, J. A. and Santos-Ruiz, I.},
-  title = {Data-Driven Fault Diagnosis in Water Pipelines Based on Neuro-Fuzzy Zonotopic Kalman Filters},
-  journal = {Mathematical and Computational Applications},
-  number = {1},
-  pages = {2},
-  volume = {30},
-  doi = {10.3390/mca30010002}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Martínez-Algarín, F. R., <b>Santos-Ruiz, I.</b>, López-Estrada, F. R., & Domínguez-Zenteno, J. E. (2024). Pose Estimation of a Differential-Drive Mobile Robot Using EKF-Based Sensor Fusion. En <i>2024 XXVI Robotics Mexican Congress (COMRob)</i>, pp. 111&ndash;116. DOI: <a href="https://doi.org/10.1109/COMRob64055.2024.10777435" target="_blank">10.1109/COMRob64055.2024.10777435</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{MartinezAlgarin2024,
-  year = {2024},
-  author = {Martínez-Algarín, F. R. and Santos-Ruiz, I. and López-Estrada, F. R. and Domínguez-Zenteno, J. E.},
-  title = {Pose Estimation of a Differential-Drive Mobile Robot Using EKF-Based Sensor Fusion},
-  booktitle = {2024 XXVI Robotics Mexican Congress (COMRob)},
-  pages = {111--116},
-  publisher = {IEEE},
-  doi = {10.1109/COMRob64055.2024.10777435}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Zepeda-Hernández, J. A., <b>Santos-Ruiz, I.</b>, Parra-Vega, V., & López-Estrada, F. R. (2024). Modeling and Preliminary Characterization of a Large Differential-Drive Mobile Robot. En <i>2024 XXVI Robotics Mexican Congress (COMRob)</i>, pp. 105&ndash;110. DOI: <a href="https://doi.org/10.1109/COMRob64055.2024.10777448" target="_blank">10.1109/COMRob64055.2024.10777448</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{ZepedaHernandez2024,
-  year = {2024},
-  author = {Zepeda-Hernández, J. A. and Santos-Ruiz, I. and Parra-Vega, V. and López-Estrada, F. R.},
-  title = {Modeling and Preliminary Characterization of a Large Differential-Drive Mobile Robot},
-  booktitle = {2024 XXVI Robotics Mexican Congress (COMRob)},
-  pages = {105--110},
-  publisher = {IEEE},
-  doi = {10.1109/COMRob64055.2024.10777448}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Sánchez-Mejía, L., Gómez-Coronel, L., <b>Santos-Ruiz, I.</b>, & Gómez-Peñate, S. (2024). Comparison of Three Metaheuristics for Leak Diagnosis in Water Distribution Networks. En <i>Memorias del Congreso Nacional de Control Automático 2024</i>, pp. 73&ndash;78. DOI: <a href="https://doi.org/10.58571/CNCA.AMCA.2024.013" target="_blank">10.58571/CNCA.AMCA.2024.013</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{SanchezMejia2024,
-  year = {2024},
-  author = {Sánchez-Mejía, L. and Gómez-Coronel, L. and Santos-Ruiz, I. and Gómez-Peñate, S.},
-  title = {Comparison of Three Metaheuristics for Leak Diagnosis in Water Distribution Networks},
-  booktitle = {Memorias del Congreso Nacional de Control Automático 2024},
-  pages = {73--78},
-  publisher = {AMCA},
-  doi = {10.58571/CNCA.AMCA.2024.013}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> López-Cancino, L., Luna-Aguilar, M., Gómez-Peñate, S., <b>Santos-Ruiz, I.</b>, & Molina-Domínguez, S. (2024). Trajectory tracking control of a mecanum-wheeled omnidirectional mobile robot implemented in ROS-Gazebo. En <i>Memorias del Congreso Nacional de Control Automático 2024</i>, pp. 481&ndash;486. DOI: <a href="https://doi.org/10.58571/CNCA.AMCA.2024.082" target="_blank">10.58571/CNCA.AMCA.2024.082</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{LopezCancino2024,
-  year = {2024},
-  author = {López-Cancino, L. and Luna-Aguilar, M. and Gómez-Peñate, S. and Santos-Ruiz, I. and Molina-Domínguez, S.},
-  title = {Trajectory tracking control of a mecanum-wheeled omnidirectional mobile robot implemented in ROS-Gazebo},
-  booktitle = {Memorias del Congreso Nacional de Control Automático 2024},
-  pages = {481--486},
-  publisher = {AMCA},
-  doi = {10.58571/CNCA.AMCA.2024.082}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Jiménez-Pérez, J., Gasga, P., Gómez-Peñate, S., <b>Santos-Ruiz, I.</b>, & Molina-Domínguez, S. (2024). Integral LQR robust control for a hexarotor-UAV modeled as a qLPV system. En <i>Memorias del Congreso Nacional de Control Automático 2024</i>, pp. 530&ndash;535. DOI: <a href="https://doi.org/10.58571/CNCA.AMCA.2024.090" target="_blank">10.58571/CNCA.AMCA.2024.090</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{JimenezPerez2024,
-  year = {2024},
-  author = {Jiménez-Pérez, J. and Gasga, P. and Gómez-Peñate, S. and Santos-Ruiz, I. and Molina-Domínguez, S.},
-  title = {Integral LQR robust control for a hexarotor-UAV modeled as a qLPV system},
-  booktitle = {Memorias del Congreso Nacional de Control Automático 2024},
-  pages = {530--535},
-  publisher = {AMCA},
-  doi = {10.58571/CNCA.AMCA.2024.090}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Bermúdez, J. R., Gómez-Coronel, L., López-Estrada, F. R., Besançon, G., & <b>Santos-Ruiz, I.</b> (2024). A Hybrid Data-Driven and Model-Based Approach for Leak Reduction in Water Distribution Systems Using LQR and Genetic Algorithms. <i>Processes</i>, <i>12</i>(9), 1805. DOI: <a href="https://doi.org/10.3390/pr12091805" target="_blank">10.3390/pr12091805</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{Bermudez2024,
-  year = {2024},
-  author = {Bermúdez, J. R. and Gómez-Coronel, L. and López-Estrada, F. R. and Besançon, G. and Santos-Ruiz, I.},
-  title = {A Hybrid Data-Driven and Model-Based Approach for Leak Reduction in Water Distribution Systems Using LQR and Genetic Algorithms},
-  journal = {Processes},
-  number = {9},
-  pages = {1805},
-  volume = {12},
-  doi = {10.3390/pr12091805}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Gómez-Coronel, L., <b>Santos-Ruiz, I.</b>, Blesa, J., Puig, V., & López-Estrada, F. R. (2024). Leak localization in an urban water distribution network using a LSTM deep neural network. <i>IFAC-PapersOnLine</i>, <i>58</i>(4), 79&ndash;84. 12th IFAC Symposium on Fault Detection, Supervision and Safety for Technical Processes SAFEPROCESS 2024: Ferrara, Italy, June 4&ndash;7, 2024. DOI: <a href="https://doi.org/10.1016/j.ifacol.2024.07.197" target="_blank">10.1016/j.ifacol.2024.07.197</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{GomezCoronel2024,
-  year = {2024},
-  author = {Gómez-Coronel, L. and Santos-Ruiz, I. and Blesa, J. and Puig, V. and López-Estrada, F. R.},
-  title = {Leak localization in an urban water distribution network using a LSTM deep neural network},
-  journal = {IFAC-PapersOnLine},
-  note = {12th IFAC Symposium on Fault Detection, Supervision and Safety for Technical Processes SAFEPROCESS 2024: Ferrara, Italy, June 4--7, 2024},
-  number = {4},
-  pages = {79--84},
-  volume = {58},
-  doi = {10.1016/j.ifacol.2024.07.197}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Gasga, P., Bernal, M., Gómez-Peñate, S., López-Estrada, F. R., Valencia-Palomo, G., & <b>Santos-Ruiz, I.</b> (2024). Actuator multiplicative and additive simultaneous faults estimation using a qLPV proportional integral unknown input observer. <i>International Journal of Adaptive Control and Signal Processing</i>, <i>38</i>(8), 2930&ndash;2950. DOI: <a href="https://doi.org/10.1002/acs.3859" target="_blank">10.1002/acs.3859</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{Gasga2024,
-  year = {2024},
-  author = {Gasga, P. and Bernal, M. and Gómez-Peñate, S. and López-Estrada, F. R. and Valencia-Palomo, G. and Santos-Ruiz, I.},
-  title = {Actuator multiplicative and additive simultaneous faults estimation using a qLPV proportional integral unknown input observer},
-  journal = {International Journal of Adaptive Control and Signal Processing},
-  number = {8},
-  pages = {2930--2950},
-  volume = {38},
-  doi = {10.1002/acs.3859}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Liy-González, P. A., <b>Santos-Ruiz, I.</b>, Delgado-Aguiñaga, J. A., Navarro-Díaz, A., López-Estrada, F. R., & Gómez-Peñate, S. (2024). Pressure Interpolation in Water Distribution Networks by Using Gaussian Processes: Application to Leak Diagnosis. <i>Processes</i>, <i>12</i>(6), 1147. DOI: <a href="https://doi.org/10.3390/pr12061147" target="_blank">10.3390/pr12061147</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{LiyGonzalez2024,
-  year = {2024},
-  author = {Liy-González, P. A. and Santos-Ruiz, I. and Delgado-Aguiñaga, J. A. and Navarro-Díaz, A. and López-Estrada, F. R. and Gómez-Peñate, S.},
-  title = {Pressure Interpolation in Water Distribution Networks by Using Gaussian Processes: Application to Leak Diagnosis},
-  journal = {Processes},
-  number = {6},
-  pages = {1147},
-  volume = {12},
-  doi = {10.3390/pr12061147}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Navarro-Díaz, A., Delgado-Aguiñaga, J. A., <b>Santos-Ruiz, I.</b>, & Sánchez-Torres, J. D. (2024). Leak Diagnosis in Branched Pipeline Systems Based on a Robust Differentiation Scheme. <i>IEEE Access</i>, <i>12</i>, 62162&ndash;62176. DOI: <a href="https://doi.org/10.1109/ACCESS.2024.3393976" target="_blank">10.1109/ACCESS.2024.3393976</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{NavarroDiaz2024,
-  year = {2024},
-  author = {Navarro-Díaz, A. and Delgado-Aguiñaga, J. A. and Santos-Ruiz, I. and Sánchez-Torres, J. D.},
-  title = {Leak Diagnosis in Branched Pipeline Systems Based on a Robust Differentiation Scheme},
-  journal = {IEEE Access},
-  pages = {62162--62176},
-  volume = {12},
-  doi = {10.1109/ACCESS.2024.3393976}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Luna-Aguilar, N. M., Gasga-García, P., Gómez-Peñate, S., López-Estrada, F. R., & <b>Santos-Ruiz, I.</b> (2024). Estimación de fallas en actuadores de un robot móvil con ruedas mecanum. En <i>Pädi Boletín Científico de Ciencias Básicas e Ingenierías del ICBI</i>, pp. 135&ndash;141. DOI: <a href="https://doi.org/10.29057/icbi.v12iEspecial2.12363" target="_blank">10.29057/icbi.v12iEspecial2.12363</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{LunaAguilar2024,
-  year = {2024},
-  author = {Luna-Aguilar, N. M. and Gasga-García, P. and Gómez-Peñate, S. and López-Estrada, F. R. and Santos-Ruiz, I.},
-  title = {Estimación de fallas en actuadores de un robot móvil con ruedas mecanum},
-  booktitle = {Pädi Boletín Científico de Ciencias Básicas e Ingenierías del ICBI},
-  number = {Especial2},
-  pages = {135--141},
-  volume = {12},
-  doi = {10.29057/icbi.v12iEspecial2.12363}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Pérez-Pérez, E. J., Puig, V., López-Estrada, F. R., Valencia-Palomo, G., <b>Santos-Ruiz, I.</b>, & Osorio-Gordillo, G. (2024). Robust fault diagnosis of wind turbines based on MANFIS and zonotopic observers. <i>Expert Systems with Applications</i>, <i>235</i>, 121095. DOI: <a href="https://doi.org/10.1016/j.eswa.2023.121095" target="_blank">10.1016/j.eswa.2023.121095</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{PerezPerez2024,
-  year = {2024},
-  author = {Pérez-Pérez, E. J. and Puig, V. and López-Estrada, F. R. and Valencia-Palomo, G. and Santos-Ruiz, I. and Osorio-Gordillo, G.},
-  title = {Robust fault diagnosis of wind turbines based on MANFIS and zonotopic observers},
-  journal = {Expert Systems with Applications},
-  pages = {121095},
-  volume = {235},
-  doi = {10.1016/j.eswa.2023.121095}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Gómez-Coronel, L., <b>Santos-Ruiz, I.</b>, Torres, L., López-Estrada, F. R., Gómez-Peñate, S., & Escobar-Gómez, E. (2023). Digital Twin of a Hydraulic System with Leak Diagnosis Applications. <i>Processes</i>, <i>11</i>(10), 3009. DOI: <a href="https://doi.org/10.3390/pr11103009" target="_blank">10.3390/pr11103009</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{GomezCoronel2023,
-  year = {2023},
-  author = {Gómez-Coronel, L. and Santos-Ruiz, I. and Torres, L. and López-Estrada, F. R. and Gómez-Peñate, S. and Escobar-Gómez, E.},
-  title = {Digital Twin of a Hydraulic System with Leak Diagnosis Applications},
-  journal = {Processes},
-  number = {10},
-  pages = {3009},
-  volume = {11},
-  doi = {10.3390/pr11103009}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Guzmán-Rabasa, J., Rodríguez, F., Valencia-Palomo, G., <b>Santos-Ruiz, I.</b>, Gómez-Peñate, S., & López-Estrada, F. (2023). Convex Fault Diagnosis of a Three-Degree-of-Freedom Mechanical Crane. <i>Mathematics</i>, <i>11</i>(20), 4258. DOI: <a href="https://doi.org/10.3390/math11204258" target="_blank">10.3390/math11204258</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{GuzmanRabasa2023,
-  year = {2023},
-  author = {Guzmán-Rabasa, J. and Rodríguez, F. and Valencia-Palomo, G. and Santos-Ruiz, I. and Gómez-Peñate, S. and López-Estrada, F.R.},
-  title = {Convex Fault Diagnosis of a Three-Degree-of-Freedom Mechanical Crane},
-  journal = {Mathematics},
-  number = {20},
-  pages = {4258},
-  volume = {11},
-  doi = {10.3390/math11204258}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Rodríguez-Argote, C. A., Begovich-Mendoza, O., Navarro-Díaz, A., <b>Santos-Ruiz, I.</b>, Puig, V., & Delgado-Aguiñaga, J. A. (2023). Two-Leak Isolation in Water Distribution Networks Based on k-NN and Linear Discriminant Classifiers. <i>Water</i>, <i>15</i>(17), 3090. DOI: <a href="https://doi.org/10.3390/w15173090" target="_blank">10.3390/w15173090</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{RodriguezArgote2023,
-  year = {2023},
-  author = {Rodríguez-Argote, C. A. and Begovich-Mendoza, O. and Navarro-Díaz, A. and Santos-Ruiz, I. and Puig, V. and Delgado-Aguiñaga, J. A.},
-  title = {Two-Leak Isolation in Water Distribution Networks Based on k-NN and Linear Discriminant Classifiers},
-  journal = {Water},
-  number = {17},
-  pages = {3090},
-  volume = {15},
-  doi = {10.3390/w15173090}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> <b>Santos-Ruiz, I.</b>, López-Estrada, F. R., Puig, V., & Valencia-Palomo, G. (2023). Leak localization in water distribution networks using machine learning based on cosine features. En C. Verde (Ed.), <i>Fault Diagnosis and Tolerant Control: Applications</i> (pp. 119&ndash;148). Instituto de Ingeniería, Universidad Nacional Autónoma de México. DOI: <a href="https://doi.org/10.22201/iingen.9786073073592e.2023" target="_blank">10.22201/iingen.9786073073592e.2023</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inbook{SantosRuiz2023,
-  year = {2023},
-  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V. and Valencia-Palomo, G.},
-  title = {Leak localization in water distribution networks using machine learning based on cosine features},
-  booktitle = {Fault Diagnosis and Tolerant Control: Applications},
-  editor = {C. Verde},
-  pages = {119--148},
-  publisher = {Instituto de Ingeniería, Universidad Nacional Autónoma de México},
-  doi = {10.22201/iingen.9786073073592e.2023}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Aguilar-Álvarez, P., Valencia-Palomo, G., López-Estrada, F. R., Zepeda-Hernandez, J. A., López-Pérez, M., <b>Santos-Ruiz, I.</b>, & García-Ramos, O. (2023). Instrumentation and Dynamic Characterization of a Commercial Electric Vehicle for Rural Public Transport. <i>IEEE Access</i>, <i>11</i>, 12639&ndash;12647. DOI: <a href="https://doi.org/10.1109/ACCESS.2023.3242206" target="_blank">10.1109/ACCESS.2023.3242206</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{AguilarAlvarez2023,
-  year = {2023},
-  author = {Aguilar-Álvarez, P. and Valencia-Palomo, G. and López-Estrada, F. R. and Zepeda-Hernandez, J. A. and López-Pérez, M. and Santos-Ruiz, I. and García-Ramos, O.},
-  title = {Instrumentation and Dynamic Characterization of a Commercial Electric Vehicle for Rural Public Transport},
-  journal = {IEEE Access},
-  pages = {12639--12647},
-  volume = {11},
-  doi = {10.1109/ACCESS.2023.3242206}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Pérez-Pérez, E. J., Puig, V., López-Estrada, F. R., Valencia-Palomo, G., & <b>Santos-Ruiz, I.</b> (2023). Neuro-fuzzy Takagi Sugeno observer for fault diagnosis in wind turbines. <i>IFAC-PapersOnLine</i>, <i>56</i>(2), 3522&ndash;3527. 22nd IFAC World Congress: Yokohama, Japan, July 9&ndash;14, 2023. DOI: <a href="https://doi.org/10.1016/j.ifacol.2023.10.1508" target="_blank">10.1016/j.ifacol.2023.10.1508</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{PerezPerez2023,
-  year = {2023},
-  author = {Pérez-Pérez, E. J. and Puig, V. and López-Estrada, F. R. and Valencia-Palomo, G. and Santos-Ruiz, I.},
-  title = {Neuro-fuzzy Takagi Sugeno observer for fault diagnosis in wind turbines},
-  journal = {IFAC-PapersOnLine},
-  note = {22nd IFAC World Congress: Yokohama, Japan, July 9--14, 2023},
-  number = {2},
-  pages = {3522--3527},
-  volume = {56},
-  doi = {10.1016/j.ifacol.2023.10.1508}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Gómez-Coronel, L., Delgado-Aguiñaga, J. A., <b>Santos-Ruiz, I.</b>, & Navarro-Díaz, A. (2023). Estimation of Chlorine Concentration in Water Distribution Systems Based on a Genetic Algorithm. <i>Processes</i>, <i>11</i>(3), 676. DOI: <a href="https://doi.org/10.3390/pr11030676" target="_blank">10.3390/pr11030676</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{GomezCoronel2023Chlorine,
-  year = {2023},
-  author = {Gómez-Coronel, L. and Delgado-Aguiñaga, J. A. and Santos-Ruiz, I. and Navarro-Díaz, A.},
-  title = {Estimation of Chlorine Concentration in Water Distribution Systems Based on a Genetic Algorithm},
-  journal = {Processes},
-  number = {3},
-  pages = {676},
-  volume = {11},
-  doi = {10.3390/pr11030676}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Pérez-Pérez, E. J., Puig, V., López-Estrada, F. R., Valencia-Palomo, G., <b>Santos-Ruiz, I.</b>, & Samada, S. E. (2023). Fault detection and isolation in wind turbines based on neuro-fuzzy qLPV zonotopic observers. <i>Mechanical Systems and Signal Processing</i>, <i>191</i>, 110183. DOI: <a href="https://doi.org/10.1016/j.ymssp.2023.110183" target="_blank">10.1016/j.ymssp.2023.110183</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{PerezPerez2023Fault,
-  year = {2023},
-  author = {Pérez-Pérez, E. J. and Puig, V. and López-Estrada, F. R. and Valencia-Palomo, G. and Santos-Ruiz, I. and Samada, S. E.},
-  title = {Fault detection and isolation in wind turbines based on neuro-fuzzy qLPV zonotopic observers},
-  journal = {Mechanical Systems and Signal Processing},
-  pages = {110183},
-  volume = {191},
-  doi = {10.1016/j.ymssp.2023.110183}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Gómez-Coronel, L., Alvarado-Algarin, A., Marquez-Zepeda, M. J., Ancheyta-López, H., López-Estrada, F. R., & <b>Santos-Ruiz, I.</b> (2022). Modeling and full-state feedback stabilization of a linear inverted pendulum. En <i>2022 XXIV Robotics Mexican Congress (COMRob)</i>, pp. 42&ndash;47. DOI: <a href="https://doi.org/10.1109/COMRob57154.2022.9962255" target="_blank">10.1109/COMRob57154.2022.9962255</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{GomezCoronel2022Pendulum,
-  year = {2022},
-  author = {Gómez-Coronel, L. and Alvarado-Algarin, A. and Marquez-Zepeda, M. J. and Ancheyta-López, H. and López-Estrada, F. R. and Santos-Ruiz, I.},
-  title = {Modeling and full-state feedback stabilization of a linear inverted pendulum},
-  booktitle = {2022 XXIV Robotics Mexican Congress (COMRob)},
-  pages = {42--47},
-  publisher = {IEEE},
-  doi = {10.1109/COMRob57154.2022.9962255}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> <b>Santos-Ruiz, I.</b>, López-Estrada, F. R., Puig, V., Valencia-Palomo, G., & Hernández, H. R. (2022). Pressure Sensor Placement for Leak Localization in Water Distribution Networks Using Information Theory. <i>Sensors</i>, <i>22</i>(2), 443. DOI: <a href="https://doi.org/10.3390/s22020443" target="_blank">10.3390/s22020443</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{SantosRuiz2022,
-  year = {2022},
-  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V. and Valencia-Palomo, G. and Hernández, H. R.},
-  title = {Pressure Sensor Placement for Leak Localization in Water Distribution Networks Using Information Theory},
-  journal = {Sensors},
-  number = {2},
-  pages = {443},
-  volume = {22},
-  doi = {10.3390/s22020443}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Delgado-Aguiñaga, J., <b>Santos-Ruiz, I.</b>, Besançon, G., López-Estrada, F. R., & Puig, V. (2022). EKF-based observers for multi-leak diagnosis in branched pipeline systems. <i>Mechanical Systems and Signal Processing</i>, <i>178</i>, 109198. DOI: <a href="https://doi.org/10.1016/j.ymssp.2022.109198" target="_blank">10.1016/j.ymssp.2022.109198</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{DelgadoAguinaga2022,
-  year = {2022},
-  author = {Delgado-Aguiñaga, J. and Santos-Ruiz, I. and Besançon, G. and López-Estrada, F. R. and Puig, V.},
-  title = {EKF-based observers for multi-leak diagnosis in branched pipeline systems},
-  journal = {Mechanical Systems and Signal Processing},
-  pages = {109198},
-  volume = {178},
-  doi = {10.1016/j.ymssp.2022.109198}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Navarro-Díaz, A., Delgado-Aguiñaga, J., <b>Santos-Ruiz, I.</b>, & Puig, V. (2022). Real-Time Leak Diagnosis in Water Distribution Systems Based on a Bank of Observers and a Genetic Algorithm. <i>Water</i>, <i>14</i>(20), 3289. DOI: <a href="https://doi.org/10.3390/w14203289" target="_blank">10.3390/w14203289</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{NavarroDiaz2022,
-  year = {2022},
-  author = {Navarro-Díaz, A. and Delgado-Aguiñaga, J.A. and Santos-Ruiz, I. and Puig, V.},
-  title = {Real-Time Leak Diagnosis in Water Distribution Systems Based on a Bank of Observers and a Genetic Algorithm},
-  journal = {Water},
-  number = {20},
-  pages = {3289},
-  volume = {14},
-  doi = {10.3390/w14203289}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Pérez-Pérez, E. J., López-Estrada, F. R., Puig, V., Valencia-Palomo, G., & <b>Santos-Ruiz, I.</b> (2022). Fault diagnosis in wind turbines based on ANFIS and Takagi-Sugeno interval observers. <i>Expert Systems with Applications</i>, <i>206</i>, 117698. DOI: <a href="https://doi.org/10.1016/j.eswa.2022.117698" target="_blank">10.1016/j.eswa.2022.117698</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{PerezPerez2022,
-  year = {2022},
-  author = {Pérez-Pérez, E. J. and López-Estrada, F. R. and Puig, V. and Valencia-Palomo, G. and Santos-Ruiz, I.},
-  title = {Fault diagnosis in wind turbines based on ANFIS and Takagi-Sugeno interval observers},
-  journal = {Expert Systems with Applications},
-  pages = {117698},
-  volume = {206},
-  doi = {10.1016/j.eswa.2022.117698}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Bermúdez, J. R., López-Estrada, F. R., Besançon, G., Valencia-Palomo, G., & <b>Santos-Ruiz, I.</b> (2022). Predictive control in water distribution systems for leak reduction and pressure management via a pressure reducing valve. <i>Processes</i>, <i>10</i>(7), 1355. DOI: <a href="https://doi.org/10.3390/pr10071355" target="_blank">10.3390/pr10071355</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{Bermudez2022,
-  year = {2022},
-  author = {Bermúdez, J. R. and López-Estrada, F. R. and Besançon, G. and Valencia-Palomo, G. and Santos-Ruiz, I.},
-  title = {Predictive control in water distribution systems for leak reduction and pressure management via a pressure reducing valve},
-  journal = {Processes},
-  number = {7},
-  pages = {1355},
-  volume = {10},
-  doi = {10.3390/pr10071355}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Marroquín-Arreola, R., Lezama, J., Hernández-De León, H. R., Martínez-Romo, J. C., Hoyo-Montaño, J. A., Camas-Anzueto, J. L., & <b>Santos-Ruiz, I.</b> (2022). Design of an MPPT Technique for the Indirect Measurement of the Open-Circuit Voltage Applied to Thermoelectric Generators. <i>Energies</i>, <i>15</i>(10), 3833. DOI: <a href="https://doi.org/10.3390/en15103833" target="_blank">10.3390/en15103833</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{MarroquinArreola2022,
-  year = {2022},
-  author = {Marroquín-Arreola, R. and Lezama, J. and Hernández-De León, H. R. and Martínez-Romo, J. C. and Hoyo-Montaño, J. A. and Camas-Anzueto, J. L. and Santos-Ruiz, I.},
-  title = {Design of an MPPT Technique for the Indirect Measurement of the Open-Circuit Voltage Applied to Thermoelectric Generators},
-  journal = {Energies},
-  number = {10},
-  pages = {3833},
-  volume = {15},
-  doi = {10.3390/en15103833}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Rodríguez Sánchez, F., <b>Santos-Ruiz, I.</b>, Domínguez-Zenteno, J., & López-Estrada, F. R. (2022). Control Applications Using Reinforcement Learning: An Overview. En <i>Memorias del Congreso Nacional de Control Automático 2022</i>. DOI: <a href="https://doi.org/10.58571/CNCA.AMCA.2022.019" target="_blank">10.58571/CNCA.AMCA.2022.019</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{RodriguezSanchez2022,
-  year = {2022},
-  author = {Rodríguez Sánchez, F. and Santos-Ruiz, I. and Domínguez-Zenteno, J. and López-Estrada, F. R.},
-  title = {Control Applications Using Reinforcement Learning: An Overview},
-  booktitle = {Memorias del Congreso Nacional de Control Automático 2022},
-  publisher = {AMCA},
-  doi = {10.58571/CNCA.AMCA.2022.019}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Gómez-Coronel, L., <b>Santos-Ruiz, I.</b>, Torres, L., López-Estrada, F. R., & Delgado-Aguiñaga, J. A. (2022). Model Calibration for a Hydraulic Network Using Genetic Algorithms. En <i>Memorias del Congreso Nacional de Control Automático 2022</i>. DOI: <a href="https://doi.org/10.58571/CNCA.AMCA.2022.015" target="_blank">10.58571/CNCA.AMCA.2022.015</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{GomezCoronel2022,
-  year = {2022},
-  author = {Gómez-Coronel, L. and Santos-Ruiz, I. and Torres, L. and López-Estrada, F. R. and Delgado-Aguiñaga, J. A.},
-  title = {Model Calibration for a Hydraulic Network Using Genetic Algorithms},
-  booktitle = {Memorias del Congreso Nacional de Control Automático 2022},
-  publisher = {AMCA},
-  doi = {10.58571/CNCA.AMCA.2022.015}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Marquez-Zepeda, M. J., <b>Santos-Ruiz, I.</b>, Pérez-Pérez, E. J., & Hernandez-De León, H. R. (2022). IoT-Based CO2 Monitoring and Forecasting System to Prevent Transmission of COVID-19. En <i>Memorias del Congreso Nacional de Control Automático 2022</i>. DOI: <a href="https://doi.org/10.58571/CNCA.AMCA.2022.009" target="_blank">10.58571/CNCA.AMCA.2022.009</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{MarquezZepeda2022,
-  year = {2022},
-  author = {Marquez-Zepeda, M. J. and Santos-Ruiz, I. and Pérez-Pérez, E. J. and Hernandez-De León, H. R.},
-  title = {IoT-Based CO2 Monitoring and Forecasting System to Prevent Transmission of COVID-19},
-  booktitle = {Memorias del Congreso Nacional de Control Automático 2022},
-  publisher = {AMCA},
-  doi = {10.58571/CNCA.AMCA.2022.009}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> <b>Santos-Ruiz, I.</b>, López-Estrada, F. R., Puig, V., Valencia-Palomo, G., & Gómez-Peñate, S. (2021). Optimal Estimation of the Roughness Coefficient and Friction Factor of a Pipeline. <i>Journal of Fluids Engineering</i>, <i>143</i>(5), 051304. DOI: <a href="https://doi.org/10.1115/1.4049674" target="_blank">10.1115/1.4049674</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{SantosRuiz2021,
-  year = {2021},
-  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V. and Valencia-Palomo, G. and Gómez-Peñate, S.},
-  title = {Optimal Estimation of the Roughness Coefficient and Friction Factor of a Pipeline},
-  journal = {Journal of Fluids Engineering},
-  number = {5},
-  pages = {051304},
-  volume = {143},
-  doi = {10.1115/1.4049674}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Morales-González, I. O., <b>Santos-Ruiz, I.</b>, López-Estrada, F. R., & Puig, V. (2021). Pressure Sensor Placement for Leak Localization Using Simulated Annealing with Hyperparameter Optimization. En <i>2021 5th International Conference on Control and Fault-Tolerant Systems (SysTol)</i>, pp. 205&ndash;210. DOI: <a href="https://doi.org/10.1109/SysTol52990.2021.9595369" target="_blank">10.1109/SysTol52990.2021.9595369</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{MoralesGonzalez2021,
-  year = {2021},
-  author = {Morales-González, I. O. and Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V.},
-  title = {Pressure Sensor Placement for Leak Localization Using Simulated Annealing with Hyperparameter Optimization},
-  booktitle = {2021 5th International Conference on Control and Fault-Tolerant Systems (SysTol)},
-  pages = {205--210},
-  doi = {10.1109/SysTol52990.2021.9595369}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> López-Estrada, F. R., Méndez-López, A., <b>Santos-Ruiz, I.</b>, Valencia-Palomo, G., & Escobar-Gómez, E. (2021). Detección de fallas en vehículos aéreos no tripulados mediante señales de orientación y técnicas de aprendizaje de máquina. <i>Revista Iberoamericana de Automática e Informática Industrial</i>, <i>18</i>(3), 254&ndash;264. DOI: <a href="https://doi.org/10.4995/riai.2020.14031" target="_blank">10.4995/riai.2020.14031</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{LopezEstrada2021,
-  year = {2021},
-  author = {López-Estrada, F. R. and Méndez-López, A. and Santos-Ruiz, I. and Valencia-Palomo, G. and Escobar-Gómez, E.},
-  title = {Detección de fallas en vehículos aéreos no tripulados mediante señales de orientación y técnicas de aprendizaje de máquina},
-  journal = {Revista Iberoamericana de Automática e Informática Industrial},
-  number = {3},
-  pages = {254--264},
-  volume = {18},
-  doi = {10.4995/riai.2020.14031}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> <b>Santos-Ruiz, I.</b> (2021). Leak Detection and Localization in Pipeline Networks Using Machine Learning and Principal Component Analysis. (Tesis doctoral). Universitat Politècnica de Catalunya; Tecnológico Nacional de México. DOI: <a href="https://doi.org/10.5821/dissertation-2117-414261" target="_blank">10.5821/dissertation-2117-414261</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@phdthesis{SantosRuiz2021Thesis,
-  year = {2021},
-  author = {Santos-Ruiz, I.},
-  title = {Leak Detection and Localization in Pipeline Networks Using Machine Learning and Principal Component Analysis},
-  school = {Universitat Politècnica de Catalunya; Tecnológico Nacional de México},
-  doi = {10.5821/dissertation-2117-414261},
-  url = {https://upcommons.upc.edu/handle/2117/414261}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> <b>Santos-Ruiz, I.</b>, López-Estrada, F. R., Puig, V., & Valencia-Palomo, G. (2020). Simultaneous Optimal Estimation of Roughness and Minor Loss Coefficients in a Pipeline. <i>Mathematical and Computational Applications</i>, <i>25</i>(3), 56. DOI: <a href="https://doi.org/10.3390/mca25030056" target="_blank">10.3390/mca25030056</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{SantosRuiz2020,
-  year = {2020},
-  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V. and Valencia-Palomo, G.},
-  title = {Simultaneous Optimal Estimation of Roughness and Minor Loss Coefficients in a Pipeline},
-  journal = {Mathematical and Computational Applications},
-  number = {3},
-  pages = {56},
-  volume = {25},
-  doi = {10.3390/mca25030056}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> <b>Santos-Ruiz, I.</b>, Blesa, J., Puig, V., & López-Estrada, F. R. (2020). Leak localization in water distribution networks using classifiers with cosenoidal features. <i>IFAC-PapersOnLine</i>, <i>53</i>(2), 16697&ndash;16702. 21st IFAC World Congress: Berlin, Germany, 11&ndash;17 July 2020. DOI: <a href="https://doi.org/10.1016/j.ifacol.2020.12.1113" target="_blank">10.1016/j.ifacol.2020.12.1113</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{SantosRuizBlesa2020,
-  year = {2020},
-  author = {Santos-Ruiz, I. and Blesa, J. and Puig, V. and López-Estrada, F. R.},
-  title = {Leak localization in water distribution networks using classifiers with cosenoidal features},
-  journal = {IFAC-PapersOnLine},
-  note = {21st IFAC World Congress: Berlin, Germany, 11--17 July 2020},
-  number = {2},
-  pages = {16697--16702},
-  volume = {53},
-  doi = {10.1016/j.ifacol.2020.12.1113}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Bermúdez, J., López-Estrada, F. R., Besançon, G., Torres, L., & <b>Santos-Ruiz, I.</b> (2020). Leak-Diagnosis Approach for Water Distribution Networks based on a k-NN Classification Algorithm. <i>IFAC-PapersOnLine</i>, <i>53</i>(2), 16651&ndash;16656. 21st IFAC World Congress: Berlin, Germany, 11&ndash;17 July 2020. DOI: <a href="https://doi.org/10.1016/j.ifacol.2020.12.795" target="_blank">10.1016/j.ifacol.2020.12.795</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{Bermudez2020,
-  year = {2020},
-  author = {Bermúdez, J. and López-Estrada, F. R. and Besançon, G. and Torres, L. and Santos-Ruiz, I.},
-  title = {Leak-Diagnosis Approach for Water Distribution Networks based on a k-NN Classification Algorithm},
-  journal = {IFAC-PapersOnLine},
-  note = {21st IFAC World Congress: Berlin, Germany, 11--17 July 2020},
-  number = {2},
-  pages = {16651--16656},
-  volume = {53},
-  doi = {10.1016/j.ifacol.2020.12.795}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Jiménez-Cabas, J., Torres, L., López-Estrada, F. R., <b>Santos-Ruiz, I.</b>, & Manrique-Morelos, F. (2020). Development of non-invasive monitoring approach to diagnose leaks in liquid pipelines. <i>Technology Reports of Kansai University</i>, <i>62</i>(6). URI: <a href="https://hdl.handle.net/11323/7238" target="_blank">https://hdl.handle.net/11323/7238</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{JimenezCabas2020,
-  year = {2020},
-  author = {Jiménez-Cabas, J. and Torres, L. and López-Estrada, F. R. and Santos-Ruiz, I. and Manrique-Morelos, F.},
-  title = {Development of non-invasive monitoring approach to diagnose leaks in liquid pipelines},
-  journal = {Technology Reports of Kansai University},
-  number = {6},
-  volume = {62},
-  uri = {https://hdl.handle.net/11323/7238}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Cano, A., López-Estrada, F. R., Torres, L., & <b>Santos-Ruiz, I.</b> (2020). Diseño de un algoritmo basado en el EKF para la estimación de demandas desconocidas en ductos de agua. En <i>Jornada de Ciencia y Tecnología Aplicada</i>, pp. 194&ndash;200. URL: <a href="https://jcyta.cenidet.tecnm.mx/revistas/jcyta/04-Revista_JCyTA_Vol-3-Num-1_Ene-Jun_2020.pdf" target="_blank">https://jcyta.cenidet.tecnm.mx/revistas/jcyta/04-Revista_JCyTA_Vol-3-Num-1_Ene-Jun_2020.pdf</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{Cano2020,
-  year = {2020},
-  author = {Cano, A. and López-Estrada, F. R. and Torres, L. and Santos-Ruiz, I.},
-  title = {Diseño de un algoritmo basado en el EKF para la estimación de demandas desconocidas en ductos de agua},
-  booktitle = {Jornada de Ciencia y Tecnología Aplicada},
-  pages = {194--200},
-  publisher = {Tecnológico Nacional de México/Centro Nacional de Investigación y Desarrollo Tecnológico},
-  volume = {3},
-  url = {https://jcyta.cenidet.tecnm.mx/revistas/jcyta/04-Revista_JCyTA_Vol-3-Num-1_Ene-Jun_2020.pdf}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> <b>Santos-Ruiz, I.</b>, López-Estrada, F. R., Puig, V., & Blesa, J. (2019). Estimation of Node Pressures in Water Distribution Networks by Gaussian Process Regression. En <i>2019 4th Conference on Control and Fault Tolerant Systems (SysTol)</i>, pp. 50&ndash;55. DOI: <a href="https://doi.org/10.1109/SYSTOL.2019.8864793" target="_blank">10.1109/SYSTOL.2019.8864793</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{SantosRuiz2019,
-  year = {2019},
-  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V. and Blesa, J.},
-  title = {Estimation of Node Pressures in Water Distribution Networks by Gaussian Process Regression},
-  booktitle = {2019 4th Conference on Control and Fault Tolerant Systems (SysTol)},
-  pages = {50--55},
-  doi = {10.1109/SYSTOL.2019.8864793}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> <b>Santos-Ruiz, I.</b>, López-Estrada, F. R., Puig Cayuela, V., Blesa Izquierdo, J., & Javadiha, M. (2019). Localización de fugas en redes de distribución de agua mediante k-NN con distancia cosenoidal. En <i>Memorias del Congreso Nacional de Control Automático 2019</i>, pp. 370&ndash;375. URI: <a href="http://hdl.handle.net/2117/176657" target="_blank">http://hdl.handle.net/2117/176657</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{SantosRuiz2019KNN,
-  year = {2019},
-  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig Cayuela, V. and Blesa Izquierdo, J. and Javadiha, M.},
-  title = {Localización de fugas en redes de distribución de agua mediante k-NN con distancia cosenoidal},
-  booktitle = {Memorias del Congreso Nacional de Control Automático 2019},
-  pages = {370--375},
-  publisher = {AMCA},
-  uri = {http://hdl.handle.net/2117/176657}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Gómez-Peñate, S., Valencia-Palomo, G., López-Estrada, F. R., Astorga-Zaragoza, C. M., Osornio-Rios, R. A., & <b>Santos-Ruiz, I.</b> (2019). Sensor Fault Diagnosis Based on a H∞ Sliding Mode and Unknown Input Observer for Takagi-Sugeno Systems with Uncertain Premise Variables. <i>Asian Journal of Control</i>, <i>21</i>(1), 339&ndash;353. DOI: <a href="https://doi.org/10.1002/asjc.1913" target="_blank">10.1002/asjc.1913</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{GomezPenate2019,
-  year = {2019},
-  author = {Gómez-Peñate, S. and Valencia-Palomo, G. and López-Estrada, F. R. and Astorga-Zaragoza, C. M. and Osornio-Rios, R. A. and Santos-Ruiz, I.},
-  title = {Sensor Fault Diagnosis Based on a H∞ Sliding Mode and Unknown Input Observer for Takagi-Sugeno Systems with Uncertain Premise Variables},
-  journal = {Asian Journal of Control},
-  number = {1},
-  pages = {339--353},
-  volume = {21},
-  doi = {10.1002/asjc.1913}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Méndez-López, L., López-Estrada, F., <b>Santos-Ruiz, I.</b>, Valencia-Palomo, G., & Brindis-Velázquez, O. (2019). Diagnóstico de fallas en actuadores de un VANT mediante análisis en componentes principales. En <i>Memorias del Congreso Nacional de Control Automático 2019</i>, pp. 121&ndash;126. URL: <a href="http://revistadigital.amca.mx/wp-content/uploads/2022/06/0081.pdf" target="_blank">http://revistadigital.amca.mx/wp-content/uploads/2022/06/0081.pdf</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{MendezLopez2019,
-  year = {2019},
-  author = {Méndez-López, L.A. and López-Estrada, F.R. and Santos-Ruiz, I. and Valencia-Palomo, G. and Brindis-Velázquez, O.},
-  title = {Diagnóstico de fallas en actuadores de un VANT mediante análisis en componentes principales},
-  booktitle = {Memorias del Congreso Nacional de Control Automático 2019},
-  pages = {121--126},
-  publisher = {AMCA},
-  url = {http://revistadigital.amca.mx/wp-content/uploads/2022/06/0081.pdf}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> <b>Santos-Ruiz, I.</b>, Bermúdez, J., López-Estrada, F., Puig, V., Torres, L., & Delgado-Aguiñaga, J. (2018). Online leak diagnosis in pipelines using an EKF-based and steady-state mixed approach. <i>Control Engineering Practice</i>, <i>81</i>, 55&ndash;64. DOI: <a href="https://doi.org/10.1016/j.conengprac.2018.09.006" target="_blank">10.1016/j.conengprac.2018.09.006</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{santos2018online,
-  year = {2018},
-  author = {Santos-Ruiz, I. and Bermúdez, J. and López-Estrada, F. and Puig, V. and Torres, L. and Delgado-Aguiñaga, J.},
-  title = {Online leak diagnosis in pipelines using an EKF-based and steady-state mixed approach},
-  journal = {Control Engineering Practice},
-  pages = {55--64},
-  volume = {81},
-  doi = {10.1016/j.conengprac.2018.09.006}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> <b>Santos-Ruiz, I.</b>, López-Estrada, F., Puig, V., Pérez-Pérez, E., Mina-Antonio, J., & Valencia-Palomo, G. (2018). Diagnosis of Fluid Leaks in Pipelines Using Dynamic PCA. <i>IFAC-PapersOnLine</i>, <i>51</i>(24), 373&ndash;380. 10th IFAC Symposium on Fault Detection, Supervision and Safety for Technical Processes SAFEPROCESS 2018: Warsaw, Poland, 29&ndash;31 August 2018. DOI: <a href="https://doi.org/10.1016/j.ifacol.2018.09.604" target="_blank">10.1016/j.ifacol.2018.09.604</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@article{santos2018diagnosis,
-  year = {2018},
-  author = {Santos-Ruiz, I. and López-Estrada, F. and Puig, V. and Pérez-Pérez, E. and Mina-Antonio, J. and Valencia-Palomo, G.},
-  title = {Diagnosis of Fluid Leaks in Pipelines Using Dynamic PCA},
-  journal = {IFAC-PapersOnLine},
-  note = {10th IFAC Symposium on Fault Detection, Supervision and Safety for Technical Processes SAFEPROCESS 2018: Warsaw, Poland, 29--31 August 2018},
-  number = {24},
-  pages = {373--380},
-  volume = {51},
-  doi = {10.1016/j.ifacol.2018.09.604}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Bermúdez, J., <b>Santos-Ruiz, I.</b>, López-Estrada, F., Besancon, G., Torres, L., & Valencia-Palomo, G. (2018). Modelado y simulación de una red hidráulica para diagnóstico de fugas. En <i>Memorias del Congreso Nacional de Control Automático 2018</i>, pp. 84&ndash;89. URL: <a href="http://revistadigital.amca.mx/wp-content/uploads/2022/06/MieBT1-03.pdf" target="_blank">http://revistadigital.amca.mx/wp-content/uploads/2022/06/MieBT1-03.pdf</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{bermudez2018modelado,
-  year = {2018},
-  author = {Bermúdez, J. and Santos-Ruiz, I. and López-Estrada, F. and Besancon, G. and Torres, L. and Valencia-Palomo, G.},
-  title = {Modelado y simulación de una red hidráulica para diagnóstico de fugas},
-  booktitle = {Memorias del Congreso Nacional de Control Automático 2018},
-  pages = {84--89},
-  publisher = {AMCA},
-  url = {http://revistadigital.amca.mx/wp-content/uploads/2022/06/MieBT1-03.pdf}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> <b>Santos-Ruiz, I.</b>, Bermúdez Hernández, J. R., López Estrada, F. R., Puig Cayuela, V., & Torres Ortiz, F. L. (2018). Estimación experimental de la rugosidad y del factor de fricción en una tubería. En <i>Memorias del Congreso Nacional de Control Automático 2018</i>, pp. 489&ndash;494. URI: <a href="http://hdl.handle.net/2117/342133" target="_blank">http://hdl.handle.net/2117/342133</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{santos2018estimacion,
-  year = {2018},
-  author = {Santos-Ruiz, I. and Bermúdez Hernández, J. R. and López Estrada, F. R. and Puig Cayuela, V. and Torres Ortiz, F. L.},
-  title = {Estimación experimental de la rugosidad y del factor de fricción en una tubería},
-  booktitle = {Memorias del Congreso Nacional de Control Automático 2018},
-  pages = {489--494},
-  publisher = {AMCA},
-  uri = {http://hdl.handle.net/2117/342133}
-}</pre></details></li>
-<li><i class='fa-li fa fa-file-lines'></i> Bermúdez, J., <b>Santos-Ruiz, I.</b>, López-Estrada, F., Torres, L., & Puig, V. (2017). Diseño y modelado dinámico de una planta piloto para detección de fugas hidráulicas. En <i>Memorias del Congreso Nacional de Control Automático 2017</i>, pp. 2&ndash;7. URL: <a href="http://amca.mx/memorias/amca2017/media/files/0129.pdf" target="_blank">http://amca.mx/memorias/amca2017/media/files/0129.pdf</a><details class='bibtex-block'><summary>Registro BibTeX</summary><pre>@inproceedings{bermudez2017diseno,
-  year = {2017},
-  author = {Bermúdez, J. and Santos-Ruiz, I. and López-Estrada, F. and Torres, L. and Puig, V.},
-  title = {Diseño y modelado dinámico de una planta piloto para detección de fugas hidráulicas},
-  booktitle = {Memorias del Congreso Nacional de Control Automático 2017},
-  pages = {2--7},
-  publisher = {AMCA},
-  url = {http://amca.mx/memorias/amca2017/media/files/0129.pdf}
-}</pre></details></li>
-</ul>
-<hr>
-</div>
-</body>
-</html>
+  <section class="bib2html-runtime"><h1 class="demo-page-title">Publicaciones</h1>
+    <div class="b2h-toolbar">
+      <label class="b2h-toggle"><input type="checkbox" class="b2h-group-toggle"> Agrupar publicaciones por año</label>
+    </div>
+    <div class="b2h-root"></div>
+    <div class="b2h-modal" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="b2h-modal-box">
+        <div class="b2h-modal-head">
+          <h2 class="b2h-modal-title">Registro BibTeX</h2>
+          <div class="b2h-modal-actions">
+            <button type="button" class="b2h-icon-btn copy" aria-label="Copiar BibTeX" title="Copiar BibTeX"><i class="fa-regular fa-copy" aria-hidden="true"></i></button>
+            <button type="button" class="b2h-icon-btn close" aria-label="Cerrar" title="Cerrar"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <pre class="b2h-pre"></pre>
+      </div>
+    </div>
+  </section>
+  <script id="bib2html-data" type="application/json">{"groupsByYear": [{"year": "2026", "entries": [{"id": "PEREZPEREZ2026106940", "year": "2026", "reference_html": "Pérez-Pérez, E., Puig, V., <strong>Santos-Ruiz, I.<\/strong>, Gúzman-Rabasa, J., & Valencia-Palomo, G. (2026). Wind turbine fault diagnosis using structural analysis and optimized-Rectangular GPR interval estimation. <em>Control Engineering Practice<\/em>, <em>172<\/em>, 106940. DOI: <a href=\"https://doi.org/10.1016/j.conengprac.2026.106940\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.conengprac.2026.106940<\/a>", "bibtex": "@article{PEREZPEREZ2026106940,\n  year = {2026},\n  author = {Esvan-Jesús Pérez-Pérez and Vicenç Puig and Ildeberto Santos-Ruiz and Julio-Alberto Gúzman-Rabasa and Guillermo Valencia-Palomo},\n  title = {Wind turbine fault diagnosis using structural analysis and optimized-Rectangular GPR interval estimation},\n  issn = {0967-0661},\n  journal = {Control Engineering Practice},\n  pages = {106940},\n  volume = {172},\n  doi = {https://doi.org/10.1016/j.conengprac.2026.106940},\n  url = {https://www.sciencedirect.com/science/article/pii/S096706612600184X}\n}", "warnings": []}, {"id": "sym18030442", "year": "2026", "reference_html": "Chandomí-Castellanos, E., Escobar-Gómez, E. N., Bermúdez Rodríguez, J. I., Bermúdez, J., Guzmán-Rabasa, J., <strong>Santos-Ruiz, I.<\/strong>, & Pérez-Pérez, E. (2026). Neural Network Auto-Design Algorithm for Urban Travel Time Prediction. <em>Symmetry<\/em>, <em>18<\/em>(3), 442. DOI: <a href=\"https://doi.org/10.3390/sym18030442\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/sym18030442<\/a>", "bibtex": "@article{sym18030442,\n  year = {2026},\n  author = {Chandomí-Castellanos, Eduardo and Escobar-Gómez, Elías N. and Bermúdez Rodríguez, Jorge Iván and Bermúdez, José-Roberto and Guzmán-Rabasa, Julio-Alberto and Santos-Ruiz, Ildeberto and Pérez-Pérez, Esvan-Jesús},\n  title = {Neural Network Auto-Design Algorithm for Urban Travel Time Prediction},\n  article-number = {442},\n  issn = {2073-8994},\n  journal = {Symmetry},\n  number = {3},\n  volume = {18},\n  doi = {10.3390/sym18030442},\n  url = {https://www.mdpi.com/2073-8994/18/3/442}\n}", "warnings": []}]}, {"year": "2025", "entries": [{"id": "11264799", "year": "2025", "reference_html": "Luna, M., Jimenez-Pérez, J., Gasga, P., Gómez-Peñate, S., <strong>Santos-Ruiz, I.<\/strong>, & Dzul, A. (2025). Robust Actuator Fault Estimation of Quadrotor UAV Based on qLPV Observer. En <em>2025 XXVII Robotics Mexican Congress (COMRob)<\/em>, pp. 112–117. DOI: <a href=\"https://doi.org/10.1109/COMRob68109.2025.11264799\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/COMRob68109.2025.11264799<\/a>", "bibtex": "@inproceedings{11264799,\n  year = {2025},\n  author = {Luna, Moises and Jimenez-Pérez, Jaime and Gasga, Pedro and Gómez-Peñate, Samuel and Santos-Ruiz, Ildeberto and Dzul, Alejandro},\n  title = {Robust Actuator Fault Estimation of Quadrotor UAV Based on qLPV Observer},\n  booktitle = {2025 XXVII Robotics Mexican Congress (COMRob)},\n  pages = {112--117},\n  doi = {10.1109/COMRob68109.2025.11264799}\n}", "warnings": []}, {"id": "PerezPerez2025FD", "year": "2025", "reference_html": "Pérez-Pérez, E., Valencia-Palomo, G., Puig, V., <strong>Santos-Ruiz, I.<\/strong>, & Guzmán-Rabasa, J. (2025). Fault Diagnosis Framework for a CSTR Bioreactor Integrating ANFIS and Zonotopic Estimation. En <em>Memorias del Congreso Nacional de Control Automático (CNCA 2025)<\/em>, pp. 1–6. DOI: <a href=\"https://doi.org/10.58571/CNCA.AMCA.2025.001\" target=\"_blank\" rel=\"noopener noreferrer\">10.58571/CNCA.AMCA.2025.001<\/a>", "bibtex": "@inproceedings{PerezPerez2025FD,\n  year = {2025},\n  author = {Pérez-Pérez, Esvan-Jesús and Valencia-Palomo, Guillermo and Puig, Vicenç and Santos-Ruiz, Ildeberto and Guzmán-Rabasa, Julio-Alberto},\n  title = {Fault Diagnosis Framework for a CSTR Bioreactor Integrating ANFIS and Zonotopic Estimation},\n  address = {Cancún, Quintana Roo, Mexico},\n  booktitle = {Memorias del Congreso Nacional de Control Automático (CNCA 2025)},\n  month = {October},\n  pages = {1--6},\n  publisher = {Asociación de México de Control Automático (AMCA)},\n  doi = {10.58571/CNCA.AMCA.2025.001}\n}", "warnings": []}, {"id": "GomezCoronel2025CLCA", "year": "2025", "reference_html": "Gómez-Coronel, L., <strong>Santos-Ruiz, I.<\/strong>, Blesa, J., Torres, L., & Puig, V. (2025). Sensitivity Analysis for GA-Based Pressure Sensor Placement in Urban Water Distribution Networks. En <em>Memorias del XX Congreso Latinoamericano de Control Automático (CLCA 2025)<\/em>. 15–17 de octubre de 2025", "bibtex": "@inproceedings{GomezCoronel2025CLCA,\n  year = {2025},\n  author = {Gómez-Coronel, Leonardo and Santos-Ruiz, Ildeberto and Blesa, Joaquim and Torres, L. and Puig, Vicenç},\n  title = {Sensitivity Analysis for GA-Based Pressure Sensor Placement in Urban Water Distribution Networks},\n  address = {Cancún, Quintana Roo, México},\n  booktitle = {Memorias del XX Congreso Latinoamericano de Control Automático (CLCA 2025)},\n  month = {October},\n  note = {15--17 de octubre de 2025}\n}", "warnings": []}, {"id": "11267298", "year": "2025", "reference_html": "Gómez-Coronel, L., Torres, L., <strong>Santos-Ruiz, I.<\/strong>, Blesa, J., & Ramírez-Chavarría, R. G. (2025). Calibration of Friction and Roughness in an Urban Water Distribution Network Using an LSTM Neural Network-Based Framework. En <em>2025 6th International Conference on Control and Fault-Tolerant Systems (SysTol)<\/em>, pp. 284–289. DOI: <a href=\"https://doi.org/10.1109/SysTol66549.2025.11267298\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/SysTol66549.2025.11267298<\/a>", "bibtex": "@inproceedings{11267298,\n  year = {2025},\n  author = {Gómez-Coronel, Leonardo and Torres, Lizeth and Santos-Ruiz, Ildeberto and Blesa, Joaquim and Ramírez-Chavarría, Roberto G.},\n  title = {Calibration of Friction and Roughness in an Urban Water Distribution Network Using an LSTM Neural Network-Based Framework},\n  booktitle = {2025 6th International Conference on Control and Fault-Tolerant Systems (SysTol)},\n  pages = {284--289},\n  doi = {10.1109/SysTol66549.2025.11267298}\n}", "warnings": []}, {"id": "11267338", "year": "2025", "reference_html": "Sánchez-Mejía, L. A., Gómez-Coronel, L., Blesa, J., Torres, L., & <strong>Santos-Ruiz, I.<\/strong> (2025). Cloud Computing Integration for Leak Diagnosis Using Meta-Heuristic Methods for Water Distribution Networks. En <em>2025 6th International Conference on Control and Fault-Tolerant Systems (SysTol)<\/em>, pp. 265–270. DOI: <a href=\"https://doi.org/10.1109/SysTol66549.2025.11267338\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/SysTol66549.2025.11267338<\/a>", "bibtex": "@inproceedings{11267338,\n  year = {2025},\n  author = {Sánchez-Mejía, Luis Adan and Gómez-Coronel, Leonardo and Blesa, Joaquim and Torres, Lizeth and Santos-Ruiz, Ildeberto},\n  title = {Cloud Computing Integration for Leak Diagnosis Using Meta-Heuristic Methods for Water Distribution Networks},\n  booktitle = {2025 6th International Conference on Control and Fault-Tolerant Systems (SysTol)},\n  pages = {265--270},\n  doi = {10.1109/SysTol66549.2025.11267338}\n}", "warnings": []}, {"id": "GOMEZCORONEL2025108348", "year": "2025", "reference_html": "Gómez-Coronel, L., Blesa, J., <strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., & Puig, V. (2025). Neural network-based leak localization in water distribution networks using the gravity center of pressure measurements. <em>Journal of Water Process Engineering<\/em>, <em>77<\/em>, 108348. DOI: <a href=\"https://doi.org/10.1016/j.jwpe.2025.108348\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.jwpe.2025.108348<\/a>", "bibtex": "@article{GOMEZCORONEL2025108348,\n  year = {2025},\n  author = {Leonardo Gómez-Coronel and Joaquim Blesa and Ildeberto Santos-Ruiz and Francisco Ronay López-Estrada and Vicenç Puig},\n  title = {Neural network-based leak localization in water distribution networks using the gravity center of pressure measurements},\n  issn = {2214-7144},\n  journal = {Journal of Water Process Engineering},\n  pages = {108348},\n  volume = {77},\n  doi = {10.1016/j.jwpe.2025.108348},\n  url = {https://www.sciencedirect.com/science/article/pii/S2214714425014205}\n}", "warnings": []}, {"id": "11071264", "year": "2025", "reference_html": "López-Pérez, M., Domínguez-Zenteno, J., Valencia-Palomo, G., López-Estrada, F. R., Gómez-Peñate, S., & <strong>Santos-Ruiz, I.<\/strong> (2025). Performance-Driven Battery Pack Sizing for Light-Duty Electric Vehicles. <em>IEEE Access<\/em>, <em>13<\/em>, 117013–117023. DOI: <a href=\"https://doi.org/10.1109/ACCESS.2025.3585754\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/ACCESS.2025.3585754<\/a>", "bibtex": "@article{11071264,\n  year = {2025},\n  author = {López-Pérez, Manuel and Domínguez-Zenteno, Joaquín and Valencia-Palomo, Guillermo and López-Estrada, Francisco Ronay and Gómez-Peñate, Samuel and Santos-Ruiz, Ildeberto},\n  title = {Performance-Driven Battery Pack Sizing for Light-Duty Electric Vehicles},\n  journal = {IEEE Access},\n  pages = {117013--117023},\n  volume = {13},\n  doi = {10.1109/ACCESS.2025.3585754}\n}", "warnings": []}, {"id": "s25082632", "year": "2025", "reference_html": "López-Estrada, F. R., Gómez-Coronel, L., Torres, L., Valencia-Palomo, G., <strong>Santos-Ruiz, I.<\/strong>, & Cano, A. (2025). Online Nodal Demand Estimation in Branched Water Distribution Systems Using an Array of Extended Kalman Filters. <em>Sensors<\/em>, <em>25<\/em>(8), 2632. DOI: <a href=\"https://doi.org/10.3390/s25082632\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/s25082632<\/a>", "bibtex": "@article{s25082632,\n  year = {2025},\n  author = {López-Estrada, Francisco Ronay and Gómez-Coronel, Leonardo and Torres, Lizeth and Valencia-Palomo, Guillermo and Santos-Ruiz, Ildeberto and Cano, Arlette},\n  title = {Online Nodal Demand Estimation in Branched Water Distribution Systems Using an Array of Extended Kalman Filters},\n  article-number = {2632},\n  issn = {1424-8220},\n  journal = {Sensors},\n  number = {8},\n  pubmedid = {40285320},\n  volume = {25},\n  doi = {10.3390/s25082632},\n  url = {https://www.mdpi.com/1424-8220/25/8/2632}\n}", "warnings": []}, {"id": "mca30020036", "year": "2025", "reference_html": "Marquez-Zepeda, M. J., <strong>Santos-Ruiz, I.<\/strong>, Pérez-Pérez, E. J., Navarro-Díaz, A., & Delgado-Aguiñaga, J. A. (2025). Internet-of-Things-Based CO2 Monitoring and Forecasting System for Indoor Air Quality Management. <em>Mathematical and Computational Applications<\/em>, <em>30<\/em>(2), 36. DOI: <a href=\"https://doi.org/10.3390/mca30020036\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/mca30020036<\/a>", "bibtex": "@article{mca30020036,\n  year = {2025},\n  author = {Marquez-Zepeda, Marya J. and Santos-Ruiz, Ildeberto and Pérez-Pérez, Esvan Jesús and Navarro-Díaz, Adrián and Delgado-Aguiñaga, Jorge Alejandro},\n  title = {Internet-of-Things-Based CO2 Monitoring and Forecasting System for Indoor Air Quality Management},\n  article-number = {36},\n  issn = {2297-8747},\n  journal = {Mathematical and Computational Applications},\n  number = {2},\n  volume = {30},\n  doi = {10.3390/mca30020036},\n  url = {https://www.mdpi.com/2297-8747/30/2/36}\n}", "warnings": []}, {"id": "PerezPerez2025", "year": "2025", "reference_html": "Pérez-Pérez, E. J., González-Baldizón, Y., Fragoso-Mandujano, J. A., Guzmán-Rabasa, J. A., & <strong>Santos-Ruiz, I.<\/strong> (2025). Data-Driven Fault Diagnosis in Water Pipelines Based on Neuro-Fuzzy Zonotopic Kalman Filters. <em>Mathematical and Computational Applications<\/em>, <em>30<\/em>(1), 2. DOI: <a href=\"https://doi.org/10.3390/mca30010002\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/mca30010002<\/a>", "bibtex": "@article{PerezPerez2025,\n  year = {2025},\n  author = {Pérez-Pérez, E. J. and González-Baldizón, Y. and Fragoso-Mandujano, J. A. and Guzmán-Rabasa, J. A. and Santos-Ruiz, I.},\n  title = {Data-Driven Fault Diagnosis in Water Pipelines Based on Neuro-Fuzzy Zonotopic Kalman Filters},\n  journal = {Mathematical and Computational Applications},\n  number = {1},\n  pages = {2},\n  volume = {30},\n  doi = {10.3390/mca30010002}\n}", "warnings": []}]}, {"year": "2024", "entries": [{"id": "MartinezAlgarin2024", "year": "2024", "reference_html": "Martínez-Algarín, F. R., <strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., & Domínguez-Zenteno, J. E. (2024). Pose Estimation of a Differential-Drive Mobile Robot Using EKF-Based Sensor Fusion. En <em>2024 XXVI Robotics Mexican Congress (COMRob)<\/em>, pp. 111–116. DOI: <a href=\"https://doi.org/10.1109/COMRob64055.2024.10777435\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/COMRob64055.2024.10777435<\/a>", "bibtex": "@inproceedings{MartinezAlgarin2024,\n  year = {2024},\n  author = {Martínez-Algarín, F. R. and Santos-Ruiz, I. and López-Estrada, F. R. and Domínguez-Zenteno, J. E.},\n  title = {Pose Estimation of a Differential-Drive Mobile Robot Using EKF-Based Sensor Fusion},\n  booktitle = {2024 XXVI Robotics Mexican Congress (COMRob)},\n  pages = {111--116},\n  publisher = {IEEE},\n  doi = {10.1109/COMRob64055.2024.10777435}\n}", "warnings": []}, {"id": "ZepedaHernandez2024", "year": "2024", "reference_html": "Zepeda-Hernández, J. A., <strong>Santos-Ruiz, I.<\/strong>, Parra-Vega, V., & López-Estrada, F. R. (2024). Modeling and Preliminary Characterization of a Large Differential-Drive Mobile Robot. En <em>2024 XXVI Robotics Mexican Congress (COMRob)<\/em>, pp. 105–110. DOI: <a href=\"https://doi.org/10.1109/COMRob64055.2024.10777448\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/COMRob64055.2024.10777448<\/a>", "bibtex": "@inproceedings{ZepedaHernandez2024,\n  year = {2024},\n  author = {Zepeda-Hernández, J. A. and Santos-Ruiz, I. and Parra-Vega, V. and López-Estrada, F. R.},\n  title = {Modeling and Preliminary Characterization of a Large Differential-Drive Mobile Robot},\n  booktitle = {2024 XXVI Robotics Mexican Congress (COMRob)},\n  pages = {105--110},\n  publisher = {IEEE},\n  doi = {10.1109/COMRob64055.2024.10777448}\n}", "warnings": []}, {"id": "SanchezMejia2024", "year": "2024", "reference_html": "Sánchez-Mejía, L., Gómez-Coronel, L., <strong>Santos-Ruiz, I.<\/strong>, & Gómez-Peñate, S. (2024). Comparison of Three Metaheuristics for Leak Diagnosis in Water Distribution Networks. En <em>Memorias del Congreso Nacional de Control Automático 2024<\/em>, pp. 73–78. DOI: <a href=\"https://doi.org/10.58571/CNCA.AMCA.2024.013\" target=\"_blank\" rel=\"noopener noreferrer\">10.58571/CNCA.AMCA.2024.013<\/a>", "bibtex": "@inproceedings{SanchezMejia2024,\n  year = {2024},\n  author = {Sánchez-Mejía, L. and Gómez-Coronel, L. and Santos-Ruiz, I. and Gómez-Peñate, S.},\n  title = {Comparison of Three Metaheuristics for Leak Diagnosis in Water Distribution Networks},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2024},\n  pages = {73--78},\n  publisher = {AMCA},\n  doi = {10.58571/CNCA.AMCA.2024.013}\n}", "warnings": []}, {"id": "LopezCancino2024", "year": "2024", "reference_html": "López-Cancino, L., Luna-Aguilar, M., Gómez-Peñate, S., <strong>Santos-Ruiz, I.<\/strong>, & Molina-Domínguez, S. (2024). Trajectory tracking control of a mecanum-wheeled omnidirectional mobile robot implemented in ROS-Gazebo. En <em>Memorias del Congreso Nacional de Control Automático 2024<\/em>, pp. 481–486. DOI: <a href=\"https://doi.org/10.58571/CNCA.AMCA.2024.082\" target=\"_blank\" rel=\"noopener noreferrer\">10.58571/CNCA.AMCA.2024.082<\/a>", "bibtex": "@inproceedings{LopezCancino2024,\n  year = {2024},\n  author = {López-Cancino, L. and Luna-Aguilar, M. and Gómez-Peñate, S. and Santos-Ruiz, I. and Molina-Domínguez, S.},\n  title = {Trajectory tracking control of a mecanum-wheeled omnidirectional mobile robot implemented in ROS-Gazebo},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2024},\n  pages = {481--486},\n  publisher = {AMCA},\n  doi = {10.58571/CNCA.AMCA.2024.082}\n}", "warnings": []}, {"id": "JimenezPerez2024", "year": "2024", "reference_html": "Jiménez-Pérez, J., Gasga, P., Gómez-Peñate, S., <strong>Santos-Ruiz, I.<\/strong>, & Molina-Domínguez, S. (2024). Integral LQR robust control for a hexarotor-UAV modeled as a qLPV system. En <em>Memorias del Congreso Nacional de Control Automático 2024<\/em>, pp. 530–535. DOI: <a href=\"https://doi.org/10.58571/CNCA.AMCA.2024.090\" target=\"_blank\" rel=\"noopener noreferrer\">10.58571/CNCA.AMCA.2024.090<\/a>", "bibtex": "@inproceedings{JimenezPerez2024,\n  year = {2024},\n  author = {Jiménez-Pérez, J. and Gasga, P. and Gómez-Peñate, S. and Santos-Ruiz, I. and Molina-Domínguez, S.},\n  title = {Integral LQR robust control for a hexarotor-UAV modeled as a qLPV system},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2024},\n  pages = {530--535},\n  publisher = {AMCA},\n  doi = {10.58571/CNCA.AMCA.2024.090}\n}", "warnings": []}, {"id": "Bermudez2024", "year": "2024", "reference_html": "Bermúdez, J. R., Gómez-Coronel, L., López-Estrada, F. R., Besançon, G., & <strong>Santos-Ruiz, I.<\/strong> (2024). A Hybrid Data-Driven and Model-Based Approach for Leak Reduction in Water Distribution Systems Using LQR and Genetic Algorithms. <em>Processes<\/em>, <em>12<\/em>(9), 1805. DOI: <a href=\"https://doi.org/10.3390/pr12091805\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/pr12091805<\/a>", "bibtex": "@article{Bermudez2024,\n  year = {2024},\n  author = {Bermúdez, J. R. and Gómez-Coronel, L. and López-Estrada, F. R. and Besançon, G. and Santos-Ruiz, I.},\n  title = {A Hybrid Data-Driven and Model-Based Approach for Leak Reduction in Water Distribution Systems Using LQR and Genetic Algorithms},\n  journal = {Processes},\n  number = {9},\n  pages = {1805},\n  volume = {12},\n  doi = {10.3390/pr12091805}\n}", "warnings": []}, {"id": "GomezCoronel2024", "year": "2024", "reference_html": "Gómez-Coronel, L., <strong>Santos-Ruiz, I.<\/strong>, Blesa, J., Puig, V., & López-Estrada, F. R. (2024). Leak localization in an urban water distribution network using a LSTM deep neural network. <em>IFAC-PapersOnLine<\/em>, <em>58<\/em>(4), 79–84. 12th IFAC Symposium on Fault Detection, Supervision and Safety for Technical Processes SAFEPROCESS 2024: Ferrara, Italy, June 4–7, 2024. DOI: <a href=\"https://doi.org/10.1016/j.ifacol.2024.07.197\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.ifacol.2024.07.197<\/a>", "bibtex": "@article{GomezCoronel2024,\n  year = {2024},\n  author = {Gómez-Coronel, L. and Santos-Ruiz, I. and Blesa, J. and Puig, V. and López-Estrada, F. R.},\n  title = {Leak localization in an urban water distribution network using a LSTM deep neural network},\n  journal = {IFAC-PapersOnLine},\n  note = {12th IFAC Symposium on Fault Detection, Supervision and Safety for Technical Processes SAFEPROCESS 2024: Ferrara, Italy, June 4--7, 2024},\n  number = {4},\n  pages = {79--84},\n  volume = {58},\n  doi = {10.1016/j.ifacol.2024.07.197}\n}", "warnings": []}, {"id": "Gasga2024", "year": "2024", "reference_html": "Gasga, P., Bernal, M., Gómez-Peñate, S., López-Estrada, F. R., Valencia-Palomo, G., & <strong>Santos-Ruiz, I.<\/strong> (2024). Actuator multiplicative and additive simultaneous faults estimation using a qLPV proportional integral unknown input observer. <em>International Journal of Adaptive Control and Signal Processing<\/em>, <em>38<\/em>(8), 2930–2950. DOI: <a href=\"https://doi.org/10.1002/acs.3859\" target=\"_blank\" rel=\"noopener noreferrer\">10.1002/acs.3859<\/a>", "bibtex": "@article{Gasga2024,\n  year = {2024},\n  author = {Gasga, P. and Bernal, M. and Gómez-Peñate, S. and López-Estrada, F. R. and Valencia-Palomo, G. and Santos-Ruiz, I.},\n  title = {Actuator multiplicative and additive simultaneous faults estimation using a qLPV proportional integral unknown input observer},\n  journal = {International Journal of Adaptive Control and Signal Processing},\n  number = {8},\n  pages = {2930--2950},\n  volume = {38},\n  doi = {10.1002/acs.3859}\n}", "warnings": []}, {"id": "LiyGonzalez2024", "year": "2024", "reference_html": "Liy-González, P. A., <strong>Santos-Ruiz, I.<\/strong>, Delgado-Aguiñaga, J. A., Navarro-Díaz, A., López-Estrada, F. R., & Gómez-Peñate, S. (2024). Pressure Interpolation in Water Distribution Networks by Using Gaussian Processes: Application to Leak Diagnosis. <em>Processes<\/em>, <em>12<\/em>(6), 1147. DOI: <a href=\"https://doi.org/10.3390/pr12061147\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/pr12061147<\/a>", "bibtex": "@article{LiyGonzalez2024,\n  year = {2024},\n  author = {Liy-González, P. A. and Santos-Ruiz, I. and Delgado-Aguiñaga, J. A. and Navarro-Díaz, A. and López-Estrada, F. R. and Gómez-Peñate, S.},\n  title = {Pressure Interpolation in Water Distribution Networks by Using Gaussian Processes: Application to Leak Diagnosis},\n  journal = {Processes},\n  number = {6},\n  pages = {1147},\n  volume = {12},\n  doi = {10.3390/pr12061147}\n}", "warnings": []}, {"id": "NavarroDiaz2024", "year": "2024", "reference_html": "Navarro-Díaz, A., Delgado-Aguiñaga, J. A., <strong>Santos-Ruiz, I.<\/strong>, & Sánchez-Torres, J. D. (2024). Leak Diagnosis in Branched Pipeline Systems Based on a Robust Differentiation Scheme. <em>IEEE Access<\/em>, <em>12<\/em>, 62162–62176. DOI: <a href=\"https://doi.org/10.1109/ACCESS.2024.3393976\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/ACCESS.2024.3393976<\/a>", "bibtex": "@article{NavarroDiaz2024,\n  year = {2024},\n  author = {Navarro-Díaz, A. and Delgado-Aguiñaga, J. A. and Santos-Ruiz, I. and Sánchez-Torres, J. D.},\n  title = {Leak Diagnosis in Branched Pipeline Systems Based on a Robust Differentiation Scheme},\n  journal = {IEEE Access},\n  pages = {62162--62176},\n  volume = {12},\n  doi = {10.1109/ACCESS.2024.3393976}\n}", "warnings": []}, {"id": "LunaAguilar2024", "year": "2024", "reference_html": "Luna-Aguilar, N. M., Gasga-García, P., Gómez-Peñate, S., López-Estrada, F. R., & <strong>Santos-Ruiz, I.<\/strong> (2024). Estimación de fallas en actuadores de un robot móvil con ruedas mecanum. En <em>Pädi Boletín Científico de Ciencias Básicas e Ingenierías del ICBI<\/em>, pp. 135–141. DOI: <a href=\"https://doi.org/10.29057/icbi.v12iEspecial2.12363\" target=\"_blank\" rel=\"noopener noreferrer\">10.29057/icbi.v12iEspecial2.12363<\/a>", "bibtex": "@inproceedings{LunaAguilar2024,\n  year = {2024},\n  author = {Luna-Aguilar, N. M. and Gasga-García, P. and Gómez-Peñate, S. and López-Estrada, F. R. and Santos-Ruiz, I.},\n  title = {Estimación de fallas en actuadores de un robot móvil con ruedas mecanum},\n  booktitle = {Pädi Boletín Científico de Ciencias Básicas e Ingenierías del ICBI},\n  number = {Especial2},\n  pages = {135--141},\n  volume = {12},\n  doi = {10.29057/icbi.v12iEspecial2.12363}\n}", "warnings": []}, {"id": "PerezPerez2024", "year": "2024", "reference_html": "Pérez-Pérez, E. J., Puig, V., López-Estrada, F. R., Valencia-Palomo, G., <strong>Santos-Ruiz, I.<\/strong>, & Osorio-Gordillo, G. (2024). Robust fault diagnosis of wind turbines based on MANFIS and zonotopic observers. <em>Expert Systems with Applications<\/em>, <em>235<\/em>, 121095. DOI: <a href=\"https://doi.org/10.1016/j.eswa.2023.121095\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.eswa.2023.121095<\/a>", "bibtex": "@article{PerezPerez2024,\n  year = {2024},\n  author = {Pérez-Pérez, E. J. and Puig, V. and López-Estrada, F. R. and Valencia-Palomo, G. and Santos-Ruiz, I. and Osorio-Gordillo, G.},\n  title = {Robust fault diagnosis of wind turbines based on MANFIS and zonotopic observers},\n  journal = {Expert Systems with Applications},\n  pages = {121095},\n  volume = {235},\n  doi = {10.1016/j.eswa.2023.121095}\n}", "warnings": []}]}, {"year": "2023", "entries": [{"id": "GomezCoronel2023", "year": "2023", "reference_html": "Gómez-Coronel, L., <strong>Santos-Ruiz, I.<\/strong>, Torres, L., López-Estrada, F. R., Gómez-Peñate, S., & Escobar-Gómez, E. (2023). Digital Twin of a Hydraulic System with Leak Diagnosis Applications. <em>Processes<\/em>, <em>11<\/em>(10), 3009. DOI: <a href=\"https://doi.org/10.3390/pr11103009\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/pr11103009<\/a>", "bibtex": "@article{GomezCoronel2023,\n  year = {2023},\n  author = {Gómez-Coronel, L. and Santos-Ruiz, I. and Torres, L. and López-Estrada, F. R. and Gómez-Peñate, S. and Escobar-Gómez, E.},\n  title = {Digital Twin of a Hydraulic System with Leak Diagnosis Applications},\n  journal = {Processes},\n  number = {10},\n  pages = {3009},\n  volume = {11},\n  doi = {10.3390/pr11103009}\n}", "warnings": []}, {"id": "GuzmanRabasa2023", "year": "2023", "reference_html": "Guzmán-Rabasa, J., Rodríguez, F., Valencia-Palomo, G., <strong>Santos-Ruiz, I.<\/strong>, Gómez-Peñate, S., & López-Estrada, F. (2023). Convex Fault Diagnosis of a Three-Degree-of-Freedom Mechanical Crane. <em>Mathematics<\/em>, <em>11<\/em>(20), 4258. DOI: <a href=\"https://doi.org/10.3390/math11204258\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/math11204258<\/a>", "bibtex": "@article{GuzmanRabasa2023,\n  year = {2023},\n  author = {Guzmán-Rabasa, J. and Rodríguez, F. and Valencia-Palomo, G. and Santos-Ruiz, I. and Gómez-Peñate, S. and López-Estrada, F.R.},\n  title = {Convex Fault Diagnosis of a Three-Degree-of-Freedom Mechanical Crane},\n  journal = {Mathematics},\n  number = {20},\n  pages = {4258},\n  volume = {11},\n  doi = {10.3390/math11204258}\n}", "warnings": []}, {"id": "RodriguezArgote2023", "year": "2023", "reference_html": "Rodríguez-Argote, C. A., Begovich-Mendoza, O., Navarro-Díaz, A., <strong>Santos-Ruiz, I.<\/strong>, Puig, V., & Delgado-Aguiñaga, J. A. (2023). Two-Leak Isolation in Water Distribution Networks Based on k-NN and Linear Discriminant Classifiers. <em>Water<\/em>, <em>15<\/em>(17), 3090. DOI: <a href=\"https://doi.org/10.3390/w15173090\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/w15173090<\/a>", "bibtex": "@article{RodriguezArgote2023,\n  year = {2023},\n  author = {Rodríguez-Argote, C. A. and Begovich-Mendoza, O. and Navarro-Díaz, A. and Santos-Ruiz, I. and Puig, V. and Delgado-Aguiñaga, J. A.},\n  title = {Two-Leak Isolation in Water Distribution Networks Based on k-NN and Linear Discriminant Classifiers},\n  journal = {Water},\n  number = {17},\n  pages = {3090},\n  volume = {15},\n  doi = {10.3390/w15173090}\n}", "warnings": []}, {"id": "SantosRuiz2023", "year": "2023", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., Puig, V., & Valencia-Palomo, G. (2023). Leak localization in water distribution networks using machine learning based on cosine features. En C. Verde (Ed.), <em>Fault Diagnosis and Tolerant Control: Applications<\/em> (pp. 119–148). Instituto de Ingeniería, Universidad Nacional Autónoma de México. DOI: <a href=\"https://doi.org/10.22201/iingen.9786073073592e.2023\" target=\"_blank\" rel=\"noopener noreferrer\">10.22201/iingen.9786073073592e.2023<\/a>", "bibtex": "@inbook{SantosRuiz2023,\n  year = {2023},\n  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V. and Valencia-Palomo, G.},\n  title = {Leak localization in water distribution networks using machine learning based on cosine features},\n  booktitle = {Fault Diagnosis and Tolerant Control: Applications},\n  editor = {C. Verde},\n  pages = {119--148},\n  publisher = {Instituto de Ingeniería, Universidad Nacional Autónoma de México},\n  doi = {10.22201/iingen.9786073073592e.2023}\n}", "warnings": []}, {"id": "AguilarAlvarez2023", "year": "2023", "reference_html": "Aguilar-Álvarez, P., Valencia-Palomo, G., López-Estrada, F. R., Zepeda-Hernandez, J. A., López-Pérez, M., <strong>Santos-Ruiz, I.<\/strong>, & García-Ramos, O. (2023). Instrumentation and Dynamic Characterization of a Commercial Electric Vehicle for Rural Public Transport. <em>IEEE Access<\/em>, <em>11<\/em>, 12639–12647. DOI: <a href=\"https://doi.org/10.1109/ACCESS.2023.3242206\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/ACCESS.2023.3242206<\/a>", "bibtex": "@article{AguilarAlvarez2023,\n  year = {2023},\n  author = {Aguilar-Álvarez, P. and Valencia-Palomo, G. and López-Estrada, F. R. and Zepeda-Hernandez, J. A. and López-Pérez, M. and Santos-Ruiz, I. and García-Ramos, O.},\n  title = {Instrumentation and Dynamic Characterization of a Commercial Electric Vehicle for Rural Public Transport},\n  journal = {IEEE Access},\n  pages = {12639--12647},\n  volume = {11},\n  doi = {10.1109/ACCESS.2023.3242206}\n}", "warnings": []}, {"id": "PerezPerez2023", "year": "2023", "reference_html": "Pérez-Pérez, E. J., Puig, V., López-Estrada, F. R., Valencia-Palomo, G., & <strong>Santos-Ruiz, I.<\/strong> (2023). Neuro-fuzzy Takagi Sugeno observer for fault diagnosis in wind turbines. <em>IFAC-PapersOnLine<\/em>, <em>56<\/em>(2), 3522–3527. 22nd IFAC World Congress: Yokohama, Japan, July 9–14, 2023. DOI: <a href=\"https://doi.org/10.1016/j.ifacol.2023.10.1508\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.ifacol.2023.10.1508<\/a>", "bibtex": "@article{PerezPerez2023,\n  year = {2023},\n  author = {Pérez-Pérez, E. J. and Puig, V. and López-Estrada, F. R. and Valencia-Palomo, G. and Santos-Ruiz, I.},\n  title = {Neuro-fuzzy Takagi Sugeno observer for fault diagnosis in wind turbines},\n  journal = {IFAC-PapersOnLine},\n  note = {22nd IFAC World Congress: Yokohama, Japan, July 9--14, 2023},\n  number = {2},\n  pages = {3522--3527},\n  volume = {56},\n  doi = {10.1016/j.ifacol.2023.10.1508}\n}", "warnings": []}, {"id": "GomezCoronel2023Chlorine", "year": "2023", "reference_html": "Gómez-Coronel, L., Delgado-Aguiñaga, J. A., <strong>Santos-Ruiz, I.<\/strong>, & Navarro-Díaz, A. (2023). Estimation of Chlorine Concentration in Water Distribution Systems Based on a Genetic Algorithm. <em>Processes<\/em>, <em>11<\/em>(3), 676. DOI: <a href=\"https://doi.org/10.3390/pr11030676\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/pr11030676<\/a>", "bibtex": "@article{GomezCoronel2023Chlorine,\n  year = {2023},\n  author = {Gómez-Coronel, L. and Delgado-Aguiñaga, J. A. and Santos-Ruiz, I. and Navarro-Díaz, A.},\n  title = {Estimation of Chlorine Concentration in Water Distribution Systems Based on a Genetic Algorithm},\n  journal = {Processes},\n  number = {3},\n  pages = {676},\n  volume = {11},\n  doi = {10.3390/pr11030676}\n}", "warnings": []}, {"id": "PerezPerez2023Fault", "year": "2023", "reference_html": "Pérez-Pérez, E. J., Puig, V., López-Estrada, F. R., Valencia-Palomo, G., <strong>Santos-Ruiz, I.<\/strong>, & Samada, S. E. (2023). Fault detection and isolation in wind turbines based on neuro-fuzzy qLPV zonotopic observers. <em>Mechanical Systems and Signal Processing<\/em>, <em>191<\/em>, 110183. DOI: <a href=\"https://doi.org/10.1016/j.ymssp.2023.110183\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.ymssp.2023.110183<\/a>", "bibtex": "@article{PerezPerez2023Fault,\n  year = {2023},\n  author = {Pérez-Pérez, E. J. and Puig, V. and López-Estrada, F. R. and Valencia-Palomo, G. and Santos-Ruiz, I. and Samada, S. E.},\n  title = {Fault detection and isolation in wind turbines based on neuro-fuzzy qLPV zonotopic observers},\n  journal = {Mechanical Systems and Signal Processing},\n  pages = {110183},\n  volume = {191},\n  doi = {10.1016/j.ymssp.2023.110183}\n}", "warnings": []}]}, {"year": "2022", "entries": [{"id": "GomezCoronel2022Pendulum", "year": "2022", "reference_html": "Gómez-Coronel, L., Alvarado-Algarin, A., Marquez-Zepeda, M. J., Ancheyta-López, H., López-Estrada, F. R., & <strong>Santos-Ruiz, I.<\/strong> (2022). Modeling and full-state feedback stabilization of a linear inverted pendulum. En <em>2022 XXIV Robotics Mexican Congress (COMRob)<\/em>, pp. 42–47. DOI: <a href=\"https://doi.org/10.1109/COMRob57154.2022.9962255\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/COMRob57154.2022.9962255<\/a>", "bibtex": "@inproceedings{GomezCoronel2022Pendulum,\n  year = {2022},\n  author = {Gómez-Coronel, L. and Alvarado-Algarin, A. and Marquez-Zepeda, M. J. and Ancheyta-López, H. and López-Estrada, F. R. and Santos-Ruiz, I.},\n  title = {Modeling and full-state feedback stabilization of a linear inverted pendulum},\n  booktitle = {2022 XXIV Robotics Mexican Congress (COMRob)},\n  pages = {42--47},\n  publisher = {IEEE},\n  doi = {10.1109/COMRob57154.2022.9962255}\n}", "warnings": []}, {"id": "SantosRuiz2022", "year": "2022", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., Puig, V., Valencia-Palomo, G., & Hernández, H. R. (2022). Pressure Sensor Placement for Leak Localization in Water Distribution Networks Using Information Theory. <em>Sensors<\/em>, <em>22<\/em>(2), 443. DOI: <a href=\"https://doi.org/10.3390/s22020443\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/s22020443<\/a>", "bibtex": "@article{SantosRuiz2022,\n  year = {2022},\n  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V. and Valencia-Palomo, G. and Hernández, H. R.},\n  title = {Pressure Sensor Placement for Leak Localization in Water Distribution Networks Using Information Theory},\n  journal = {Sensors},\n  number = {2},\n  pages = {443},\n  volume = {22},\n  doi = {10.3390/s22020443}\n}", "warnings": []}, {"id": "DelgadoAguinaga2022", "year": "2022", "reference_html": "Delgado-Aguiñaga, J., <strong>Santos-Ruiz, I.<\/strong>, Besançon, G., López-Estrada, F. R., & Puig, V. (2022). EKF-based observers for multi-leak diagnosis in branched pipeline systems. <em>Mechanical Systems and Signal Processing<\/em>, <em>178<\/em>, 109198. DOI: <a href=\"https://doi.org/10.1016/j.ymssp.2022.109198\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.ymssp.2022.109198<\/a>", "bibtex": "@article{DelgadoAguinaga2022,\n  year = {2022},\n  author = {Delgado-Aguiñaga, J. and Santos-Ruiz, I. and Besançon, G. and López-Estrada, F. R. and Puig, V.},\n  title = {EKF-based observers for multi-leak diagnosis in branched pipeline systems},\n  journal = {Mechanical Systems and Signal Processing},\n  pages = {109198},\n  volume = {178},\n  doi = {10.1016/j.ymssp.2022.109198}\n}", "warnings": []}, {"id": "NavarroDiaz2022", "year": "2022", "reference_html": "Navarro-Díaz, A., Delgado-Aguiñaga, J., <strong>Santos-Ruiz, I.<\/strong>, & Puig, V. (2022). Real-Time Leak Diagnosis in Water Distribution Systems Based on a Bank of Observers and a Genetic Algorithm. <em>Water<\/em>, <em>14<\/em>(20), 3289. DOI: <a href=\"https://doi.org/10.3390/w14203289\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/w14203289<\/a>", "bibtex": "@article{NavarroDiaz2022,\n  year = {2022},\n  author = {Navarro-Díaz, A. and Delgado-Aguiñaga, J.A. and Santos-Ruiz, I. and Puig, V.},\n  title = {Real-Time Leak Diagnosis in Water Distribution Systems Based on a Bank of Observers and a Genetic Algorithm},\n  journal = {Water},\n  number = {20},\n  pages = {3289},\n  volume = {14},\n  doi = {10.3390/w14203289}\n}", "warnings": []}, {"id": "PerezPerez2022", "year": "2022", "reference_html": "Pérez-Pérez, E. J., López-Estrada, F. R., Puig, V., Valencia-Palomo, G., & <strong>Santos-Ruiz, I.<\/strong> (2022). Fault diagnosis in wind turbines based on ANFIS and Takagi-Sugeno interval observers. <em>Expert Systems with Applications<\/em>, <em>206<\/em>, 117698. DOI: <a href=\"https://doi.org/10.1016/j.eswa.2022.117698\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.eswa.2022.117698<\/a>", "bibtex": "@article{PerezPerez2022,\n  year = {2022},\n  author = {Pérez-Pérez, E. J. and López-Estrada, F. R. and Puig, V. and Valencia-Palomo, G. and Santos-Ruiz, I.},\n  title = {Fault diagnosis in wind turbines based on ANFIS and Takagi-Sugeno interval observers},\n  journal = {Expert Systems with Applications},\n  pages = {117698},\n  volume = {206},\n  doi = {10.1016/j.eswa.2022.117698}\n}", "warnings": []}, {"id": "Bermudez2022", "year": "2022", "reference_html": "Bermúdez, J. R., López-Estrada, F. R., Besançon, G., Valencia-Palomo, G., & <strong>Santos-Ruiz, I.<\/strong> (2022). Predictive control in water distribution systems for leak reduction and pressure management via a pressure reducing valve. <em>Processes<\/em>, <em>10<\/em>(7), 1355. DOI: <a href=\"https://doi.org/10.3390/pr10071355\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/pr10071355<\/a>", "bibtex": "@article{Bermudez2022,\n  year = {2022},\n  author = {Bermúdez, J. R. and López-Estrada, F. R. and Besançon, G. and Valencia-Palomo, G. and Santos-Ruiz, I.},\n  title = {Predictive control in water distribution systems for leak reduction and pressure management via a pressure reducing valve},\n  journal = {Processes},\n  number = {7},\n  pages = {1355},\n  volume = {10},\n  doi = {10.3390/pr10071355}\n}", "warnings": []}, {"id": "MarroquinArreola2022", "year": "2022", "reference_html": "Marroquín-Arreola, R., Lezama, J., Hernández-De León, H. R., Martínez-Romo, J. C., Hoyo-Montaño, J. A., Camas-Anzueto, J. L., & <strong>Santos-Ruiz, I.<\/strong> (2022). Design of an MPPT Technique for the Indirect Measurement of the Open-Circuit Voltage Applied to Thermoelectric Generators. <em>Energies<\/em>, <em>15<\/em>(10), 3833. DOI: <a href=\"https://doi.org/10.3390/en15103833\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/en15103833<\/a>", "bibtex": "@article{MarroquinArreola2022,\n  year = {2022},\n  author = {Marroquín-Arreola, R. and Lezama, J. and Hernández-De León, H. R. and Martínez-Romo, J. C. and Hoyo-Montaño, J. A. and Camas-Anzueto, J. L. and Santos-Ruiz, I.},\n  title = {Design of an MPPT Technique for the Indirect Measurement of the Open-Circuit Voltage Applied to Thermoelectric Generators},\n  journal = {Energies},\n  number = {10},\n  pages = {3833},\n  volume = {15},\n  doi = {10.3390/en15103833}\n}", "warnings": []}, {"id": "RodriguezSanchez2022", "year": "2022", "reference_html": "Rodríguez Sánchez, F., <strong>Santos-Ruiz, I.<\/strong>, Domínguez-Zenteno, J., & López-Estrada, F. R. (2022). Control Applications Using Reinforcement Learning: An Overview. En <em>Memorias del Congreso Nacional de Control Automático 2022<\/em>. DOI: <a href=\"https://doi.org/10.58571/CNCA.AMCA.2022.019\" target=\"_blank\" rel=\"noopener noreferrer\">10.58571/CNCA.AMCA.2022.019<\/a>", "bibtex": "@inproceedings{RodriguezSanchez2022,\n  year = {2022},\n  author = {Rodríguez Sánchez, F. and Santos-Ruiz, I. and Domínguez-Zenteno, J. and López-Estrada, F. R.},\n  title = {Control Applications Using Reinforcement Learning: An Overview},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2022},\n  publisher = {AMCA},\n  doi = {10.58571/CNCA.AMCA.2022.019}\n}", "warnings": []}, {"id": "GomezCoronel2022", "year": "2022", "reference_html": "Gómez-Coronel, L., <strong>Santos-Ruiz, I.<\/strong>, Torres, L., López-Estrada, F. R., & Delgado-Aguiñaga, J. A. (2022). Model Calibration for a Hydraulic Network Using Genetic Algorithms. En <em>Memorias del Congreso Nacional de Control Automático 2022<\/em>. DOI: <a href=\"https://doi.org/10.58571/CNCA.AMCA.2022.015\" target=\"_blank\" rel=\"noopener noreferrer\">10.58571/CNCA.AMCA.2022.015<\/a>", "bibtex": "@inproceedings{GomezCoronel2022,\n  year = {2022},\n  author = {Gómez-Coronel, L. and Santos-Ruiz, I. and Torres, L. and López-Estrada, F. R. and Delgado-Aguiñaga, J. A.},\n  title = {Model Calibration for a Hydraulic Network Using Genetic Algorithms},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2022},\n  publisher = {AMCA},\n  doi = {10.58571/CNCA.AMCA.2022.015}\n}", "warnings": []}, {"id": "MarquezZepeda2022", "year": "2022", "reference_html": "Marquez-Zepeda, M. J., <strong>Santos-Ruiz, I.<\/strong>, Pérez-Pérez, E. J., & Hernandez-De León, H. R. (2022). IoT-Based CO2 Monitoring and Forecasting System to Prevent Transmission of COVID-19. En <em>Memorias del Congreso Nacional de Control Automático 2022<\/em>. DOI: <a href=\"https://doi.org/10.58571/CNCA.AMCA.2022.009\" target=\"_blank\" rel=\"noopener noreferrer\">10.58571/CNCA.AMCA.2022.009<\/a>", "bibtex": "@inproceedings{MarquezZepeda2022,\n  year = {2022},\n  author = {Marquez-Zepeda, M. J. and Santos-Ruiz, I. and Pérez-Pérez, E. J. and Hernandez-De León, H. R.},\n  title = {IoT-Based CO2 Monitoring and Forecasting System to Prevent Transmission of COVID-19},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2022},\n  publisher = {AMCA},\n  doi = {10.58571/CNCA.AMCA.2022.009}\n}", "warnings": []}]}, {"year": "2021", "entries": [{"id": "SantosRuiz2021", "year": "2021", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., Puig, V., Valencia-Palomo, G., & Gómez-Peñate, S. (2021). Optimal Estimation of the Roughness Coefficient and Friction Factor of a Pipeline. <em>Journal of Fluids Engineering<\/em>, <em>143<\/em>(5), 051304. DOI: <a href=\"https://doi.org/10.1115/1.4049674\" target=\"_blank\" rel=\"noopener noreferrer\">10.1115/1.4049674<\/a>", "bibtex": "@article{SantosRuiz2021,\n  year = {2021},\n  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V. and Valencia-Palomo, G. and Gómez-Peñate, S.},\n  title = {Optimal Estimation of the Roughness Coefficient and Friction Factor of a Pipeline},\n  journal = {Journal of Fluids Engineering},\n  number = {5},\n  pages = {051304},\n  volume = {143},\n  doi = {10.1115/1.4049674}\n}", "warnings": []}, {"id": "MoralesGonzalez2021", "year": "2021", "reference_html": "Morales-González, I. O., <strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., & Puig, V. (2021). Pressure Sensor Placement for Leak Localization Using Simulated Annealing with Hyperparameter Optimization. En <em>2021 5th International Conference on Control and Fault-Tolerant Systems (SysTol)<\/em>, pp. 205–210. DOI: <a href=\"https://doi.org/10.1109/SysTol52990.2021.9595369\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/SysTol52990.2021.9595369<\/a>", "bibtex": "@inproceedings{MoralesGonzalez2021,\n  year = {2021},\n  author = {Morales-González, I. O. and Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V.},\n  title = {Pressure Sensor Placement for Leak Localization Using Simulated Annealing with Hyperparameter Optimization},\n  booktitle = {2021 5th International Conference on Control and Fault-Tolerant Systems (SysTol)},\n  pages = {205--210},\n  doi = {10.1109/SysTol52990.2021.9595369}\n}", "warnings": []}, {"id": "LopezEstrada2021", "year": "2021", "reference_html": "López-Estrada, F. R., Méndez-López, A., <strong>Santos-Ruiz, I.<\/strong>, Valencia-Palomo, G., & Escobar-Gómez, E. (2021). Detección de fallas en vehículos aéreos no tripulados mediante señales de orientación y técnicas de aprendizaje de máquina. <em>Revista Iberoamericana de Automática e Informática Industrial<\/em>, <em>18<\/em>(3), 254–264. DOI: <a href=\"https://doi.org/10.4995/riai.2020.14031\" target=\"_blank\" rel=\"noopener noreferrer\">10.4995/riai.2020.14031<\/a>", "bibtex": "@article{LopezEstrada2021,\n  year = {2021},\n  author = {López-Estrada, F. R. and Méndez-López, A. and Santos-Ruiz, I. and Valencia-Palomo, G. and Escobar-Gómez, E.},\n  title = {Detección de fallas en vehículos aéreos no tripulados mediante señales de orientación y técnicas de aprendizaje de máquina},\n  journal = {Revista Iberoamericana de Automática e Informática Industrial},\n  number = {3},\n  pages = {254--264},\n  volume = {18},\n  doi = {10.4995/riai.2020.14031}\n}", "warnings": []}, {"id": "SantosRuiz2021Thesis", "year": "2021", "reference_html": "<strong>Santos-Ruiz, I.<\/strong> (2021). Leak Detection and Localization in Pipeline Networks Using Machine Learning and Principal Component Analysis. (Tesis doctoral). Universitat Politècnica de Catalunya; Tecnológico Nacional de México. DOI: <a href=\"https://doi.org/10.5821/dissertation-2117-414261\" target=\"_blank\" rel=\"noopener noreferrer\">10.5821/dissertation-2117-414261<\/a>", "bibtex": "@phdthesis{SantosRuiz2021Thesis,\n  year = {2021},\n  author = {Santos-Ruiz, I.},\n  title = {Leak Detection and Localization in Pipeline Networks Using Machine Learning and Principal Component Analysis},\n  school = {Universitat Politècnica de Catalunya; Tecnológico Nacional de México},\n  doi = {10.5821/dissertation-2117-414261},\n  url = {https://upcommons.upc.edu/handle/2117/414261}\n}", "warnings": []}]}, {"year": "2020", "entries": [{"id": "SantosRuiz2020", "year": "2020", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., Puig, V., & Valencia-Palomo, G. (2020). Simultaneous Optimal Estimation of Roughness and Minor Loss Coefficients in a Pipeline. <em>Mathematical and Computational Applications<\/em>, <em>25<\/em>(3), 56. DOI: <a href=\"https://doi.org/10.3390/mca25030056\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/mca25030056<\/a>", "bibtex": "@article{SantosRuiz2020,\n  year = {2020},\n  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V. and Valencia-Palomo, G.},\n  title = {Simultaneous Optimal Estimation of Roughness and Minor Loss Coefficients in a Pipeline},\n  journal = {Mathematical and Computational Applications},\n  number = {3},\n  pages = {56},\n  volume = {25},\n  doi = {10.3390/mca25030056}\n}", "warnings": []}, {"id": "SantosRuizBlesa2020", "year": "2020", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, Blesa, J., Puig, V., & López-Estrada, F. R. (2020). Leak localization in water distribution networks using classifiers with cosenoidal features. <em>IFAC-PapersOnLine<\/em>, <em>53<\/em>(2), 16697–16702. 21st IFAC World Congress: Berlin, Germany, 11–17 July 2020. DOI: <a href=\"https://doi.org/10.1016/j.ifacol.2020.12.1113\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.ifacol.2020.12.1113<\/a>", "bibtex": "@article{SantosRuizBlesa2020,\n  year = {2020},\n  author = {Santos-Ruiz, I. and Blesa, J. and Puig, V. and López-Estrada, F. R.},\n  title = {Leak localization in water distribution networks using classifiers with cosenoidal features},\n  journal = {IFAC-PapersOnLine},\n  note = {21st IFAC World Congress: Berlin, Germany, 11--17 July 2020},\n  number = {2},\n  pages = {16697--16702},\n  volume = {53},\n  doi = {10.1016/j.ifacol.2020.12.1113}\n}", "warnings": []}, {"id": "Bermudez2020", "year": "2020", "reference_html": "Bermúdez, J., López-Estrada, F. R., Besançon, G., Torres, L., & <strong>Santos-Ruiz, I.<\/strong> (2020). Leak-Diagnosis Approach for Water Distribution Networks based on a k-NN Classification Algorithm. <em>IFAC-PapersOnLine<\/em>, <em>53<\/em>(2), 16651–16656. 21st IFAC World Congress: Berlin, Germany, 11–17 July 2020. DOI: <a href=\"https://doi.org/10.1016/j.ifacol.2020.12.795\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.ifacol.2020.12.795<\/a>", "bibtex": "@article{Bermudez2020,\n  year = {2020},\n  author = {Bermúdez, J. and López-Estrada, F. R. and Besançon, G. and Torres, L. and Santos-Ruiz, I.},\n  title = {Leak-Diagnosis Approach for Water Distribution Networks based on a k-NN Classification Algorithm},\n  journal = {IFAC-PapersOnLine},\n  note = {21st IFAC World Congress: Berlin, Germany, 11--17 July 2020},\n  number = {2},\n  pages = {16651--16656},\n  volume = {53},\n  doi = {10.1016/j.ifacol.2020.12.795}\n}", "warnings": []}, {"id": "JimenezCabas2020", "year": "2020", "reference_html": "Jiménez-Cabas, J., Torres, L., López-Estrada, F. R., <strong>Santos-Ruiz, I.<\/strong>, & Manrique-Morelos, F. (2020). Development of non-invasive monitoring approach to diagnose leaks in liquid pipelines. <em>Technology Reports of Kansai University<\/em>, <em>62<\/em>(6). URI: <a href=\"https://hdl.handle.net/11323/7238\" target=\"_blank\" rel=\"noopener noreferrer\">https://hdl.handle.net/11323/7238<\/a>", "bibtex": "@article{JimenezCabas2020,\n  year = {2020},\n  author = {Jiménez-Cabas, J. and Torres, L. and López-Estrada, F. R. and Santos-Ruiz, I. and Manrique-Morelos, F.},\n  title = {Development of non-invasive monitoring approach to diagnose leaks in liquid pipelines},\n  journal = {Technology Reports of Kansai University},\n  number = {6},\n  volume = {62},\n  uri = {https://hdl.handle.net/11323/7238}\n}", "warnings": []}, {"id": "Cano2020", "year": "2020", "reference_html": "Cano, A., López-Estrada, F. R., Torres, L., & <strong>Santos-Ruiz, I.<\/strong> (2020). Diseño de un algoritmo basado en el EKF para la estimación de demandas desconocidas en ductos de agua. En <em>Jornada de Ciencia y Tecnología Aplicada<\/em>, pp. 194–200. URL: <a href=\"https://jcyta.cenidet.tecnm.mx/revistas/jcyta/04-Revista_JCyTA_Vol-3-Num-1_Ene-Jun_2020.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">https://jcyta.cenidet.tecnm.mx/revistas/jcyta/04-Revista_JCyTA_Vol-3-Num-1_Ene-Jun_2020.pdf<\/a>", "bibtex": "@inproceedings{Cano2020,\n  year = {2020},\n  author = {Cano, A. and López-Estrada, F. R. and Torres, L. and Santos-Ruiz, I.},\n  title = {Diseño de un algoritmo basado en el EKF para la estimación de demandas desconocidas en ductos de agua},\n  booktitle = {Jornada de Ciencia y Tecnología Aplicada},\n  pages = {194--200},\n  publisher = {Tecnológico Nacional de México/Centro Nacional de Investigación y Desarrollo Tecnológico},\n  volume = {3},\n  url = {https://jcyta.cenidet.tecnm.mx/revistas/jcyta/04-Revista_JCyTA_Vol-3-Num-1_Ene-Jun_2020.pdf}\n}", "warnings": []}]}, {"year": "2019", "entries": [{"id": "SantosRuiz2019", "year": "2019", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., Puig, V., & Blesa, J. (2019). Estimation of Node Pressures in Water Distribution Networks by Gaussian Process Regression. En <em>2019 4th Conference on Control and Fault Tolerant Systems (SysTol)<\/em>, pp. 50–55. DOI: <a href=\"https://doi.org/10.1109/SYSTOL.2019.8864793\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/SYSTOL.2019.8864793<\/a>", "bibtex": "@inproceedings{SantosRuiz2019,\n  year = {2019},\n  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V. and Blesa, J.},\n  title = {Estimation of Node Pressures in Water Distribution Networks by Gaussian Process Regression},\n  booktitle = {2019 4th Conference on Control and Fault Tolerant Systems (SysTol)},\n  pages = {50--55},\n  doi = {10.1109/SYSTOL.2019.8864793}\n}", "warnings": []}, {"id": "SantosRuiz2019KNN", "year": "2019", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., Puig Cayuela, V., Blesa Izquierdo, J., & Javadiha, M. (2019). Localización de fugas en redes de distribución de agua mediante k-NN con distancia cosenoidal. En <em>Memorias del Congreso Nacional de Control Automático 2019<\/em>, pp. 370–375. URI: <a href=\"http://hdl.handle.net/2117/176657\" target=\"_blank\" rel=\"noopener noreferrer\">http://hdl.handle.net/2117/176657<\/a>", "bibtex": "@inproceedings{SantosRuiz2019KNN,\n  year = {2019},\n  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig Cayuela, V. and Blesa Izquierdo, J. and Javadiha, M.},\n  title = {Localización de fugas en redes de distribución de agua mediante k-NN con distancia cosenoidal},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2019},\n  pages = {370--375},\n  publisher = {AMCA},\n  uri = {http://hdl.handle.net/2117/176657}\n}", "warnings": []}, {"id": "GomezPenate2019", "year": "2019", "reference_html": "Gómez-Peñate, S., Valencia-Palomo, G., López-Estrada, F. R., Astorga-Zaragoza, C. M., Osornio-Rios, R. A., & <strong>Santos-Ruiz, I.<\/strong> (2019). Sensor Fault Diagnosis Based on a Sliding Mode and Unknown Input Observer for Takagi-Sugeno Systems with Uncertain Premise Variables. <em>Asian Journal of Control<\/em>, <em>21<\/em>(1), 339–353. DOI: <a href=\"https://doi.org/10.1002/asjc.1913\" target=\"_blank\" rel=\"noopener noreferrer\">10.1002/asjc.1913<\/a>", "bibtex": "@article{GomezPenate2019,\n  year = {2019},\n  author = {Gómez-Peñate, S. and Valencia-Palomo, G. and López-Estrada, F. R. and Astorga-Zaragoza, C. M. and Osornio-Rios, R. A. and Santos-Ruiz, I.},\n  title = {Sensor Fault Diagnosis Based on a Sliding Mode and Unknown Input Observer for Takagi-Sugeno Systems with Uncertain Premise Variables},\n  journal = {Asian Journal of Control},\n  number = {1},\n  pages = {339--353},\n  volume = {21},\n  doi = {10.1002/asjc.1913}\n}", "warnings": []}, {"id": "MendezLopez2019", "year": "2019", "reference_html": "Méndez-López, L., López-Estrada, F., <strong>Santos-Ruiz, I.<\/strong>, Valencia-Palomo, G., & Brindis-Velázquez, O. (2019). Diagnóstico de fallas en actuadores de un VANT mediante análisis en componentes principales. En <em>Memorias del Congreso Nacional de Control Automático 2019<\/em>, pp. 121–126. URL: <a href=\"http://revistadigital.amca.mx/wp-content/uploads/2022/06/0081.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">http://revistadigital.amca.mx/wp-content/uploads/2022/06/0081.pdf<\/a>", "bibtex": "@inproceedings{MendezLopez2019,\n  year = {2019},\n  author = {Méndez-López, L.A. and López-Estrada, F.R. and Santos-Ruiz, I. and Valencia-Palomo, G. and Brindis-Velázquez, O.},\n  title = {Diagnóstico de fallas en actuadores de un VANT mediante análisis en componentes principales},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2019},\n  pages = {121--126},\n  publisher = {AMCA},\n  url = {http://revistadigital.amca.mx/wp-content/uploads/2022/06/0081.pdf}\n}", "warnings": []}]}, {"year": "2018", "entries": [{"id": "santos2018online", "year": "2018", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, Bermúdez, J., López-Estrada, F., Puig, V., Torres, L., & Delgado-Aguiñaga, J. (2018). Online leak diagnosis in pipelines using an EKF-based and steady-state mixed approach. <em>Control Engineering Practice<\/em>, <em>81<\/em>, 55–64. DOI: <a href=\"https://doi.org/10.1016/j.conengprac.2018.09.006\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.conengprac.2018.09.006<\/a>", "bibtex": "@article{santos2018online,\n  year = {2018},\n  author = {Santos-Ruiz, I. and Bermúdez, J. and López-Estrada, F. and Puig, V. and Torres, L. and Delgado-Aguiñaga, J.},\n  title = {Online leak diagnosis in pipelines using an EKF-based and steady-state mixed approach},\n  journal = {Control Engineering Practice},\n  pages = {55--64},\n  volume = {81},\n  doi = {10.1016/j.conengprac.2018.09.006}\n}", "warnings": []}, {"id": "santos2018diagnosis", "year": "2018", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F., Puig, V., Pérez-Pérez, E., Mina-Antonio, J., & Valencia-Palomo, G. (2018). Diagnosis of Fluid Leaks in Pipelines Using Dynamic PCA. <em>IFAC-PapersOnLine<\/em>, <em>51<\/em>(24), 373–380. 10th IFAC Symposium on Fault Detection, Supervision and Safety for Technical Processes SAFEPROCESS 2018: Warsaw, Poland, 29–31 August 2018. DOI: <a href=\"https://doi.org/10.1016/j.ifacol.2018.09.604\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.ifacol.2018.09.604<\/a>", "bibtex": "@article{santos2018diagnosis,\n  year = {2018},\n  author = {Santos-Ruiz, I. and López-Estrada, F. and Puig, V. and Pérez-Pérez, E. and Mina-Antonio, J. and Valencia-Palomo, G.},\n  title = {Diagnosis of Fluid Leaks in Pipelines Using Dynamic PCA},\n  journal = {IFAC-PapersOnLine},\n  note = {10th IFAC Symposium on Fault Detection, Supervision and Safety for Technical Processes SAFEPROCESS 2018: Warsaw, Poland, 29--31 August 2018},\n  number = {24},\n  pages = {373--380},\n  volume = {51},\n  doi = {10.1016/j.ifacol.2018.09.604}\n}", "warnings": []}, {"id": "bermudez2018modelado", "year": "2018", "reference_html": "Bermúdez, J., <strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F., Besancon, G., Torres, L., & Valencia-Palomo, G. (2018). Modelado y simulación de una red hidráulica para diagnóstico de fugas. En <em>Memorias del Congreso Nacional de Control Automático 2018<\/em>, pp. 84–89. URL: <a href=\"http://revistadigital.amca.mx/wp-content/uploads/2022/06/MieBT1-03.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">http://revistadigital.amca.mx/wp-content/uploads/2022/06/MieBT1-03.pdf<\/a>", "bibtex": "@inproceedings{bermudez2018modelado,\n  year = {2018},\n  author = {Bermúdez, J. and Santos-Ruiz, I. and López-Estrada, F. and Besancon, G. and Torres, L. and Valencia-Palomo, G.},\n  title = {Modelado y simulación de una red hidráulica para diagnóstico de fugas},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2018},\n  pages = {84--89},\n  publisher = {AMCA},\n  url = {http://revistadigital.amca.mx/wp-content/uploads/2022/06/MieBT1-03.pdf}\n}", "warnings": []}, {"id": "santos2018estimacion", "year": "2018", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, Bermúdez Hernández, J. R., López Estrada, F. R., Puig Cayuela, V., & Torres Ortiz, F. L. (2018). Estimación experimental de la rugosidad y del factor de fricción en una tubería. En <em>Memorias del Congreso Nacional de Control Automático 2018<\/em>, pp. 489–494. URI: <a href=\"http://hdl.handle.net/2117/342133\" target=\"_blank\" rel=\"noopener noreferrer\">http://hdl.handle.net/2117/342133<\/a>", "bibtex": "@inproceedings{santos2018estimacion,\n  year = {2018},\n  author = {Santos-Ruiz, I. and Bermúdez Hernández, J. R. and López Estrada, F. R. and Puig Cayuela, V. and Torres Ortiz, F. L.},\n  title = {Estimación experimental de la rugosidad y del factor de fricción en una tubería},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2018},\n  pages = {489--494},\n  publisher = {AMCA},\n  uri = {http://hdl.handle.net/2117/342133}\n}", "warnings": []}]}, {"year": "2017", "entries": [{"id": "bermudez2017diseno", "year": "2017", "reference_html": "Bermúdez, J., <strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F., Torres, L., & Puig, V. (2017). Diseño y modelado dinámico de una planta piloto para detección de fugas hidráulicas. En <em>Memorias del Congreso Nacional de Control Automático 2017<\/em>, pp. 2–7. URL: <a href=\"http://amca.mx/memorias/amca2017/media/files/0129.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">http://amca.mx/memorias/amca2017/media/files/0129.pdf<\/a>", "bibtex": "@inproceedings{bermudez2017diseno,\n  year = {2017},\n  author = {Bermúdez, J. and Santos-Ruiz, I. and López-Estrada, F. and Torres, L. and Puig, V.},\n  title = {Diseño y modelado dinámico de una planta piloto para detección de fugas hidráulicas},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2017},\n  pages = {2--7},\n  publisher = {AMCA},\n  url = {http://amca.mx/memorias/amca2017/media/files/0129.pdf}\n}", "warnings": []}]}], "flatEntries": [{"id": "PEREZPEREZ2026106940", "year": "2026", "reference_html": "Pérez-Pérez, E., Puig, V., <strong>Santos-Ruiz, I.<\/strong>, Gúzman-Rabasa, J., & Valencia-Palomo, G. (2026). Wind turbine fault diagnosis using structural analysis and optimized-Rectangular GPR interval estimation. <em>Control Engineering Practice<\/em>, <em>172<\/em>, 106940. DOI: <a href=\"https://doi.org/10.1016/j.conengprac.2026.106940\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.conengprac.2026.106940<\/a>", "bibtex": "@article{PEREZPEREZ2026106940,\n  year = {2026},\n  author = {Esvan-Jesús Pérez-Pérez and Vicenç Puig and Ildeberto Santos-Ruiz and Julio-Alberto Gúzman-Rabasa and Guillermo Valencia-Palomo},\n  title = {Wind turbine fault diagnosis using structural analysis and optimized-Rectangular GPR interval estimation},\n  issn = {0967-0661},\n  journal = {Control Engineering Practice},\n  pages = {106940},\n  volume = {172},\n  doi = {https://doi.org/10.1016/j.conengprac.2026.106940},\n  url = {https://www.sciencedirect.com/science/article/pii/S096706612600184X}\n}", "warnings": []}, {"id": "sym18030442", "year": "2026", "reference_html": "Chandomí-Castellanos, E., Escobar-Gómez, E. N., Bermúdez Rodríguez, J. I., Bermúdez, J., Guzmán-Rabasa, J., <strong>Santos-Ruiz, I.<\/strong>, & Pérez-Pérez, E. (2026). Neural Network Auto-Design Algorithm for Urban Travel Time Prediction. <em>Symmetry<\/em>, <em>18<\/em>(3), 442. DOI: <a href=\"https://doi.org/10.3390/sym18030442\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/sym18030442<\/a>", "bibtex": "@article{sym18030442,\n  year = {2026},\n  author = {Chandomí-Castellanos, Eduardo and Escobar-Gómez, Elías N. and Bermúdez Rodríguez, Jorge Iván and Bermúdez, José-Roberto and Guzmán-Rabasa, Julio-Alberto and Santos-Ruiz, Ildeberto and Pérez-Pérez, Esvan-Jesús},\n  title = {Neural Network Auto-Design Algorithm for Urban Travel Time Prediction},\n  article-number = {442},\n  issn = {2073-8994},\n  journal = {Symmetry},\n  number = {3},\n  volume = {18},\n  doi = {10.3390/sym18030442},\n  url = {https://www.mdpi.com/2073-8994/18/3/442}\n}", "warnings": []}, {"id": "11264799", "year": "2025", "reference_html": "Luna, M., Jimenez-Pérez, J., Gasga, P., Gómez-Peñate, S., <strong>Santos-Ruiz, I.<\/strong>, & Dzul, A. (2025). Robust Actuator Fault Estimation of Quadrotor UAV Based on qLPV Observer. En <em>2025 XXVII Robotics Mexican Congress (COMRob)<\/em>, pp. 112–117. DOI: <a href=\"https://doi.org/10.1109/COMRob68109.2025.11264799\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/COMRob68109.2025.11264799<\/a>", "bibtex": "@inproceedings{11264799,\n  year = {2025},\n  author = {Luna, Moises and Jimenez-Pérez, Jaime and Gasga, Pedro and Gómez-Peñate, Samuel and Santos-Ruiz, Ildeberto and Dzul, Alejandro},\n  title = {Robust Actuator Fault Estimation of Quadrotor UAV Based on qLPV Observer},\n  booktitle = {2025 XXVII Robotics Mexican Congress (COMRob)},\n  pages = {112--117},\n  doi = {10.1109/COMRob68109.2025.11264799}\n}", "warnings": []}, {"id": "PerezPerez2025FD", "year": "2025", "reference_html": "Pérez-Pérez, E., Valencia-Palomo, G., Puig, V., <strong>Santos-Ruiz, I.<\/strong>, & Guzmán-Rabasa, J. (2025). Fault Diagnosis Framework for a CSTR Bioreactor Integrating ANFIS and Zonotopic Estimation. En <em>Memorias del Congreso Nacional de Control Automático (CNCA 2025)<\/em>, pp. 1–6. DOI: <a href=\"https://doi.org/10.58571/CNCA.AMCA.2025.001\" target=\"_blank\" rel=\"noopener noreferrer\">10.58571/CNCA.AMCA.2025.001<\/a>", "bibtex": "@inproceedings{PerezPerez2025FD,\n  year = {2025},\n  author = {Pérez-Pérez, Esvan-Jesús and Valencia-Palomo, Guillermo and Puig, Vicenç and Santos-Ruiz, Ildeberto and Guzmán-Rabasa, Julio-Alberto},\n  title = {Fault Diagnosis Framework for a CSTR Bioreactor Integrating ANFIS and Zonotopic Estimation},\n  address = {Cancún, Quintana Roo, Mexico},\n  booktitle = {Memorias del Congreso Nacional de Control Automático (CNCA 2025)},\n  month = {October},\n  pages = {1--6},\n  publisher = {Asociación de México de Control Automático (AMCA)},\n  doi = {10.58571/CNCA.AMCA.2025.001}\n}", "warnings": []}, {"id": "GomezCoronel2025CLCA", "year": "2025", "reference_html": "Gómez-Coronel, L., <strong>Santos-Ruiz, I.<\/strong>, Blesa, J., Torres, L., & Puig, V. (2025). Sensitivity Analysis for GA-Based Pressure Sensor Placement in Urban Water Distribution Networks. En <em>Memorias del XX Congreso Latinoamericano de Control Automático (CLCA 2025)<\/em>. 15–17 de octubre de 2025", "bibtex": "@inproceedings{GomezCoronel2025CLCA,\n  year = {2025},\n  author = {Gómez-Coronel, Leonardo and Santos-Ruiz, Ildeberto and Blesa, Joaquim and Torres, L. and Puig, Vicenç},\n  title = {Sensitivity Analysis for GA-Based Pressure Sensor Placement in Urban Water Distribution Networks},\n  address = {Cancún, Quintana Roo, México},\n  booktitle = {Memorias del XX Congreso Latinoamericano de Control Automático (CLCA 2025)},\n  month = {October},\n  note = {15--17 de octubre de 2025}\n}", "warnings": []}, {"id": "11267298", "year": "2025", "reference_html": "Gómez-Coronel, L., Torres, L., <strong>Santos-Ruiz, I.<\/strong>, Blesa, J., & Ramírez-Chavarría, R. G. (2025). Calibration of Friction and Roughness in an Urban Water Distribution Network Using an LSTM Neural Network-Based Framework. En <em>2025 6th International Conference on Control and Fault-Tolerant Systems (SysTol)<\/em>, pp. 284–289. DOI: <a href=\"https://doi.org/10.1109/SysTol66549.2025.11267298\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/SysTol66549.2025.11267298<\/a>", "bibtex": "@inproceedings{11267298,\n  year = {2025},\n  author = {Gómez-Coronel, Leonardo and Torres, Lizeth and Santos-Ruiz, Ildeberto and Blesa, Joaquim and Ramírez-Chavarría, Roberto G.},\n  title = {Calibration of Friction and Roughness in an Urban Water Distribution Network Using an LSTM Neural Network-Based Framework},\n  booktitle = {2025 6th International Conference on Control and Fault-Tolerant Systems (SysTol)},\n  pages = {284--289},\n  doi = {10.1109/SysTol66549.2025.11267298}\n}", "warnings": []}, {"id": "11267338", "year": "2025", "reference_html": "Sánchez-Mejía, L. A., Gómez-Coronel, L., Blesa, J., Torres, L., & <strong>Santos-Ruiz, I.<\/strong> (2025). Cloud Computing Integration for Leak Diagnosis Using Meta-Heuristic Methods for Water Distribution Networks. En <em>2025 6th International Conference on Control and Fault-Tolerant Systems (SysTol)<\/em>, pp. 265–270. DOI: <a href=\"https://doi.org/10.1109/SysTol66549.2025.11267338\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/SysTol66549.2025.11267338<\/a>", "bibtex": "@inproceedings{11267338,\n  year = {2025},\n  author = {Sánchez-Mejía, Luis Adan and Gómez-Coronel, Leonardo and Blesa, Joaquim and Torres, Lizeth and Santos-Ruiz, Ildeberto},\n  title = {Cloud Computing Integration for Leak Diagnosis Using Meta-Heuristic Methods for Water Distribution Networks},\n  booktitle = {2025 6th International Conference on Control and Fault-Tolerant Systems (SysTol)},\n  pages = {265--270},\n  doi = {10.1109/SysTol66549.2025.11267338}\n}", "warnings": []}, {"id": "GOMEZCORONEL2025108348", "year": "2025", "reference_html": "Gómez-Coronel, L., Blesa, J., <strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., & Puig, V. (2025). Neural network-based leak localization in water distribution networks using the gravity center of pressure measurements. <em>Journal of Water Process Engineering<\/em>, <em>77<\/em>, 108348. DOI: <a href=\"https://doi.org/10.1016/j.jwpe.2025.108348\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.jwpe.2025.108348<\/a>", "bibtex": "@article{GOMEZCORONEL2025108348,\n  year = {2025},\n  author = {Leonardo Gómez-Coronel and Joaquim Blesa and Ildeberto Santos-Ruiz and Francisco Ronay López-Estrada and Vicenç Puig},\n  title = {Neural network-based leak localization in water distribution networks using the gravity center of pressure measurements},\n  issn = {2214-7144},\n  journal = {Journal of Water Process Engineering},\n  pages = {108348},\n  volume = {77},\n  doi = {10.1016/j.jwpe.2025.108348},\n  url = {https://www.sciencedirect.com/science/article/pii/S2214714425014205}\n}", "warnings": []}, {"id": "11071264", "year": "2025", "reference_html": "López-Pérez, M., Domínguez-Zenteno, J., Valencia-Palomo, G., López-Estrada, F. R., Gómez-Peñate, S., & <strong>Santos-Ruiz, I.<\/strong> (2025). Performance-Driven Battery Pack Sizing for Light-Duty Electric Vehicles. <em>IEEE Access<\/em>, <em>13<\/em>, 117013–117023. DOI: <a href=\"https://doi.org/10.1109/ACCESS.2025.3585754\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/ACCESS.2025.3585754<\/a>", "bibtex": "@article{11071264,\n  year = {2025},\n  author = {López-Pérez, Manuel and Domínguez-Zenteno, Joaquín and Valencia-Palomo, Guillermo and López-Estrada, Francisco Ronay and Gómez-Peñate, Samuel and Santos-Ruiz, Ildeberto},\n  title = {Performance-Driven Battery Pack Sizing for Light-Duty Electric Vehicles},\n  journal = {IEEE Access},\n  pages = {117013--117023},\n  volume = {13},\n  doi = {10.1109/ACCESS.2025.3585754}\n}", "warnings": []}, {"id": "s25082632", "year": "2025", "reference_html": "López-Estrada, F. R., Gómez-Coronel, L., Torres, L., Valencia-Palomo, G., <strong>Santos-Ruiz, I.<\/strong>, & Cano, A. (2025). Online Nodal Demand Estimation in Branched Water Distribution Systems Using an Array of Extended Kalman Filters. <em>Sensors<\/em>, <em>25<\/em>(8), 2632. DOI: <a href=\"https://doi.org/10.3390/s25082632\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/s25082632<\/a>", "bibtex": "@article{s25082632,\n  year = {2025},\n  author = {López-Estrada, Francisco Ronay and Gómez-Coronel, Leonardo and Torres, Lizeth and Valencia-Palomo, Guillermo and Santos-Ruiz, Ildeberto and Cano, Arlette},\n  title = {Online Nodal Demand Estimation in Branched Water Distribution Systems Using an Array of Extended Kalman Filters},\n  article-number = {2632},\n  issn = {1424-8220},\n  journal = {Sensors},\n  number = {8},\n  pubmedid = {40285320},\n  volume = {25},\n  doi = {10.3390/s25082632},\n  url = {https://www.mdpi.com/1424-8220/25/8/2632}\n}", "warnings": []}, {"id": "mca30020036", "year": "2025", "reference_html": "Marquez-Zepeda, M. J., <strong>Santos-Ruiz, I.<\/strong>, Pérez-Pérez, E. J., Navarro-Díaz, A., & Delgado-Aguiñaga, J. A. (2025). Internet-of-Things-Based CO2 Monitoring and Forecasting System for Indoor Air Quality Management. <em>Mathematical and Computational Applications<\/em>, <em>30<\/em>(2), 36. DOI: <a href=\"https://doi.org/10.3390/mca30020036\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/mca30020036<\/a>", "bibtex": "@article{mca30020036,\n  year = {2025},\n  author = {Marquez-Zepeda, Marya J. and Santos-Ruiz, Ildeberto and Pérez-Pérez, Esvan Jesús and Navarro-Díaz, Adrián and Delgado-Aguiñaga, Jorge Alejandro},\n  title = {Internet-of-Things-Based CO2 Monitoring and Forecasting System for Indoor Air Quality Management},\n  article-number = {36},\n  issn = {2297-8747},\n  journal = {Mathematical and Computational Applications},\n  number = {2},\n  volume = {30},\n  doi = {10.3390/mca30020036},\n  url = {https://www.mdpi.com/2297-8747/30/2/36}\n}", "warnings": []}, {"id": "PerezPerez2025", "year": "2025", "reference_html": "Pérez-Pérez, E. J., González-Baldizón, Y., Fragoso-Mandujano, J. A., Guzmán-Rabasa, J. A., & <strong>Santos-Ruiz, I.<\/strong> (2025). Data-Driven Fault Diagnosis in Water Pipelines Based on Neuro-Fuzzy Zonotopic Kalman Filters. <em>Mathematical and Computational Applications<\/em>, <em>30<\/em>(1), 2. DOI: <a href=\"https://doi.org/10.3390/mca30010002\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/mca30010002<\/a>", "bibtex": "@article{PerezPerez2025,\n  year = {2025},\n  author = {Pérez-Pérez, E. J. and González-Baldizón, Y. and Fragoso-Mandujano, J. A. and Guzmán-Rabasa, J. A. and Santos-Ruiz, I.},\n  title = {Data-Driven Fault Diagnosis in Water Pipelines Based on Neuro-Fuzzy Zonotopic Kalman Filters},\n  journal = {Mathematical and Computational Applications},\n  number = {1},\n  pages = {2},\n  volume = {30},\n  doi = {10.3390/mca30010002}\n}", "warnings": []}, {"id": "MartinezAlgarin2024", "year": "2024", "reference_html": "Martínez-Algarín, F. R., <strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., & Domínguez-Zenteno, J. E. (2024). Pose Estimation of a Differential-Drive Mobile Robot Using EKF-Based Sensor Fusion. En <em>2024 XXVI Robotics Mexican Congress (COMRob)<\/em>, pp. 111–116. DOI: <a href=\"https://doi.org/10.1109/COMRob64055.2024.10777435\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/COMRob64055.2024.10777435<\/a>", "bibtex": "@inproceedings{MartinezAlgarin2024,\n  year = {2024},\n  author = {Martínez-Algarín, F. R. and Santos-Ruiz, I. and López-Estrada, F. R. and Domínguez-Zenteno, J. E.},\n  title = {Pose Estimation of a Differential-Drive Mobile Robot Using EKF-Based Sensor Fusion},\n  booktitle = {2024 XXVI Robotics Mexican Congress (COMRob)},\n  pages = {111--116},\n  publisher = {IEEE},\n  doi = {10.1109/COMRob64055.2024.10777435}\n}", "warnings": []}, {"id": "ZepedaHernandez2024", "year": "2024", "reference_html": "Zepeda-Hernández, J. A., <strong>Santos-Ruiz, I.<\/strong>, Parra-Vega, V., & López-Estrada, F. R. (2024). Modeling and Preliminary Characterization of a Large Differential-Drive Mobile Robot. En <em>2024 XXVI Robotics Mexican Congress (COMRob)<\/em>, pp. 105–110. DOI: <a href=\"https://doi.org/10.1109/COMRob64055.2024.10777448\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/COMRob64055.2024.10777448<\/a>", "bibtex": "@inproceedings{ZepedaHernandez2024,\n  year = {2024},\n  author = {Zepeda-Hernández, J. A. and Santos-Ruiz, I. and Parra-Vega, V. and López-Estrada, F. R.},\n  title = {Modeling and Preliminary Characterization of a Large Differential-Drive Mobile Robot},\n  booktitle = {2024 XXVI Robotics Mexican Congress (COMRob)},\n  pages = {105--110},\n  publisher = {IEEE},\n  doi = {10.1109/COMRob64055.2024.10777448}\n}", "warnings": []}, {"id": "SanchezMejia2024", "year": "2024", "reference_html": "Sánchez-Mejía, L., Gómez-Coronel, L., <strong>Santos-Ruiz, I.<\/strong>, & Gómez-Peñate, S. (2024). Comparison of Three Metaheuristics for Leak Diagnosis in Water Distribution Networks. En <em>Memorias del Congreso Nacional de Control Automático 2024<\/em>, pp. 73–78. DOI: <a href=\"https://doi.org/10.58571/CNCA.AMCA.2024.013\" target=\"_blank\" rel=\"noopener noreferrer\">10.58571/CNCA.AMCA.2024.013<\/a>", "bibtex": "@inproceedings{SanchezMejia2024,\n  year = {2024},\n  author = {Sánchez-Mejía, L. and Gómez-Coronel, L. and Santos-Ruiz, I. and Gómez-Peñate, S.},\n  title = {Comparison of Three Metaheuristics for Leak Diagnosis in Water Distribution Networks},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2024},\n  pages = {73--78},\n  publisher = {AMCA},\n  doi = {10.58571/CNCA.AMCA.2024.013}\n}", "warnings": []}, {"id": "LopezCancino2024", "year": "2024", "reference_html": "López-Cancino, L., Luna-Aguilar, M., Gómez-Peñate, S., <strong>Santos-Ruiz, I.<\/strong>, & Molina-Domínguez, S. (2024). Trajectory tracking control of a mecanum-wheeled omnidirectional mobile robot implemented in ROS-Gazebo. En <em>Memorias del Congreso Nacional de Control Automático 2024<\/em>, pp. 481–486. DOI: <a href=\"https://doi.org/10.58571/CNCA.AMCA.2024.082\" target=\"_blank\" rel=\"noopener noreferrer\">10.58571/CNCA.AMCA.2024.082<\/a>", "bibtex": "@inproceedings{LopezCancino2024,\n  year = {2024},\n  author = {López-Cancino, L. and Luna-Aguilar, M. and Gómez-Peñate, S. and Santos-Ruiz, I. and Molina-Domínguez, S.},\n  title = {Trajectory tracking control of a mecanum-wheeled omnidirectional mobile robot implemented in ROS-Gazebo},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2024},\n  pages = {481--486},\n  publisher = {AMCA},\n  doi = {10.58571/CNCA.AMCA.2024.082}\n}", "warnings": []}, {"id": "JimenezPerez2024", "year": "2024", "reference_html": "Jiménez-Pérez, J., Gasga, P., Gómez-Peñate, S., <strong>Santos-Ruiz, I.<\/strong>, & Molina-Domínguez, S. (2024). Integral LQR robust control for a hexarotor-UAV modeled as a qLPV system. En <em>Memorias del Congreso Nacional de Control Automático 2024<\/em>, pp. 530–535. DOI: <a href=\"https://doi.org/10.58571/CNCA.AMCA.2024.090\" target=\"_blank\" rel=\"noopener noreferrer\">10.58571/CNCA.AMCA.2024.090<\/a>", "bibtex": "@inproceedings{JimenezPerez2024,\n  year = {2024},\n  author = {Jiménez-Pérez, J. and Gasga, P. and Gómez-Peñate, S. and Santos-Ruiz, I. and Molina-Domínguez, S.},\n  title = {Integral LQR robust control for a hexarotor-UAV modeled as a qLPV system},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2024},\n  pages = {530--535},\n  publisher = {AMCA},\n  doi = {10.58571/CNCA.AMCA.2024.090}\n}", "warnings": []}, {"id": "Bermudez2024", "year": "2024", "reference_html": "Bermúdez, J. R., Gómez-Coronel, L., López-Estrada, F. R., Besançon, G., & <strong>Santos-Ruiz, I.<\/strong> (2024). A Hybrid Data-Driven and Model-Based Approach for Leak Reduction in Water Distribution Systems Using LQR and Genetic Algorithms. <em>Processes<\/em>, <em>12<\/em>(9), 1805. DOI: <a href=\"https://doi.org/10.3390/pr12091805\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/pr12091805<\/a>", "bibtex": "@article{Bermudez2024,\n  year = {2024},\n  author = {Bermúdez, J. R. and Gómez-Coronel, L. and López-Estrada, F. R. and Besançon, G. and Santos-Ruiz, I.},\n  title = {A Hybrid Data-Driven and Model-Based Approach for Leak Reduction in Water Distribution Systems Using LQR and Genetic Algorithms},\n  journal = {Processes},\n  number = {9},\n  pages = {1805},\n  volume = {12},\n  doi = {10.3390/pr12091805}\n}", "warnings": []}, {"id": "GomezCoronel2024", "year": "2024", "reference_html": "Gómez-Coronel, L., <strong>Santos-Ruiz, I.<\/strong>, Blesa, J., Puig, V., & López-Estrada, F. R. (2024). Leak localization in an urban water distribution network using a LSTM deep neural network. <em>IFAC-PapersOnLine<\/em>, <em>58<\/em>(4), 79–84. 12th IFAC Symposium on Fault Detection, Supervision and Safety for Technical Processes SAFEPROCESS 2024: Ferrara, Italy, June 4–7, 2024. DOI: <a href=\"https://doi.org/10.1016/j.ifacol.2024.07.197\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.ifacol.2024.07.197<\/a>", "bibtex": "@article{GomezCoronel2024,\n  year = {2024},\n  author = {Gómez-Coronel, L. and Santos-Ruiz, I. and Blesa, J. and Puig, V. and López-Estrada, F. R.},\n  title = {Leak localization in an urban water distribution network using a LSTM deep neural network},\n  journal = {IFAC-PapersOnLine},\n  note = {12th IFAC Symposium on Fault Detection, Supervision and Safety for Technical Processes SAFEPROCESS 2024: Ferrara, Italy, June 4--7, 2024},\n  number = {4},\n  pages = {79--84},\n  volume = {58},\n  doi = {10.1016/j.ifacol.2024.07.197}\n}", "warnings": []}, {"id": "Gasga2024", "year": "2024", "reference_html": "Gasga, P., Bernal, M., Gómez-Peñate, S., López-Estrada, F. R., Valencia-Palomo, G., & <strong>Santos-Ruiz, I.<\/strong> (2024). Actuator multiplicative and additive simultaneous faults estimation using a qLPV proportional integral unknown input observer. <em>International Journal of Adaptive Control and Signal Processing<\/em>, <em>38<\/em>(8), 2930–2950. DOI: <a href=\"https://doi.org/10.1002/acs.3859\" target=\"_blank\" rel=\"noopener noreferrer\">10.1002/acs.3859<\/a>", "bibtex": "@article{Gasga2024,\n  year = {2024},\n  author = {Gasga, P. and Bernal, M. and Gómez-Peñate, S. and López-Estrada, F. R. and Valencia-Palomo, G. and Santos-Ruiz, I.},\n  title = {Actuator multiplicative and additive simultaneous faults estimation using a qLPV proportional integral unknown input observer},\n  journal = {International Journal of Adaptive Control and Signal Processing},\n  number = {8},\n  pages = {2930--2950},\n  volume = {38},\n  doi = {10.1002/acs.3859}\n}", "warnings": []}, {"id": "LiyGonzalez2024", "year": "2024", "reference_html": "Liy-González, P. A., <strong>Santos-Ruiz, I.<\/strong>, Delgado-Aguiñaga, J. A., Navarro-Díaz, A., López-Estrada, F. R., & Gómez-Peñate, S. (2024). Pressure Interpolation in Water Distribution Networks by Using Gaussian Processes: Application to Leak Diagnosis. <em>Processes<\/em>, <em>12<\/em>(6), 1147. DOI: <a href=\"https://doi.org/10.3390/pr12061147\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/pr12061147<\/a>", "bibtex": "@article{LiyGonzalez2024,\n  year = {2024},\n  author = {Liy-González, P. A. and Santos-Ruiz, I. and Delgado-Aguiñaga, J. A. and Navarro-Díaz, A. and López-Estrada, F. R. and Gómez-Peñate, S.},\n  title = {Pressure Interpolation in Water Distribution Networks by Using Gaussian Processes: Application to Leak Diagnosis},\n  journal = {Processes},\n  number = {6},\n  pages = {1147},\n  volume = {12},\n  doi = {10.3390/pr12061147}\n}", "warnings": []}, {"id": "NavarroDiaz2024", "year": "2024", "reference_html": "Navarro-Díaz, A., Delgado-Aguiñaga, J. A., <strong>Santos-Ruiz, I.<\/strong>, & Sánchez-Torres, J. D. (2024). Leak Diagnosis in Branched Pipeline Systems Based on a Robust Differentiation Scheme. <em>IEEE Access<\/em>, <em>12<\/em>, 62162–62176. DOI: <a href=\"https://doi.org/10.1109/ACCESS.2024.3393976\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/ACCESS.2024.3393976<\/a>", "bibtex": "@article{NavarroDiaz2024,\n  year = {2024},\n  author = {Navarro-Díaz, A. and Delgado-Aguiñaga, J. A. and Santos-Ruiz, I. and Sánchez-Torres, J. D.},\n  title = {Leak Diagnosis in Branched Pipeline Systems Based on a Robust Differentiation Scheme},\n  journal = {IEEE Access},\n  pages = {62162--62176},\n  volume = {12},\n  doi = {10.1109/ACCESS.2024.3393976}\n}", "warnings": []}, {"id": "LunaAguilar2024", "year": "2024", "reference_html": "Luna-Aguilar, N. M., Gasga-García, P., Gómez-Peñate, S., López-Estrada, F. R., & <strong>Santos-Ruiz, I.<\/strong> (2024). Estimación de fallas en actuadores de un robot móvil con ruedas mecanum. En <em>Pädi Boletín Científico de Ciencias Básicas e Ingenierías del ICBI<\/em>, pp. 135–141. DOI: <a href=\"https://doi.org/10.29057/icbi.v12iEspecial2.12363\" target=\"_blank\" rel=\"noopener noreferrer\">10.29057/icbi.v12iEspecial2.12363<\/a>", "bibtex": "@inproceedings{LunaAguilar2024,\n  year = {2024},\n  author = {Luna-Aguilar, N. M. and Gasga-García, P. and Gómez-Peñate, S. and López-Estrada, F. R. and Santos-Ruiz, I.},\n  title = {Estimación de fallas en actuadores de un robot móvil con ruedas mecanum},\n  booktitle = {Pädi Boletín Científico de Ciencias Básicas e Ingenierías del ICBI},\n  number = {Especial2},\n  pages = {135--141},\n  volume = {12},\n  doi = {10.29057/icbi.v12iEspecial2.12363}\n}", "warnings": []}, {"id": "PerezPerez2024", "year": "2024", "reference_html": "Pérez-Pérez, E. J., Puig, V., López-Estrada, F. R., Valencia-Palomo, G., <strong>Santos-Ruiz, I.<\/strong>, & Osorio-Gordillo, G. (2024). Robust fault diagnosis of wind turbines based on MANFIS and zonotopic observers. <em>Expert Systems with Applications<\/em>, <em>235<\/em>, 121095. DOI: <a href=\"https://doi.org/10.1016/j.eswa.2023.121095\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.eswa.2023.121095<\/a>", "bibtex": "@article{PerezPerez2024,\n  year = {2024},\n  author = {Pérez-Pérez, E. J. and Puig, V. and López-Estrada, F. R. and Valencia-Palomo, G. and Santos-Ruiz, I. and Osorio-Gordillo, G.},\n  title = {Robust fault diagnosis of wind turbines based on MANFIS and zonotopic observers},\n  journal = {Expert Systems with Applications},\n  pages = {121095},\n  volume = {235},\n  doi = {10.1016/j.eswa.2023.121095}\n}", "warnings": []}, {"id": "GomezCoronel2023", "year": "2023", "reference_html": "Gómez-Coronel, L., <strong>Santos-Ruiz, I.<\/strong>, Torres, L., López-Estrada, F. R., Gómez-Peñate, S., & Escobar-Gómez, E. (2023). Digital Twin of a Hydraulic System with Leak Diagnosis Applications. <em>Processes<\/em>, <em>11<\/em>(10), 3009. DOI: <a href=\"https://doi.org/10.3390/pr11103009\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/pr11103009<\/a>", "bibtex": "@article{GomezCoronel2023,\n  year = {2023},\n  author = {Gómez-Coronel, L. and Santos-Ruiz, I. and Torres, L. and López-Estrada, F. R. and Gómez-Peñate, S. and Escobar-Gómez, E.},\n  title = {Digital Twin of a Hydraulic System with Leak Diagnosis Applications},\n  journal = {Processes},\n  number = {10},\n  pages = {3009},\n  volume = {11},\n  doi = {10.3390/pr11103009}\n}", "warnings": []}, {"id": "GuzmanRabasa2023", "year": "2023", "reference_html": "Guzmán-Rabasa, J., Rodríguez, F., Valencia-Palomo, G., <strong>Santos-Ruiz, I.<\/strong>, Gómez-Peñate, S., & López-Estrada, F. (2023). Convex Fault Diagnosis of a Three-Degree-of-Freedom Mechanical Crane. <em>Mathematics<\/em>, <em>11<\/em>(20), 4258. DOI: <a href=\"https://doi.org/10.3390/math11204258\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/math11204258<\/a>", "bibtex": "@article{GuzmanRabasa2023,\n  year = {2023},\n  author = {Guzmán-Rabasa, J. and Rodríguez, F. and Valencia-Palomo, G. and Santos-Ruiz, I. and Gómez-Peñate, S. and López-Estrada, F.R.},\n  title = {Convex Fault Diagnosis of a Three-Degree-of-Freedom Mechanical Crane},\n  journal = {Mathematics},\n  number = {20},\n  pages = {4258},\n  volume = {11},\n  doi = {10.3390/math11204258}\n}", "warnings": []}, {"id": "RodriguezArgote2023", "year": "2023", "reference_html": "Rodríguez-Argote, C. A., Begovich-Mendoza, O., Navarro-Díaz, A., <strong>Santos-Ruiz, I.<\/strong>, Puig, V., & Delgado-Aguiñaga, J. A. (2023). Two-Leak Isolation in Water Distribution Networks Based on k-NN and Linear Discriminant Classifiers. <em>Water<\/em>, <em>15<\/em>(17), 3090. DOI: <a href=\"https://doi.org/10.3390/w15173090\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/w15173090<\/a>", "bibtex": "@article{RodriguezArgote2023,\n  year = {2023},\n  author = {Rodríguez-Argote, C. A. and Begovich-Mendoza, O. and Navarro-Díaz, A. and Santos-Ruiz, I. and Puig, V. and Delgado-Aguiñaga, J. A.},\n  title = {Two-Leak Isolation in Water Distribution Networks Based on k-NN and Linear Discriminant Classifiers},\n  journal = {Water},\n  number = {17},\n  pages = {3090},\n  volume = {15},\n  doi = {10.3390/w15173090}\n}", "warnings": []}, {"id": "SantosRuiz2023", "year": "2023", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., Puig, V., & Valencia-Palomo, G. (2023). Leak localization in water distribution networks using machine learning based on cosine features. En C. Verde (Ed.), <em>Fault Diagnosis and Tolerant Control: Applications<\/em> (pp. 119–148). Instituto de Ingeniería, Universidad Nacional Autónoma de México. DOI: <a href=\"https://doi.org/10.22201/iingen.9786073073592e.2023\" target=\"_blank\" rel=\"noopener noreferrer\">10.22201/iingen.9786073073592e.2023<\/a>", "bibtex": "@inbook{SantosRuiz2023,\n  year = {2023},\n  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V. and Valencia-Palomo, G.},\n  title = {Leak localization in water distribution networks using machine learning based on cosine features},\n  booktitle = {Fault Diagnosis and Tolerant Control: Applications},\n  editor = {C. Verde},\n  pages = {119--148},\n  publisher = {Instituto de Ingeniería, Universidad Nacional Autónoma de México},\n  doi = {10.22201/iingen.9786073073592e.2023}\n}", "warnings": []}, {"id": "AguilarAlvarez2023", "year": "2023", "reference_html": "Aguilar-Álvarez, P., Valencia-Palomo, G., López-Estrada, F. R., Zepeda-Hernandez, J. A., López-Pérez, M., <strong>Santos-Ruiz, I.<\/strong>, & García-Ramos, O. (2023). Instrumentation and Dynamic Characterization of a Commercial Electric Vehicle for Rural Public Transport. <em>IEEE Access<\/em>, <em>11<\/em>, 12639–12647. DOI: <a href=\"https://doi.org/10.1109/ACCESS.2023.3242206\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/ACCESS.2023.3242206<\/a>", "bibtex": "@article{AguilarAlvarez2023,\n  year = {2023},\n  author = {Aguilar-Álvarez, P. and Valencia-Palomo, G. and López-Estrada, F. R. and Zepeda-Hernandez, J. A. and López-Pérez, M. and Santos-Ruiz, I. and García-Ramos, O.},\n  title = {Instrumentation and Dynamic Characterization of a Commercial Electric Vehicle for Rural Public Transport},\n  journal = {IEEE Access},\n  pages = {12639--12647},\n  volume = {11},\n  doi = {10.1109/ACCESS.2023.3242206}\n}", "warnings": []}, {"id": "PerezPerez2023", "year": "2023", "reference_html": "Pérez-Pérez, E. J., Puig, V., López-Estrada, F. R., Valencia-Palomo, G., & <strong>Santos-Ruiz, I.<\/strong> (2023). Neuro-fuzzy Takagi Sugeno observer for fault diagnosis in wind turbines. <em>IFAC-PapersOnLine<\/em>, <em>56<\/em>(2), 3522–3527. 22nd IFAC World Congress: Yokohama, Japan, July 9–14, 2023. DOI: <a href=\"https://doi.org/10.1016/j.ifacol.2023.10.1508\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.ifacol.2023.10.1508<\/a>", "bibtex": "@article{PerezPerez2023,\n  year = {2023},\n  author = {Pérez-Pérez, E. J. and Puig, V. and López-Estrada, F. R. and Valencia-Palomo, G. and Santos-Ruiz, I.},\n  title = {Neuro-fuzzy Takagi Sugeno observer for fault diagnosis in wind turbines},\n  journal = {IFAC-PapersOnLine},\n  note = {22nd IFAC World Congress: Yokohama, Japan, July 9--14, 2023},\n  number = {2},\n  pages = {3522--3527},\n  volume = {56},\n  doi = {10.1016/j.ifacol.2023.10.1508}\n}", "warnings": []}, {"id": "GomezCoronel2023Chlorine", "year": "2023", "reference_html": "Gómez-Coronel, L., Delgado-Aguiñaga, J. A., <strong>Santos-Ruiz, I.<\/strong>, & Navarro-Díaz, A. (2023). Estimation of Chlorine Concentration in Water Distribution Systems Based on a Genetic Algorithm. <em>Processes<\/em>, <em>11<\/em>(3), 676. DOI: <a href=\"https://doi.org/10.3390/pr11030676\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/pr11030676<\/a>", "bibtex": "@article{GomezCoronel2023Chlorine,\n  year = {2023},\n  author = {Gómez-Coronel, L. and Delgado-Aguiñaga, J. A. and Santos-Ruiz, I. and Navarro-Díaz, A.},\n  title = {Estimation of Chlorine Concentration in Water Distribution Systems Based on a Genetic Algorithm},\n  journal = {Processes},\n  number = {3},\n  pages = {676},\n  volume = {11},\n  doi = {10.3390/pr11030676}\n}", "warnings": []}, {"id": "PerezPerez2023Fault", "year": "2023", "reference_html": "Pérez-Pérez, E. J., Puig, V., López-Estrada, F. R., Valencia-Palomo, G., <strong>Santos-Ruiz, I.<\/strong>, & Samada, S. E. (2023). Fault detection and isolation in wind turbines based on neuro-fuzzy qLPV zonotopic observers. <em>Mechanical Systems and Signal Processing<\/em>, <em>191<\/em>, 110183. DOI: <a href=\"https://doi.org/10.1016/j.ymssp.2023.110183\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.ymssp.2023.110183<\/a>", "bibtex": "@article{PerezPerez2023Fault,\n  year = {2023},\n  author = {Pérez-Pérez, E. J. and Puig, V. and López-Estrada, F. R. and Valencia-Palomo, G. and Santos-Ruiz, I. and Samada, S. E.},\n  title = {Fault detection and isolation in wind turbines based on neuro-fuzzy qLPV zonotopic observers},\n  journal = {Mechanical Systems and Signal Processing},\n  pages = {110183},\n  volume = {191},\n  doi = {10.1016/j.ymssp.2023.110183}\n}", "warnings": []}, {"id": "GomezCoronel2022Pendulum", "year": "2022", "reference_html": "Gómez-Coronel, L., Alvarado-Algarin, A., Marquez-Zepeda, M. J., Ancheyta-López, H., López-Estrada, F. R., & <strong>Santos-Ruiz, I.<\/strong> (2022). Modeling and full-state feedback stabilization of a linear inverted pendulum. En <em>2022 XXIV Robotics Mexican Congress (COMRob)<\/em>, pp. 42–47. DOI: <a href=\"https://doi.org/10.1109/COMRob57154.2022.9962255\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/COMRob57154.2022.9962255<\/a>", "bibtex": "@inproceedings{GomezCoronel2022Pendulum,\n  year = {2022},\n  author = {Gómez-Coronel, L. and Alvarado-Algarin, A. and Marquez-Zepeda, M. J. and Ancheyta-López, H. and López-Estrada, F. R. and Santos-Ruiz, I.},\n  title = {Modeling and full-state feedback stabilization of a linear inverted pendulum},\n  booktitle = {2022 XXIV Robotics Mexican Congress (COMRob)},\n  pages = {42--47},\n  publisher = {IEEE},\n  doi = {10.1109/COMRob57154.2022.9962255}\n}", "warnings": []}, {"id": "SantosRuiz2022", "year": "2022", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., Puig, V., Valencia-Palomo, G., & Hernández, H. R. (2022). Pressure Sensor Placement for Leak Localization in Water Distribution Networks Using Information Theory. <em>Sensors<\/em>, <em>22<\/em>(2), 443. DOI: <a href=\"https://doi.org/10.3390/s22020443\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/s22020443<\/a>", "bibtex": "@article{SantosRuiz2022,\n  year = {2022},\n  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V. and Valencia-Palomo, G. and Hernández, H. R.},\n  title = {Pressure Sensor Placement for Leak Localization in Water Distribution Networks Using Information Theory},\n  journal = {Sensors},\n  number = {2},\n  pages = {443},\n  volume = {22},\n  doi = {10.3390/s22020443}\n}", "warnings": []}, {"id": "DelgadoAguinaga2022", "year": "2022", "reference_html": "Delgado-Aguiñaga, J., <strong>Santos-Ruiz, I.<\/strong>, Besançon, G., López-Estrada, F. R., & Puig, V. (2022). EKF-based observers for multi-leak diagnosis in branched pipeline systems. <em>Mechanical Systems and Signal Processing<\/em>, <em>178<\/em>, 109198. DOI: <a href=\"https://doi.org/10.1016/j.ymssp.2022.109198\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.ymssp.2022.109198<\/a>", "bibtex": "@article{DelgadoAguinaga2022,\n  year = {2022},\n  author = {Delgado-Aguiñaga, J. and Santos-Ruiz, I. and Besançon, G. and López-Estrada, F. R. and Puig, V.},\n  title = {EKF-based observers for multi-leak diagnosis in branched pipeline systems},\n  journal = {Mechanical Systems and Signal Processing},\n  pages = {109198},\n  volume = {178},\n  doi = {10.1016/j.ymssp.2022.109198}\n}", "warnings": []}, {"id": "NavarroDiaz2022", "year": "2022", "reference_html": "Navarro-Díaz, A., Delgado-Aguiñaga, J., <strong>Santos-Ruiz, I.<\/strong>, & Puig, V. (2022). Real-Time Leak Diagnosis in Water Distribution Systems Based on a Bank of Observers and a Genetic Algorithm. <em>Water<\/em>, <em>14<\/em>(20), 3289. DOI: <a href=\"https://doi.org/10.3390/w14203289\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/w14203289<\/a>", "bibtex": "@article{NavarroDiaz2022,\n  year = {2022},\n  author = {Navarro-Díaz, A. and Delgado-Aguiñaga, J.A. and Santos-Ruiz, I. and Puig, V.},\n  title = {Real-Time Leak Diagnosis in Water Distribution Systems Based on a Bank of Observers and a Genetic Algorithm},\n  journal = {Water},\n  number = {20},\n  pages = {3289},\n  volume = {14},\n  doi = {10.3390/w14203289}\n}", "warnings": []}, {"id": "PerezPerez2022", "year": "2022", "reference_html": "Pérez-Pérez, E. J., López-Estrada, F. R., Puig, V., Valencia-Palomo, G., & <strong>Santos-Ruiz, I.<\/strong> (2022). Fault diagnosis in wind turbines based on ANFIS and Takagi-Sugeno interval observers. <em>Expert Systems with Applications<\/em>, <em>206<\/em>, 117698. DOI: <a href=\"https://doi.org/10.1016/j.eswa.2022.117698\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.eswa.2022.117698<\/a>", "bibtex": "@article{PerezPerez2022,\n  year = {2022},\n  author = {Pérez-Pérez, E. J. and López-Estrada, F. R. and Puig, V. and Valencia-Palomo, G. and Santos-Ruiz, I.},\n  title = {Fault diagnosis in wind turbines based on ANFIS and Takagi-Sugeno interval observers},\n  journal = {Expert Systems with Applications},\n  pages = {117698},\n  volume = {206},\n  doi = {10.1016/j.eswa.2022.117698}\n}", "warnings": []}, {"id": "Bermudez2022", "year": "2022", "reference_html": "Bermúdez, J. R., López-Estrada, F. R., Besançon, G., Valencia-Palomo, G., & <strong>Santos-Ruiz, I.<\/strong> (2022). Predictive control in water distribution systems for leak reduction and pressure management via a pressure reducing valve. <em>Processes<\/em>, <em>10<\/em>(7), 1355. DOI: <a href=\"https://doi.org/10.3390/pr10071355\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/pr10071355<\/a>", "bibtex": "@article{Bermudez2022,\n  year = {2022},\n  author = {Bermúdez, J. R. and López-Estrada, F. R. and Besançon, G. and Valencia-Palomo, G. and Santos-Ruiz, I.},\n  title = {Predictive control in water distribution systems for leak reduction and pressure management via a pressure reducing valve},\n  journal = {Processes},\n  number = {7},\n  pages = {1355},\n  volume = {10},\n  doi = {10.3390/pr10071355}\n}", "warnings": []}, {"id": "MarroquinArreola2022", "year": "2022", "reference_html": "Marroquín-Arreola, R., Lezama, J., Hernández-De León, H. R., Martínez-Romo, J. C., Hoyo-Montaño, J. A., Camas-Anzueto, J. L., & <strong>Santos-Ruiz, I.<\/strong> (2022). Design of an MPPT Technique for the Indirect Measurement of the Open-Circuit Voltage Applied to Thermoelectric Generators. <em>Energies<\/em>, <em>15<\/em>(10), 3833. DOI: <a href=\"https://doi.org/10.3390/en15103833\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/en15103833<\/a>", "bibtex": "@article{MarroquinArreola2022,\n  year = {2022},\n  author = {Marroquín-Arreola, R. and Lezama, J. and Hernández-De León, H. R. and Martínez-Romo, J. C. and Hoyo-Montaño, J. A. and Camas-Anzueto, J. L. and Santos-Ruiz, I.},\n  title = {Design of an MPPT Technique for the Indirect Measurement of the Open-Circuit Voltage Applied to Thermoelectric Generators},\n  journal = {Energies},\n  number = {10},\n  pages = {3833},\n  volume = {15},\n  doi = {10.3390/en15103833}\n}", "warnings": []}, {"id": "RodriguezSanchez2022", "year": "2022", "reference_html": "Rodríguez Sánchez, F., <strong>Santos-Ruiz, I.<\/strong>, Domínguez-Zenteno, J., & López-Estrada, F. R. (2022). Control Applications Using Reinforcement Learning: An Overview. En <em>Memorias del Congreso Nacional de Control Automático 2022<\/em>. DOI: <a href=\"https://doi.org/10.58571/CNCA.AMCA.2022.019\" target=\"_blank\" rel=\"noopener noreferrer\">10.58571/CNCA.AMCA.2022.019<\/a>", "bibtex": "@inproceedings{RodriguezSanchez2022,\n  year = {2022},\n  author = {Rodríguez Sánchez, F. and Santos-Ruiz, I. and Domínguez-Zenteno, J. and López-Estrada, F. R.},\n  title = {Control Applications Using Reinforcement Learning: An Overview},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2022},\n  publisher = {AMCA},\n  doi = {10.58571/CNCA.AMCA.2022.019}\n}", "warnings": []}, {"id": "GomezCoronel2022", "year": "2022", "reference_html": "Gómez-Coronel, L., <strong>Santos-Ruiz, I.<\/strong>, Torres, L., López-Estrada, F. R., & Delgado-Aguiñaga, J. A. (2022). Model Calibration for a Hydraulic Network Using Genetic Algorithms. En <em>Memorias del Congreso Nacional de Control Automático 2022<\/em>. DOI: <a href=\"https://doi.org/10.58571/CNCA.AMCA.2022.015\" target=\"_blank\" rel=\"noopener noreferrer\">10.58571/CNCA.AMCA.2022.015<\/a>", "bibtex": "@inproceedings{GomezCoronel2022,\n  year = {2022},\n  author = {Gómez-Coronel, L. and Santos-Ruiz, I. and Torres, L. and López-Estrada, F. R. and Delgado-Aguiñaga, J. A.},\n  title = {Model Calibration for a Hydraulic Network Using Genetic Algorithms},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2022},\n  publisher = {AMCA},\n  doi = {10.58571/CNCA.AMCA.2022.015}\n}", "warnings": []}, {"id": "MarquezZepeda2022", "year": "2022", "reference_html": "Marquez-Zepeda, M. J., <strong>Santos-Ruiz, I.<\/strong>, Pérez-Pérez, E. J., & Hernandez-De León, H. R. (2022). IoT-Based CO2 Monitoring and Forecasting System to Prevent Transmission of COVID-19. En <em>Memorias del Congreso Nacional de Control Automático 2022<\/em>. DOI: <a href=\"https://doi.org/10.58571/CNCA.AMCA.2022.009\" target=\"_blank\" rel=\"noopener noreferrer\">10.58571/CNCA.AMCA.2022.009<\/a>", "bibtex": "@inproceedings{MarquezZepeda2022,\n  year = {2022},\n  author = {Marquez-Zepeda, M. J. and Santos-Ruiz, I. and Pérez-Pérez, E. J. and Hernandez-De León, H. R.},\n  title = {IoT-Based CO2 Monitoring and Forecasting System to Prevent Transmission of COVID-19},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2022},\n  publisher = {AMCA},\n  doi = {10.58571/CNCA.AMCA.2022.009}\n}", "warnings": []}, {"id": "SantosRuiz2021", "year": "2021", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., Puig, V., Valencia-Palomo, G., & Gómez-Peñate, S. (2021). Optimal Estimation of the Roughness Coefficient and Friction Factor of a Pipeline. <em>Journal of Fluids Engineering<\/em>, <em>143<\/em>(5), 051304. DOI: <a href=\"https://doi.org/10.1115/1.4049674\" target=\"_blank\" rel=\"noopener noreferrer\">10.1115/1.4049674<\/a>", "bibtex": "@article{SantosRuiz2021,\n  year = {2021},\n  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V. and Valencia-Palomo, G. and Gómez-Peñate, S.},\n  title = {Optimal Estimation of the Roughness Coefficient and Friction Factor of a Pipeline},\n  journal = {Journal of Fluids Engineering},\n  number = {5},\n  pages = {051304},\n  volume = {143},\n  doi = {10.1115/1.4049674}\n}", "warnings": []}, {"id": "MoralesGonzalez2021", "year": "2021", "reference_html": "Morales-González, I. O., <strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., & Puig, V. (2021). Pressure Sensor Placement for Leak Localization Using Simulated Annealing with Hyperparameter Optimization. En <em>2021 5th International Conference on Control and Fault-Tolerant Systems (SysTol)<\/em>, pp. 205–210. DOI: <a href=\"https://doi.org/10.1109/SysTol52990.2021.9595369\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/SysTol52990.2021.9595369<\/a>", "bibtex": "@inproceedings{MoralesGonzalez2021,\n  year = {2021},\n  author = {Morales-González, I. O. and Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V.},\n  title = {Pressure Sensor Placement for Leak Localization Using Simulated Annealing with Hyperparameter Optimization},\n  booktitle = {2021 5th International Conference on Control and Fault-Tolerant Systems (SysTol)},\n  pages = {205--210},\n  doi = {10.1109/SysTol52990.2021.9595369}\n}", "warnings": []}, {"id": "LopezEstrada2021", "year": "2021", "reference_html": "López-Estrada, F. R., Méndez-López, A., <strong>Santos-Ruiz, I.<\/strong>, Valencia-Palomo, G., & Escobar-Gómez, E. (2021). Detección de fallas en vehículos aéreos no tripulados mediante señales de orientación y técnicas de aprendizaje de máquina. <em>Revista Iberoamericana de Automática e Informática Industrial<\/em>, <em>18<\/em>(3), 254–264. DOI: <a href=\"https://doi.org/10.4995/riai.2020.14031\" target=\"_blank\" rel=\"noopener noreferrer\">10.4995/riai.2020.14031<\/a>", "bibtex": "@article{LopezEstrada2021,\n  year = {2021},\n  author = {López-Estrada, F. R. and Méndez-López, A. and Santos-Ruiz, I. and Valencia-Palomo, G. and Escobar-Gómez, E.},\n  title = {Detección de fallas en vehículos aéreos no tripulados mediante señales de orientación y técnicas de aprendizaje de máquina},\n  journal = {Revista Iberoamericana de Automática e Informática Industrial},\n  number = {3},\n  pages = {254--264},\n  volume = {18},\n  doi = {10.4995/riai.2020.14031}\n}", "warnings": []}, {"id": "SantosRuiz2021Thesis", "year": "2021", "reference_html": "<strong>Santos-Ruiz, I.<\/strong> (2021). Leak Detection and Localization in Pipeline Networks Using Machine Learning and Principal Component Analysis. (Tesis doctoral). Universitat Politècnica de Catalunya; Tecnológico Nacional de México. DOI: <a href=\"https://doi.org/10.5821/dissertation-2117-414261\" target=\"_blank\" rel=\"noopener noreferrer\">10.5821/dissertation-2117-414261<\/a>", "bibtex": "@phdthesis{SantosRuiz2021Thesis,\n  year = {2021},\n  author = {Santos-Ruiz, I.},\n  title = {Leak Detection and Localization in Pipeline Networks Using Machine Learning and Principal Component Analysis},\n  school = {Universitat Politècnica de Catalunya; Tecnológico Nacional de México},\n  doi = {10.5821/dissertation-2117-414261},\n  url = {https://upcommons.upc.edu/handle/2117/414261}\n}", "warnings": []}, {"id": "SantosRuiz2020", "year": "2020", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., Puig, V., & Valencia-Palomo, G. (2020). Simultaneous Optimal Estimation of Roughness and Minor Loss Coefficients in a Pipeline. <em>Mathematical and Computational Applications<\/em>, <em>25<\/em>(3), 56. DOI: <a href=\"https://doi.org/10.3390/mca25030056\" target=\"_blank\" rel=\"noopener noreferrer\">10.3390/mca25030056<\/a>", "bibtex": "@article{SantosRuiz2020,\n  year = {2020},\n  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V. and Valencia-Palomo, G.},\n  title = {Simultaneous Optimal Estimation of Roughness and Minor Loss Coefficients in a Pipeline},\n  journal = {Mathematical and Computational Applications},\n  number = {3},\n  pages = {56},\n  volume = {25},\n  doi = {10.3390/mca25030056}\n}", "warnings": []}, {"id": "SantosRuizBlesa2020", "year": "2020", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, Blesa, J., Puig, V., & López-Estrada, F. R. (2020). Leak localization in water distribution networks using classifiers with cosenoidal features. <em>IFAC-PapersOnLine<\/em>, <em>53<\/em>(2), 16697–16702. 21st IFAC World Congress: Berlin, Germany, 11–17 July 2020. DOI: <a href=\"https://doi.org/10.1016/j.ifacol.2020.12.1113\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.ifacol.2020.12.1113<\/a>", "bibtex": "@article{SantosRuizBlesa2020,\n  year = {2020},\n  author = {Santos-Ruiz, I. and Blesa, J. and Puig, V. and López-Estrada, F. R.},\n  title = {Leak localization in water distribution networks using classifiers with cosenoidal features},\n  journal = {IFAC-PapersOnLine},\n  note = {21st IFAC World Congress: Berlin, Germany, 11--17 July 2020},\n  number = {2},\n  pages = {16697--16702},\n  volume = {53},\n  doi = {10.1016/j.ifacol.2020.12.1113}\n}", "warnings": []}, {"id": "Bermudez2020", "year": "2020", "reference_html": "Bermúdez, J., López-Estrada, F. R., Besançon, G., Torres, L., & <strong>Santos-Ruiz, I.<\/strong> (2020). Leak-Diagnosis Approach for Water Distribution Networks based on a k-NN Classification Algorithm. <em>IFAC-PapersOnLine<\/em>, <em>53<\/em>(2), 16651–16656. 21st IFAC World Congress: Berlin, Germany, 11–17 July 2020. DOI: <a href=\"https://doi.org/10.1016/j.ifacol.2020.12.795\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.ifacol.2020.12.795<\/a>", "bibtex": "@article{Bermudez2020,\n  year = {2020},\n  author = {Bermúdez, J. and López-Estrada, F. R. and Besançon, G. and Torres, L. and Santos-Ruiz, I.},\n  title = {Leak-Diagnosis Approach for Water Distribution Networks based on a k-NN Classification Algorithm},\n  journal = {IFAC-PapersOnLine},\n  note = {21st IFAC World Congress: Berlin, Germany, 11--17 July 2020},\n  number = {2},\n  pages = {16651--16656},\n  volume = {53},\n  doi = {10.1016/j.ifacol.2020.12.795}\n}", "warnings": []}, {"id": "JimenezCabas2020", "year": "2020", "reference_html": "Jiménez-Cabas, J., Torres, L., López-Estrada, F. R., <strong>Santos-Ruiz, I.<\/strong>, & Manrique-Morelos, F. (2020). Development of non-invasive monitoring approach to diagnose leaks in liquid pipelines. <em>Technology Reports of Kansai University<\/em>, <em>62<\/em>(6). URI: <a href=\"https://hdl.handle.net/11323/7238\" target=\"_blank\" rel=\"noopener noreferrer\">https://hdl.handle.net/11323/7238<\/a>", "bibtex": "@article{JimenezCabas2020,\n  year = {2020},\n  author = {Jiménez-Cabas, J. and Torres, L. and López-Estrada, F. R. and Santos-Ruiz, I. and Manrique-Morelos, F.},\n  title = {Development of non-invasive monitoring approach to diagnose leaks in liquid pipelines},\n  journal = {Technology Reports of Kansai University},\n  number = {6},\n  volume = {62},\n  uri = {https://hdl.handle.net/11323/7238}\n}", "warnings": []}, {"id": "Cano2020", "year": "2020", "reference_html": "Cano, A., López-Estrada, F. R., Torres, L., & <strong>Santos-Ruiz, I.<\/strong> (2020). Diseño de un algoritmo basado en el EKF para la estimación de demandas desconocidas en ductos de agua. En <em>Jornada de Ciencia y Tecnología Aplicada<\/em>, pp. 194–200. URL: <a href=\"https://jcyta.cenidet.tecnm.mx/revistas/jcyta/04-Revista_JCyTA_Vol-3-Num-1_Ene-Jun_2020.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">https://jcyta.cenidet.tecnm.mx/revistas/jcyta/04-Revista_JCyTA_Vol-3-Num-1_Ene-Jun_2020.pdf<\/a>", "bibtex": "@inproceedings{Cano2020,\n  year = {2020},\n  author = {Cano, A. and López-Estrada, F. R. and Torres, L. and Santos-Ruiz, I.},\n  title = {Diseño de un algoritmo basado en el EKF para la estimación de demandas desconocidas en ductos de agua},\n  booktitle = {Jornada de Ciencia y Tecnología Aplicada},\n  pages = {194--200},\n  publisher = {Tecnológico Nacional de México/Centro Nacional de Investigación y Desarrollo Tecnológico},\n  volume = {3},\n  url = {https://jcyta.cenidet.tecnm.mx/revistas/jcyta/04-Revista_JCyTA_Vol-3-Num-1_Ene-Jun_2020.pdf}\n}", "warnings": []}, {"id": "SantosRuiz2019", "year": "2019", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., Puig, V., & Blesa, J. (2019). Estimation of Node Pressures in Water Distribution Networks by Gaussian Process Regression. En <em>2019 4th Conference on Control and Fault Tolerant Systems (SysTol)<\/em>, pp. 50–55. DOI: <a href=\"https://doi.org/10.1109/SYSTOL.2019.8864793\" target=\"_blank\" rel=\"noopener noreferrer\">10.1109/SYSTOL.2019.8864793<\/a>", "bibtex": "@inproceedings{SantosRuiz2019,\n  year = {2019},\n  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig, V. and Blesa, J.},\n  title = {Estimation of Node Pressures in Water Distribution Networks by Gaussian Process Regression},\n  booktitle = {2019 4th Conference on Control and Fault Tolerant Systems (SysTol)},\n  pages = {50--55},\n  doi = {10.1109/SYSTOL.2019.8864793}\n}", "warnings": []}, {"id": "SantosRuiz2019KNN", "year": "2019", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F. R., Puig Cayuela, V., Blesa Izquierdo, J., & Javadiha, M. (2019). Localización de fugas en redes de distribución de agua mediante k-NN con distancia cosenoidal. En <em>Memorias del Congreso Nacional de Control Automático 2019<\/em>, pp. 370–375. URI: <a href=\"http://hdl.handle.net/2117/176657\" target=\"_blank\" rel=\"noopener noreferrer\">http://hdl.handle.net/2117/176657<\/a>", "bibtex": "@inproceedings{SantosRuiz2019KNN,\n  year = {2019},\n  author = {Santos-Ruiz, I. and López-Estrada, F. R. and Puig Cayuela, V. and Blesa Izquierdo, J. and Javadiha, M.},\n  title = {Localización de fugas en redes de distribución de agua mediante k-NN con distancia cosenoidal},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2019},\n  pages = {370--375},\n  publisher = {AMCA},\n  uri = {http://hdl.handle.net/2117/176657}\n}", "warnings": []}, {"id": "GomezPenate2019", "year": "2019", "reference_html": "Gómez-Peñate, S., Valencia-Palomo, G., López-Estrada, F. R., Astorga-Zaragoza, C. M., Osornio-Rios, R. A., & <strong>Santos-Ruiz, I.<\/strong> (2019). Sensor Fault Diagnosis Based on a Sliding Mode and Unknown Input Observer for Takagi-Sugeno Systems with Uncertain Premise Variables. <em>Asian Journal of Control<\/em>, <em>21<\/em>(1), 339–353. DOI: <a href=\"https://doi.org/10.1002/asjc.1913\" target=\"_blank\" rel=\"noopener noreferrer\">10.1002/asjc.1913<\/a>", "bibtex": "@article{GomezPenate2019,\n  year = {2019},\n  author = {Gómez-Peñate, S. and Valencia-Palomo, G. and López-Estrada, F. R. and Astorga-Zaragoza, C. M. and Osornio-Rios, R. A. and Santos-Ruiz, I.},\n  title = {Sensor Fault Diagnosis Based on a Sliding Mode and Unknown Input Observer for Takagi-Sugeno Systems with Uncertain Premise Variables},\n  journal = {Asian Journal of Control},\n  number = {1},\n  pages = {339--353},\n  volume = {21},\n  doi = {10.1002/asjc.1913}\n}", "warnings": []}, {"id": "MendezLopez2019", "year": "2019", "reference_html": "Méndez-López, L., López-Estrada, F., <strong>Santos-Ruiz, I.<\/strong>, Valencia-Palomo, G., & Brindis-Velázquez, O. (2019). Diagnóstico de fallas en actuadores de un VANT mediante análisis en componentes principales. En <em>Memorias del Congreso Nacional de Control Automático 2019<\/em>, pp. 121–126. URL: <a href=\"http://revistadigital.amca.mx/wp-content/uploads/2022/06/0081.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">http://revistadigital.amca.mx/wp-content/uploads/2022/06/0081.pdf<\/a>", "bibtex": "@inproceedings{MendezLopez2019,\n  year = {2019},\n  author = {Méndez-López, L.A. and López-Estrada, F.R. and Santos-Ruiz, I. and Valencia-Palomo, G. and Brindis-Velázquez, O.},\n  title = {Diagnóstico de fallas en actuadores de un VANT mediante análisis en componentes principales},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2019},\n  pages = {121--126},\n  publisher = {AMCA},\n  url = {http://revistadigital.amca.mx/wp-content/uploads/2022/06/0081.pdf}\n}", "warnings": []}, {"id": "santos2018online", "year": "2018", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, Bermúdez, J., López-Estrada, F., Puig, V., Torres, L., & Delgado-Aguiñaga, J. (2018). Online leak diagnosis in pipelines using an EKF-based and steady-state mixed approach. <em>Control Engineering Practice<\/em>, <em>81<\/em>, 55–64. DOI: <a href=\"https://doi.org/10.1016/j.conengprac.2018.09.006\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.conengprac.2018.09.006<\/a>", "bibtex": "@article{santos2018online,\n  year = {2018},\n  author = {Santos-Ruiz, I. and Bermúdez, J. and López-Estrada, F. and Puig, V. and Torres, L. and Delgado-Aguiñaga, J.},\n  title = {Online leak diagnosis in pipelines using an EKF-based and steady-state mixed approach},\n  journal = {Control Engineering Practice},\n  pages = {55--64},\n  volume = {81},\n  doi = {10.1016/j.conengprac.2018.09.006}\n}", "warnings": []}, {"id": "santos2018diagnosis", "year": "2018", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F., Puig, V., Pérez-Pérez, E., Mina-Antonio, J., & Valencia-Palomo, G. (2018). Diagnosis of Fluid Leaks in Pipelines Using Dynamic PCA. <em>IFAC-PapersOnLine<\/em>, <em>51<\/em>(24), 373–380. 10th IFAC Symposium on Fault Detection, Supervision and Safety for Technical Processes SAFEPROCESS 2018: Warsaw, Poland, 29–31 August 2018. DOI: <a href=\"https://doi.org/10.1016/j.ifacol.2018.09.604\" target=\"_blank\" rel=\"noopener noreferrer\">10.1016/j.ifacol.2018.09.604<\/a>", "bibtex": "@article{santos2018diagnosis,\n  year = {2018},\n  author = {Santos-Ruiz, I. and López-Estrada, F. and Puig, V. and Pérez-Pérez, E. and Mina-Antonio, J. and Valencia-Palomo, G.},\n  title = {Diagnosis of Fluid Leaks in Pipelines Using Dynamic PCA},\n  journal = {IFAC-PapersOnLine},\n  note = {10th IFAC Symposium on Fault Detection, Supervision and Safety for Technical Processes SAFEPROCESS 2018: Warsaw, Poland, 29--31 August 2018},\n  number = {24},\n  pages = {373--380},\n  volume = {51},\n  doi = {10.1016/j.ifacol.2018.09.604}\n}", "warnings": []}, {"id": "bermudez2018modelado", "year": "2018", "reference_html": "Bermúdez, J., <strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F., Besancon, G., Torres, L., & Valencia-Palomo, G. (2018). Modelado y simulación de una red hidráulica para diagnóstico de fugas. En <em>Memorias del Congreso Nacional de Control Automático 2018<\/em>, pp. 84–89. URL: <a href=\"http://revistadigital.amca.mx/wp-content/uploads/2022/06/MieBT1-03.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">http://revistadigital.amca.mx/wp-content/uploads/2022/06/MieBT1-03.pdf<\/a>", "bibtex": "@inproceedings{bermudez2018modelado,\n  year = {2018},\n  author = {Bermúdez, J. and Santos-Ruiz, I. and López-Estrada, F. and Besancon, G. and Torres, L. and Valencia-Palomo, G.},\n  title = {Modelado y simulación de una red hidráulica para diagnóstico de fugas},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2018},\n  pages = {84--89},\n  publisher = {AMCA},\n  url = {http://revistadigital.amca.mx/wp-content/uploads/2022/06/MieBT1-03.pdf}\n}", "warnings": []}, {"id": "santos2018estimacion", "year": "2018", "reference_html": "<strong>Santos-Ruiz, I.<\/strong>, Bermúdez Hernández, J. R., López Estrada, F. R., Puig Cayuela, V., & Torres Ortiz, F. L. (2018). Estimación experimental de la rugosidad y del factor de fricción en una tubería. En <em>Memorias del Congreso Nacional de Control Automático 2018<\/em>, pp. 489–494. URI: <a href=\"http://hdl.handle.net/2117/342133\" target=\"_blank\" rel=\"noopener noreferrer\">http://hdl.handle.net/2117/342133<\/a>", "bibtex": "@inproceedings{santos2018estimacion,\n  year = {2018},\n  author = {Santos-Ruiz, I. and Bermúdez Hernández, J. R. and López Estrada, F. R. and Puig Cayuela, V. and Torres Ortiz, F. L.},\n  title = {Estimación experimental de la rugosidad y del factor de fricción en una tubería},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2018},\n  pages = {489--494},\n  publisher = {AMCA},\n  uri = {http://hdl.handle.net/2117/342133}\n}", "warnings": []}, {"id": "bermudez2017diseno", "year": "2017", "reference_html": "Bermúdez, J., <strong>Santos-Ruiz, I.<\/strong>, López-Estrada, F., Torres, L., & Puig, V. (2017). Diseño y modelado dinámico de una planta piloto para detección de fugas hidráulicas. En <em>Memorias del Congreso Nacional de Control Automático 2017<\/em>, pp. 2–7. URL: <a href=\"http://amca.mx/memorias/amca2017/media/files/0129.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">http://amca.mx/memorias/amca2017/media/files/0129.pdf<\/a>", "bibtex": "@inproceedings{bermudez2017diseno,\n  year = {2017},\n  author = {Bermúdez, J. and Santos-Ruiz, I. and López-Estrada, F. and Torres, L. and Puig, V.},\n  title = {Diseño y modelado dinámico de una planta piloto para detección de fugas hidráulicas},\n  booktitle = {Memorias del Congreso Nacional de Control Automático 2017},\n  pages = {2--7},\n  publisher = {AMCA},\n  url = {http://amca.mx/memorias/amca2017/media/files/0129.pdf}\n}", "warnings": []}]}</script>
+  <script>
+    (function () {
+      var includeBibtex = true;
+      var initialGroupByYear = false;
+      var dataNode = document.getElementById("bib2html-data");
+      var data = { groupsByYear: [], flatEntries: [] };
+      try {
+        data = JSON.parse((dataNode && dataNode.textContent) || "{}");
+      } catch (error) {
+        data = { groupsByYear: [], flatEntries: [] };
+      }
+
+      var container = document.querySelector(".bib2html-runtime");
+      if (!container) {
+        return;
+      }
+
+      var toggle = container.querySelector(".b2h-group-toggle");
+      var root = container.querySelector(".b2h-root");
+      var modal = container.querySelector(".b2h-modal");
+      var modalTitle = container.querySelector(".b2h-modal-title");
+      var modalPre = container.querySelector(".b2h-pre");
+      var copyBtn = container.querySelector(".b2h-icon-btn.copy");
+      var closeBtn = container.querySelector(".b2h-icon-btn.close");
+
+      function renderEmpty() {
+        root.innerHTML = "<p class='b2h-empty'>No se encontraron entradas bibliográficas válidas.</p>";
+      }
+
+      function openModal(id, bibtex) {
+        modalTitle.textContent = "Registro BibTeX: " + id;
+        modalPre.textContent = bibtex || "";
+        modal.setAttribute("aria-hidden", "false");
+      }
+
+      function closeModal() {
+        modal.setAttribute("aria-hidden", "true");
+      }
+
+      async function copyBibtex() {
+        var text = modalPre.textContent || "";
+        if (!text) {
+          return;
+        }
+        try {
+          await navigator.clipboard.writeText(text);
+          copyBtn.classList.add("ok");
+          setTimeout(function () { copyBtn.classList.remove("ok"); }, 900);
+        } catch (error) {
+          var textarea = document.createElement("textarea");
+          textarea.value = text;
+          textarea.setAttribute("readonly", "");
+          textarea.style.position = "fixed";
+          textarea.style.opacity = "0";
+          document.body.appendChild(textarea);
+          textarea.select();
+          try {
+            document.execCommand("copy");
+            copyBtn.classList.add("ok");
+            setTimeout(function () { copyBtn.classList.remove("ok"); }, 900);
+          } finally {
+            document.body.removeChild(textarea);
+          }
+        }
+      }
+
+      closeBtn.addEventListener("click", closeModal);
+      copyBtn.addEventListener("click", copyBibtex);
+      modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          closeModal();
+        }
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeModal();
+        }
+      });
+
+      function createList(entries) {
+        var list = document.createElement("ul");
+        list.className = "fa-ul b2h-list";
+        (entries || []).forEach(function (entry) {
+          var li = document.createElement("li");
+          li.innerHTML = "<i class='fa-li fa fa-file-lines' aria-hidden='true'></i>";
+          var reference = document.createElement("span");
+          reference.className = "b2h-ref";
+          reference.innerHTML = entry.reference_html || "";
+          li.appendChild(reference);
+          if (includeBibtex && entry.bibtex) {
+            var btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "b2h-bib-btn";
+            btn.textContent = "Ver BibTeX";
+            btn.addEventListener("click", function () {
+              openModal(entry.id || "registro", entry.bibtex || "");
+            });
+            li.appendChild(btn);
+          }
+          list.appendChild(li);
+        });
+        return list;
+      }
+
+      function renderGrouped(groups) {
+        root.innerHTML = "";
+        if (!groups || groups.length === 0) {
+          renderEmpty();
+          return;
+        }
+        groups.forEach(function (group, index) {
+          var details = document.createElement("details");
+          details.className = "b2h-group";
+          if (index === 0) {
+            details.open = true;
+          }
+
+          var summary = document.createElement("summary");
+          summary.innerHTML = "<span class='b2h-year'>" + (group.year || "s.f.") + "</span>"
+            + "<span class='b2h-count'>" + String((group.entries || []).length) + "</span>";
+          details.appendChild(summary);
+          details.appendChild(createList(group.entries || []));
+          root.appendChild(details);
+        });
+      }
+
+      function refresh() {
+        if (toggle.checked) {
+          renderGrouped(data.groupsByYear || []);
+          return;
+        }
+        renderGrouped([{ year: "Todas las publicaciones", entries: data.flatEntries || [] }]);
+      }
+
+      toggle.checked = !!initialGroupByYear;
+      toggle.addEventListener("change", refresh);
+      refresh();
+    })();
+  </script>
+
+</body></html>

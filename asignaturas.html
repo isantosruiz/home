@@ -8,7 +8,6 @@
   <style>
     :root {
       --bg: #f8fafc;
-      --bg-soft: #eef2f7;
       --card: #ffffff;
       --card-border: #dbe4ee;
       --text: #0f172a;
@@ -62,63 +61,6 @@
       font-size: 1rem;
     }
 
-    .search-card {
-      margin-top: 22px;
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      background: #f8fbff;
-      overflow: hidden;
-    }
-
-    .search-card summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 14px 16px;
-      font-weight: 700;
-      color: #0b1324;
-      background: #f1f5f9;
-    }
-
-    .search-card summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .search-card-body {
-      padding: 16px;
-    }
-
-    .toolbar {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-    }
-
-    .toolbar input,
-    .toolbar button {
-      width: 100%;
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      background: #fff;
-      color: var(--text);
-      padding: 12px 14px;
-      font-size: 0.95rem;
-      outline: none;
-    }
-
-    .toolbar button {
-      cursor: pointer;
-      background: linear-gradient(135deg, var(--accent), #1d4ed8);
-      color: white;
-      border: none;
-      font-weight: 600;
-      transition: transform 0.15s ease, opacity 0.15s ease;
-    }
-
-    .toolbar button:hover {
-      transform: translateY(-1px);
-      opacity: 0.96;
-    }
-
     .status {
       margin-top: 14px;
       color: var(--muted);
@@ -152,10 +94,41 @@
       color: #0b1324;
     }
 
-    .section-title {
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
       margin: 36px 0 14px;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      margin: 0;
       font-size: 1.4rem;
       color: #0b1324;
+    }
+
+    .section-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      background: white;
+      color: var(--text);
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: #f8fbff;
+      transform: translateY(-1px);
     }
 
     .semester-list {
@@ -171,9 +144,18 @@
       box-shadow: var(--shadow);
     }
 
-    .semester-card summary {
+    .semester-card summary,
+    .search-card summary {
       list-style: none;
       cursor: pointer;
+    }
+
+    .semester-card summary::-webkit-details-marker,
+    .search-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .semester-summary {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -184,8 +166,40 @@
       background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
     }
 
-    .semester-card summary::-webkit-details-marker {
-      display: none;
+    .summary-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .summary-title {
+      word-break: break-word;
+    }
+
+    .collapse-indicator {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: #1d4ed8;
+      font-weight: 800;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .semester-card[open] .collapse-indicator::before,
+    .search-card[open] .collapse-indicator::before {
+      content: "−";
+    }
+
+    .semester-card:not([open]) .collapse-indicator::before,
+    .search-card:not([open]) .collapse-indicator::before {
+      content: "+";
     }
 
     .semester-meta {
@@ -193,6 +207,7 @@
       gap: 10px;
       flex-wrap: wrap;
       align-items: center;
+      justify-content: flex-end;
     }
 
     .badge {
@@ -205,23 +220,15 @@
       font-weight: 600;
       background: var(--accent-soft);
       color: #1d4ed8;
-      border: 1px solid #bfdbfe;
     }
 
     .semester-body {
-      padding: 0 18px 18px;
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-      border: 1px solid #e6edf5;
-      border-radius: 16px;
+      padding: 0 20px 18px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 700px;
       background: white;
     }
 
@@ -232,9 +239,7 @@
     }
 
     th {
-      position: sticky;
-      top: 0;
-      background: #f8fafc;
+      background: transparent;
       color: #334155;
       font-size: 0.88rem;
       letter-spacing: 0.02em;
@@ -288,6 +293,63 @@
       font-size: 0.92rem;
     }
 
+    .search-card {
+      margin-top: 32px;
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      background: var(--card);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .search-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 20px;
+      font-weight: 700;
+      color: #0b1324;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    }
+
+    .search-card-body {
+      padding: 0 20px 20px;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .toolbar input,
+    .toolbar button {
+      width: 100%;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      background: #fff;
+      color: var(--text);
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .toolbar button {
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), #1d4ed8);
+      color: white;
+      border: none;
+      font-weight: 600;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .toolbar button:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
     .empty,
     .error {
       margin-top: 18px;
@@ -305,16 +367,21 @@
     }
 
     @media (max-width: 980px) {
-      .toolbar {
-        grid-template-columns: 1fr;
-      }
-
       .stats {
         grid-template-columns: repeat(2, 1fr);
       }
 
       .top5 {
         grid-template-columns: 1fr 1fr;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .semester-summary,
+      .search-summary {
+        align-items: flex-start;
       }
     }
 
@@ -336,9 +403,19 @@
         grid-template-columns: 1fr;
       }
 
-      .semester-card summary {
+      .semester-summary {
         flex-direction: column;
         align-items: flex-start;
+      }
+
+      .semester-meta {
+        justify-content: flex-start;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
       }
     }
   </style>
@@ -348,27 +425,38 @@
     <section class="hero">
       <h1>Asignaturas impartidas</h1>
       <p class="hero-subtitle">Profesor: Ildeberto de los Santos Ruiz</p>
-
-      <details class="search-card">
-        <summary>Búsqueda y filtros</summary>
-        <div class="search-card-body">
-          <div class="toolbar">
-            <input type="text" id="searchInput" placeholder="Buscar asignatura, nivel o programa">
-            <button id="reloadBtn">Recargar datos</button>
-          </div>
-        </div>
-      </details>
-
       <div class="status" id="status">Cargando datos automáticamente...</div>
     </section>
 
     <section class="stats" id="stats"></section>
 
-    <h2 class="section-title">Contenido por semestre</h2>
+    <div class="section-header">
+      <h2 class="section-title">Contenido por semestre</h2>
+      <div class="section-actions">
+        <button class="action-btn" id="expandAllBtn">Expandir todo</button>
+        <button class="action-btn" id="collapseAllBtn">Colapsar todo</button>
+      </div>
+    </div>
+
     <section class="semester-list" id="semesterList"></section>
 
     <h2 class="section-title">Top 5 asignaturas más impartidas</h2>
     <section class="top5" id="top5List"></section>
+
+    <details class="search-card" id="searchCard">
+      <summary class="search-summary">
+        <span class="summary-left">
+          <span class="collapse-indicator" aria-hidden="true"></span>
+          <span>Búsqueda y acciones</span>
+        </span>
+      </summary>
+      <div class="search-card-body">
+        <div class="toolbar">
+          <input type="text" id="searchInput" placeholder="Buscar asignatura, nivel o programa">
+          <button id="reloadBtn">Recargar datos</button>
+        </div>
+      </div>
+    </details>
   </div>
 
   <script>
@@ -381,6 +469,8 @@
     const top5ListEl = document.getElementById("top5List");
     const reloadBtn = document.getElementById("reloadBtn");
     const searchInput = document.getElementById("searchInput");
+    const expandAllBtn = document.getElementById("expandAllBtn");
+    const collapseAllBtn = document.getElementById("collapseAllBtn");
 
     function normalizeText(value) {
       return String(value ?? "").trim().replace(/\s+/g, " ");
@@ -404,7 +494,6 @@
 
     function extractSortableSemesterValue(semestre) {
       const s = safeUpper(semestre);
-
       const yearMatch = s.match(/(20\d{2}|19\d{2})/);
       const year = yearMatch ? parseInt(yearMatch[1], 10) : null;
 
@@ -539,37 +628,38 @@
 
         return `
           <details class="semester-card" ${index === 0 ? "open" : ""}>
-            <summary>
-              <span>${escapeHtml(semestre)}</span>
-              <div class="semester-meta">
+            <summary class="semester-summary">
+              <span class="summary-left">
+                <span class="collapse-indicator" aria-hidden="true"></span>
+                <span class="summary-title">${escapeHtml(semestre)}</span>
+              </span>
+              <span class="semester-meta">
                 <span class="badge">${items.length} registro(s)</span>
                 <span class="badge">${programas} programa(s)</span>
                 <span class="badge">${niveles} nivel(es)</span>
-              </div>
+              </span>
             </summary>
             <div class="semester-body">
-              <div class="table-wrap">
-                <table>
-                  <thead>
+              <table>
+                <thead>
+                  <tr>
+                    <th>SEMESTRE</th>
+                    <th>ASIGNATURA</th>
+                    <th>NIVEL</th>
+                    <th>PROGRAMA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${items.map(item => `
                     <tr>
-                      <th>SEMESTRE</th>
-                      <th>ASIGNATURA</th>
-                      <th>NIVEL</th>
-                      <th>PROGRAMA</th>
+                      <td>${escapeHtml(item.semestre)}</td>
+                      <td>${escapeHtml(item.asignatura)}</td>
+                      <td>${escapeHtml(item.nivel)}</td>
+                      <td>${escapeHtml(item.programa)}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    ${items.map(item => `
-                      <tr>
-                        <td>${escapeHtml(item.semestre)}</td>
-                        <td>${escapeHtml(item.asignatura)}</td>
-                        <td>${escapeHtml(item.nivel)}</td>
-                        <td>${escapeHtml(item.programa)}</td>
-                      </tr>
-                    `).join("")}
-                  </tbody>
-                </table>
-              </div>
+                  `).join("")}
+                </tbody>
+              </table>
             </div>
           </details>
         `;
@@ -623,6 +713,18 @@
         .replaceAll("'", "&#039;");
     }
 
+    function expandAllSemesters() {
+      document.querySelectorAll(".semester-card").forEach(card => {
+        card.open = true;
+      });
+    }
+
+    function collapseAllSemesters() {
+      document.querySelectorAll(".semester-card").forEach(card => {
+        card.open = false;
+      });
+    }
+
     async function parseExcelArrayBuffer(arrayBuffer) {
       const workbook = XLSX.read(arrayBuffer, { type: "array" });
       const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -659,6 +761,14 @@
 
     searchInput.addEventListener("input", () => {
       renderBySemester(allRows);
+    });
+
+    expandAllBtn.addEventListener("click", () => {
+      expandAllSemesters();
+    });
+
+    collapseAllBtn.addEventListener("click", () => {
+      collapseAllSemesters();
     });
 
     window.addEventListener("DOMContentLoaded", async () => {

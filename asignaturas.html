@@ -16,7 +16,6 @@
       --accent: #2563eb;
       --accent-soft: #dbeafe;
       --success: #16a34a;
-      --success-soft: #dcfce7;
       --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
       --radius: 18px;
     }
@@ -51,24 +50,47 @@
     }
 
     .hero h1 {
-      margin: 0 0 10px;
-      font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+      margin: 0 0 14px;
+      font-size: clamp(1.75rem, 3.6vw, 2.7rem);
       line-height: 1.1;
       color: #0b1324;
     }
 
-    .hero p {
+    .hero-subtitle {
       margin: 0;
       color: var(--muted);
       font-size: 1rem;
-      max-width: 900px;
+    }
+
+    .search-card {
+      margin-top: 22px;
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      background: #f8fbff;
+      overflow: hidden;
+    }
+
+    .search-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      font-weight: 700;
+      color: #0b1324;
+      background: #f1f5f9;
+    }
+
+    .search-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .search-card-body {
+      padding: 16px;
     }
 
     .toolbar {
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 12px;
-      margin-top: 22px;
     }
 
     .toolbar input,
@@ -282,12 +304,6 @@
       background: #fef2f2;
     }
 
-    .footer-note {
-      margin-top: 24px;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
     @media (max-width: 980px) {
       .toolbar {
         grid-template-columns: 1fr;
@@ -331,16 +347,19 @@
   <div class="container">
     <section class="hero">
       <h1>Asignaturas impartidas</h1>
-      <p>
-        Profesor: <strong>Ildeberto de los Santos Ruiz</strong>
-      </p>
+      <p class="hero-subtitle">Profesor: Ildeberto de los Santos Ruiz</p>
 
-      <div class="toolbar">
-        <input type="text" id="searchInput" placeholder="Buscar asignatura, nivel o programa">
-        <button id="reloadBtn">Recargar datos</button>
-      </div>
+      <details class="search-card">
+        <summary>Búsqueda y filtros</summary>
+        <div class="search-card-body">
+          <div class="toolbar">
+            <input type="text" id="searchInput" placeholder="Buscar asignatura, nivel o programa">
+            <button id="reloadBtn">Recargar datos</button>
+          </div>
+        </div>
+      </details>
 
-      <div class="status" id="status">Cargando archivo Excel automáticamente...</div>
+      <div class="status" id="status">Cargando datos automáticamente...</div>
     </section>
 
     <section class="stats" id="stats"></section>
@@ -350,10 +369,6 @@
 
     <h2 class="section-title">Top 5 asignaturas más impartidas</h2>
     <section class="top5" id="top5List"></section>
-
-    <div class="footer-note">
-      La página espera encontrar el archivo Excel en la misma carpeta del HTML.
-    </div>
   </div>
 
   <script>
@@ -390,35 +405,70 @@
     function extractSortableSemesterValue(semestre) {
       const s = safeUpper(semestre);
 
+      const yearMatch = s.match(/(20\d{2}|19\d{2})/);
+      const year = yearMatch ? parseInt(yearMatch[1], 10) : null;
+
+      let period = 0;
+
+      if (
+        s.includes("AGO/DIC") ||
+        s.includes("AGO-DIC") ||
+        s.includes("AGOSTO-DICIEMBRE") ||
+        s.includes("AGOSTO / DICIEMBRE") ||
+        s.includes("AGOSTO") ||
+        s.includes("DICIEMBRE") ||
+        s.includes("OTOÑO") ||
+        s.includes("OTONO") ||
+        s.includes("FALL") ||
+        s.includes("SEMESTRE 2")
+      ) {
+        period = 3;
+      } else if (
+        s.includes("VERANO") ||
+        s.includes("INTERSEMESTRAL") ||
+        s.includes("SUMMER")
+      ) {
+        period = 2;
+      } else if (
+        s.includes("ENE/JUN") ||
+        s.includes("ENE-JUN") ||
+        s.includes("FEB/JUN") ||
+        s.includes("FEB-JUN") ||
+        s.includes("ENERO-JUNIO") ||
+        s.includes("FEBRERO-JUNIO") ||
+        s.includes("ENERO / JUNIO") ||
+        s.includes("FEBRERO / JUNIO") ||
+        s.includes("PRIMAVERA") ||
+        s.includes("SPRING") ||
+        s.includes("SEMESTRE 1") ||
+        s.includes("ENE") ||
+        s.includes("FEB") ||
+        s.includes("JUN")
+      ) {
+        period = 1;
+      }
+
       const numeros = s.match(/\d+/g);
+
       if (numeros && numeros.length >= 2) {
-        const a = parseInt(numeros[0], 10);
-        const b = parseInt(numeros[1], 10);
+        const n1 = parseInt(numeros[0], 10);
+        const n2 = parseInt(numeros[1], 10);
 
-        if (String(a).length === 4 && b <= 12) {
-          return a * 100 + b;
+        if (String(n1).length === 4 && n2 <= 12) {
+          return n1 * 10 + period;
         }
 
-        if (String(b).length === 4 && a <= 12) {
-          return b * 100 + a;
+        if (String(n2).length === 4 && n1 <= 12) {
+          return n2 * 10 + period;
         }
 
-        if (String(a).length === 4 && String(b).length === 4) {
-          return Math.max(a, b);
+        if (String(n1).length === 4 && String(n2).length === 4) {
+          return Math.max(n1, n2) * 10 + period;
         }
       }
 
-      const anio = s.match(/(20\d{2}|19\d{2})/);
-      if (anio) {
-        let periodo = 0;
-
-        if (s.includes("ENE") || s.includes("FEB") || s.includes("JAN") || s.includes("SEMESTRE 1") || s.includes("A")) {
-          periodo = 1;
-        } else if (s.includes("AGO") || s.includes("SEP") || s.includes("OTO") || s.includes("SEMESTRE 2") || s.includes("B")) {
-          periodo = 2;
-        }
-
-        return parseInt(anio[1], 10) * 10 + periodo;
+      if (year) {
+        return year * 10 + period;
       }
 
       return -1;
@@ -462,6 +512,7 @@
 
     function renderBySemester(rows) {
       const query = safeUpper(searchInput.value);
+
       const filteredRows = rows.filter(r => {
         if (!query) return true;
         const haystack = `${r.semestre} ${r.asignatura} ${r.nivel} ${r.programa}`.toUpperCase();
@@ -580,7 +631,7 @@
     }
 
     async function loadExcelAutomatically() {
-      statusEl.textContent = `Cargando archivo: ${EXCEL_FILE}`;
+      statusEl.textContent = "Cargando datos automáticamente...";
 
       const response = await fetch(EXCEL_FILE, { cache: "no-store" });
 
@@ -592,7 +643,7 @@
       allRows = await parseExcelArrayBuffer(arrayBuffer);
       renderAll(allRows);
 
-      statusEl.textContent = `Archivo cargado correctamente: ${EXCEL_FILE}`;
+      statusEl.textContent = "Datos cargados correctamente.";
     }
 
     reloadBtn.addEventListener("click", async () => {
@@ -602,7 +653,7 @@
         semesterListEl.innerHTML = `<div class="error">${escapeHtml(error.message)}</div>`;
         top5ListEl.innerHTML = "";
         statsEl.innerHTML = "";
-        statusEl.textContent = "Error al recargar el archivo.";
+        statusEl.textContent = "Error al recargar los datos.";
       }
     });
 
@@ -617,9 +668,7 @@
         statsEl.innerHTML = "";
         semesterListEl.innerHTML = `
           <div class="error">
-            No fue posible cargar automáticamente el archivo Excel.
-            Verifica que el archivo <strong>${escapeHtml(EXCEL_FILE)}</strong>
-            esté en la misma carpeta que esta página.
+            No fue posible cargar automáticamente los datos.
           </div>
         `;
         top5ListEl.innerHTML = "";

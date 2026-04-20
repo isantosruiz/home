@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asignaturas impartidas</title>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --bg-soft: #eef2f7;
+      --card: #ffffff;
+      --card-border: #dbe4ee;
+      --text: #0f172a;
+      --muted: #64748b;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --success: #16a34a;
+      --success-soft: #dcfce7;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.05), transparent 25%),
+        linear-gradient(180deg, #f8fafc 0%, #eef4fb 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .container {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 48px;
+    }
+
+    .hero {
+      margin-bottom: 24px;
+      padding: 28px;
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+      line-height: 1.1;
+      color: #0b1324;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 900px;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .toolbar input,
+    .toolbar button {
+      width: 100%;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      background: #fff;
+      color: var(--text);
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .toolbar button {
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), #1d4ed8);
+      color: white;
+      border: none;
+      font-weight: 600;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .toolbar button:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .status {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 24px 0 28px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
+      color: #0b1324;
+    }
+
+    .section-title {
+      margin: 36px 0 14px;
+      font-size: 1.4rem;
+      color: #0b1324;
+    }
+
+    .semester-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .semester-card {
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      background: var(--card);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .semester-card summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    }
+
+    .semester-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .semester-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: var(--accent-soft);
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+
+    .semester-body {
+      padding: 0 18px 18px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid #e6edf5;
+      border-radius: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+      background: white;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f8fafc;
+      color: #334155;
+      font-size: 0.88rem;
+      letter-spacing: 0.02em;
+    }
+
+    td {
+      color: #0f172a;
+      font-size: 0.95rem;
+    }
+
+    tr:hover td {
+      background: #f8fbff;
+    }
+
+    .top5 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .top-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .rank {
+      display: inline-flex;
+      width: 32px;
+      height: 32px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: 800;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--success), #15803d);
+      color: white;
+    }
+
+    .subject-name {
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .subject-count {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .empty,
+    .error {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid var(--card-border);
+      background: white;
+      color: var(--muted);
+    }
+
+    .error {
+      color: #b91c1c;
+      border-color: #fecaca;
+      background: #fef2f2;
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 980px) {
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .top5 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(100% - 20px, 1200px);
+        padding-top: 20px;
+      }
+
+      .hero {
+        padding: 20px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .top5 {
+        grid-template-columns: 1fr;
+      }
+
+      .semester-card summary {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>Asignaturas impartidas</h1>
+      <p>
+        Profesor: <strong>Ildeberto de los Santos Ruiz</strong>
+      </p>
+
+      <div class="toolbar">
+        <input type="text" id="searchInput" placeholder="Buscar asignatura, nivel o programa">
+        <button id="reloadBtn">Recargar datos</button>
+      </div>
+
+      <div class="status" id="status">Cargando archivo Excel automáticamente...</div>
+    </section>
+
+    <section class="stats" id="stats"></section>
+
+    <h2 class="section-title">Contenido por semestre</h2>
+    <section class="semester-list" id="semesterList"></section>
+
+    <h2 class="section-title">Top 5 asignaturas más impartidas</h2>
+    <section class="top5" id="top5List"></section>
+
+    <div class="footer-note">
+      La página espera encontrar el archivo Excel en la misma carpeta del HTML.
+    </div>
+  </div>
+
+  <script>
+    const EXCEL_FILE = "asignaturas.xlsx";
+    let allRows = [];
+
+    const statusEl = document.getElementById("status");
+    const statsEl = document.getElementById("stats");
+    const semesterListEl = document.getElementById("semesterList");
+    const top5ListEl = document.getElementById("top5List");
+    const reloadBtn = document.getElementById("reloadBtn");
+    const searchInput = document.getElementById("searchInput");
+
+    function normalizeText(value) {
+      return String(value ?? "").trim().replace(/\s+/g, " ");
+    }
+
+    function safeUpper(value) {
+      return normalizeText(value).toUpperCase();
+    }
+
+    function cleanRows(rows) {
+      return rows
+        .map(row => ({
+          semestre: normalizeText(row["SEMESTRE"]),
+          asignatura: normalizeText(row["ASIGNATURA"]),
+          nivel: normalizeText(row["NIVEL"]),
+          programa: normalizeText(row["PROGRAMA"])
+        }))
+        .filter(r => r.semestre || r.asignatura || r.nivel || r.programa)
+        .filter(r => r.semestre && r.asignatura);
+    }
+
+    function extractSortableSemesterValue(semestre) {
+      const s = safeUpper(semestre);
+
+      const numeros = s.match(/\d+/g);
+      if (numeros && numeros.length >= 2) {
+        const a = parseInt(numeros[0], 10);
+        const b = parseInt(numeros[1], 10);
+
+        if (String(a).length === 4 && b <= 12) {
+          return a * 100 + b;
+        }
+
+        if (String(b).length === 4 && a <= 12) {
+          return b * 100 + a;
+        }
+
+        if (String(a).length === 4 && String(b).length === 4) {
+          return Math.max(a, b);
+        }
+      }
+
+      const anio = s.match(/(20\d{2}|19\d{2})/);
+      if (anio) {
+        let periodo = 0;
+
+        if (s.includes("ENE") || s.includes("FEB") || s.includes("JAN") || s.includes("SEMESTRE 1") || s.includes("A")) {
+          periodo = 1;
+        } else if (s.includes("AGO") || s.includes("SEP") || s.includes("OTO") || s.includes("SEMESTRE 2") || s.includes("B")) {
+          periodo = 2;
+        }
+
+        return parseInt(anio[1], 10) * 10 + periodo;
+      }
+
+      return -1;
+    }
+
+    function sortSemestersDesc(semesters) {
+      return semesters.sort((a, b) => {
+        const va = extractSortableSemesterValue(a);
+        const vb = extractSortableSemesterValue(b);
+
+        if (vb !== va) return vb - va;
+        return b.localeCompare(a, "es", { numeric: true });
+      });
+    }
+
+    function renderStats(rows) {
+      const totalRegistros = rows.length;
+      const totalSemestres = new Set(rows.map(r => r.semestre)).size;
+      const totalAsignaturasUnicas = new Set(rows.map(r => safeUpper(r.asignatura))).size;
+      const totalProgramas = new Set(rows.map(r => safeUpper(r.programa)).filter(Boolean)).size;
+
+      statsEl.innerHTML = `
+        <div class="stat-card">
+          <div class="stat-label">Registros</div>
+          <div class="stat-value">${totalRegistros}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Semestres</div>
+          <div class="stat-value">${totalSemestres}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Asignaturas únicas</div>
+          <div class="stat-value">${totalAsignaturasUnicas}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Programas</div>
+          <div class="stat-value">${totalProgramas}</div>
+        </div>
+      `;
+    }
+
+    function renderBySemester(rows) {
+      const query = safeUpper(searchInput.value);
+      const filteredRows = rows.filter(r => {
+        if (!query) return true;
+        const haystack = `${r.semestre} ${r.asignatura} ${r.nivel} ${r.programa}`.toUpperCase();
+        return haystack.includes(query);
+      });
+
+      if (!filteredRows.length) {
+        semesterListEl.innerHTML = `<div class="empty">No hay registros para mostrar con el filtro actual.</div>`;
+        return;
+      }
+
+      const grouped = filteredRows.reduce((acc, row) => {
+        if (!acc[row.semestre]) acc[row.semestre] = [];
+        acc[row.semestre].push(row);
+        return acc;
+      }, {});
+
+      const sortedSemesters = sortSemestersDesc(Object.keys(grouped));
+
+      semesterListEl.innerHTML = sortedSemesters.map((semestre, index) => {
+        const items = grouped[semestre];
+        const programas = [...new Set(items.map(i => i.programa).filter(Boolean))].length;
+        const niveles = [...new Set(items.map(i => i.nivel).filter(Boolean))].length;
+
+        return `
+          <details class="semester-card" ${index === 0 ? "open" : ""}>
+            <summary>
+              <span>${escapeHtml(semestre)}</span>
+              <div class="semester-meta">
+                <span class="badge">${items.length} registro(s)</span>
+                <span class="badge">${programas} programa(s)</span>
+                <span class="badge">${niveles} nivel(es)</span>
+              </div>
+            </summary>
+            <div class="semester-body">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>SEMESTRE</th>
+                      <th>ASIGNATURA</th>
+                      <th>NIVEL</th>
+                      <th>PROGRAMA</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${items.map(item => `
+                      <tr>
+                        <td>${escapeHtml(item.semestre)}</td>
+                        <td>${escapeHtml(item.asignatura)}</td>
+                        <td>${escapeHtml(item.nivel)}</td>
+                        <td>${escapeHtml(item.programa)}</td>
+                      </tr>
+                    `).join("")}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+        `;
+      }).join("");
+    }
+
+    function renderTop5(rows) {
+      const counts = new Map();
+
+      rows.forEach(r => {
+        const key = safeUpper(r.asignatura);
+        if (!key) return;
+
+        if (!counts.has(key)) {
+          counts.set(key, { nombre: r.asignatura, total: 0 });
+        }
+
+        counts.get(key).total += 1;
+      });
+
+      const top5 = [...counts.values()]
+        .sort((a, b) => b.total - a.total || a.nombre.localeCompare(b.nombre, "es"))
+        .slice(0, 5);
+
+      if (!top5.length) {
+        top5ListEl.innerHTML = `<div class="empty">No hay información suficiente para calcular el top 5.</div>`;
+        return;
+      }
+
+      top5ListEl.innerHTML = top5.map((item, index) => `
+        <article class="top-card">
+          <div class="rank">${index + 1}</div>
+          <div class="subject-name">${escapeHtml(item.nombre)}</div>
+          <div class="subject-count">${item.total} vez/veces impartida(s)</div>
+        </article>
+      `).join("");
+    }
+
+    function renderAll(rows) {
+      renderStats(rows);
+      renderBySemester(rows);
+      renderTop5(rows);
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    async function parseExcelArrayBuffer(arrayBuffer) {
+      const workbook = XLSX.read(arrayBuffer, { type: "array" });
+      const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+      const json = XLSX.utils.sheet_to_json(firstSheet, { defval: "" });
+      return cleanRows(json);
+    }
+
+    async function loadExcelAutomatically() {
+      statusEl.textContent = `Cargando archivo: ${EXCEL_FILE}`;
+
+      const response = await fetch(EXCEL_FILE, { cache: "no-store" });
+
+      if (!response.ok) {
+        throw new Error(`No se pudo cargar el archivo (${response.status}).`);
+      }
+
+      const arrayBuffer = await response.arrayBuffer();
+      allRows = await parseExcelArrayBuffer(arrayBuffer);
+      renderAll(allRows);
+
+      statusEl.textContent = `Archivo cargado correctamente: ${EXCEL_FILE}`;
+    }
+
+    reloadBtn.addEventListener("click", async () => {
+      try {
+        await loadExcelAutomatically();
+      } catch (error) {
+        semesterListEl.innerHTML = `<div class="error">${escapeHtml(error.message)}</div>`;
+        top5ListEl.innerHTML = "";
+        statsEl.innerHTML = "";
+        statusEl.textContent = "Error al recargar el archivo.";
+      }
+    });
+
+    searchInput.addEventListener("input", () => {
+      renderBySemester(allRows);
+    });
+
+    window.addEventListener("DOMContentLoaded", async () => {
+      try {
+        await loadExcelAutomatically();
+      } catch (error) {
+        statsEl.innerHTML = "";
+        semesterListEl.innerHTML = `
+          <div class="error">
+            No fue posible cargar automáticamente el archivo Excel.
+            Verifica que el archivo <strong>${escapeHtml(EXCEL_FILE)}</strong>
+            esté en la misma carpeta que esta página.
+          </div>
+        `;
+        top5ListEl.innerHTML = "";
+        statusEl.textContent = "Error de carga automática.";
+      }
+    });
+  </script>
+</body>
+</html>

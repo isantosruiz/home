@@ -8,6 +8,7 @@
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.3/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/5.0.2/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
 
   <style>
     :root {
@@ -761,7 +762,7 @@
       });
     }
 
-    function exportVisibleRowsToWord() {
+    async function exportVisibleRowsToDocx() {
       const rows = getVisibleRowsOrdered();
 
       if (!rows.length) {
@@ -772,90 +773,147 @@
       const query = normalizeText(searchInput.value);
       const now = new Date().toLocaleString("es-MX");
 
-      const html = `
-        <html xmlns:o="urn:schemas-microsoft-com:office:office"
-              xmlns:w="urn:schemas-microsoft-com:office:word"
-              xmlns="http://www.w3.org/TR/REC-html40">
-          <head>
-            <meta charset="utf-8">
-            <title>Asignaturas impartidas</title>
-            <style>
-              body {
-                font-family: Arial, sans-serif;
-                color: #111827;
-              }
+      const {
+        Document,
+        Packer,
+        Paragraph,
+        TextRun,
+        Table,
+        TableRow,
+        TableCell,
+        WidthType,
+        BorderStyle,
+        AlignmentType,
+        VerticalAlign,
+        HeadingLevel,
+        ShadingType
+      } = window.docx;
 
-              h1 {
-                font-size: 20pt;
-                margin: 0 0 8px 0;
-              }
+      const borderColor = "CBD5E1";
+      const headerFill = "E2E8F0";
 
-              p {
-                margin: 0 0 6px 0;
-                color: #111827;
-                font-size: 10.5pt;
-              }
+      const makeCell = (text, options = {}) => new TableCell({
+        verticalAlign: VerticalAlign.CENTER,
+        shading: options.header ? { type: ShadingType.CLEAR, color: "auto", fill: headerFill } : undefined,
+        margins: options.header
+          ? { top: 60, bottom: 60, left: 100, right: 100 }
+          : { top: 80, bottom: 80, left: 100, right: 100 },
+        borders: {
+          top: { style: BorderStyle.SINGLE, size: 1, color: borderColor },
+          bottom: { style: BorderStyle.SINGLE, size: 1, color: borderColor },
+          left: { style: BorderStyle.SINGLE, size: 1, color: borderColor },
+          right: { style: BorderStyle.SINGLE, size: 1, color: borderColor }
+        },
+        children: [
+          new Paragraph({
+            spacing: { before: 0, after: 0, line: 240 },
+            children: [
+              new TextRun({
+                text: text ?? "",
+                bold: !!options.header,
+                size: 21
+              })
+            ]
+          })
+        ]
+      });
 
-              table {
-                border-collapse: collapse;
-                width: 100%;
-                margin-top: 18px;
-              }
+      const tableRows = [
+        new TableRow({
+          tableHeader: true,
+          children: [
+            makeCell("SEMESTRE", { header: true }),
+            makeCell("ASIGNATURA", { header: true }),
+            makeCell("NIVEL", { header: true }),
+            makeCell("PROGRAMA", { header: true })
+          ]
+        }),
+        ...rows.map(row =>
+          new TableRow({
+            children: [
+              makeCell(row.semestre),
+              makeCell(row.asignatura),
+              makeCell(row.nivel),
+              makeCell(row.programa)
+            ]
+          })
+        )
+      ];
 
-              th, td {
-                border: 1px solid #cbd5e1;
-                padding: 6px 8px;
-                font-size: 10.5pt;
-                text-align: left;
-                vertical-align: middle;
-                line-height: 1.15;
-              }
+      const doc = new Document({
+        sections: [
+          {
+            properties: {},
+            children: [
+              new Paragraph({
+                heading: HeadingLevel.TITLE,
+                spacing: { after: 140 },
+                children: [
+                  new TextRun({
+                    text: "Asignaturas impartidas",
+                    bold: true,
+                    size: 32
+                  })
+                ]
+              }),
+              new Paragraph({
+                spacing: { after: 100 },
+                children: [
+                  new TextRun({
+                    text: "Profesor: Ildeberto de los Santos Ruiz",
+                    bold: true,
+                    size: 22
+                  })
+                ]
+              }),
+              ...(query ? [
+                new Paragraph({
+                  spacing: { after: 100 },
+                  children: [
+                    new TextRun({
+                      text: `Filtro: ${query}`,
+                      size: 21
+                    })
+                  ]
+                })
+              ] : []),
+              new Paragraph({
+                spacing: { after: 100 },
+                children: [
+                  new TextRun({
+                    text: `Total de registros exportados: ${rows.length}`,
+                    size: 21
+                  })
+                ]
+              }),
+              new Paragraph({
+                spacing: { after: 180 },
+                children: [
+                  new TextRun({
+                    text: `Generado: ${now}`,
+                    size: 21
+                  })
+                ]
+              }),
+              new Table({
+                width: {
+                  size: 100,
+                  type: WidthType.PERCENTAGE
+                },
+                columnWidths: [1800, 3600, 1800, 3600],
+                rows: tableRows,
+                alignment: AlignmentType.CENTER
+              })
+            ]
+          }
+        ]
+      });
 
-              th {
-                background: #e2e8f0;
-                font-weight: bold;
-                padding-top: 4px;
-                padding-bottom: 4px;
-                vertical-align: middle;
-              }
-            </style>
-          </head>
-          <body>
-            <h1>Asignaturas impartidas</h1>
-            <p><strong>Profesor: Ildeberto de los Santos Ruiz</strong></p>
-            ${query ? `<p>Filtro: ${escapeHtml(query)}</p>` : ""}
-            <p>Total de registros exportados: ${rows.length}</p>
-            <p>Generado: ${escapeHtml(now)}</p>
-
-            <table>
-              <thead>
-                <tr>
-                  <th>SEMESTRE</th>
-                  <th>ASIGNATURA</th>
-                  <th>NIVEL</th>
-                  <th>PROGRAMA</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${rows.map(row => `
-                  <tr>
-                    <td>${escapeHtml(row.semestre)}</td>
-                    <td>${escapeHtml(row.asignatura)}</td>
-                    <td>${escapeHtml(row.nivel)}</td>
-                    <td>${escapeHtml(row.programa)}</td>
-                  </tr>
-                `).join("")}
-              </tbody>
-            </table>
-          </body>
-        </html>
-      `;
-
-      const blob = new Blob(["\ufeff", html], { type: "application/msword" });
+      const blob = await Packer.toBlob(doc);
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "asignaturas_exportadas.doc";
+      a.download = "asignaturas_exportadas.docx";
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -977,12 +1035,22 @@
       collapseAllSemesters();
     });
 
-    exportWordBtn.addEventListener("click", () => {
-      exportVisibleRowsToWord();
+    exportWordBtn.addEventListener("click", async () => {
+      try {
+        await exportVisibleRowsToDocx();
+      } catch (error) {
+        console.error(error);
+        alert("No fue posible exportar el archivo Word.");
+      }
     });
 
     exportPdfBtn.addEventListener("click", () => {
-      exportVisibleRowsToPdf();
+      try {
+        exportVisibleRowsToPdf();
+      } catch (error) {
+        console.error(error);
+        alert("No fue posible exportar el archivo PDF.");
+      }
     });
 
     window.addEventListener("DOMContentLoaded", async () => {

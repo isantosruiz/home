@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Asignaturas impartidas</title>
 
-  <!-- SheetJS standalone build -->
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-  <!-- jsPDF + AutoTable -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.3/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/5.0.2/jspdf.plugin.autotable.min.js"></script>
 
@@ -763,11 +761,6 @@
       });
     }
 
-    function buildExportTitle() {
-      const query = normalizeText(searchInput.value);
-      return query ? `Asignaturas impartidas - filtro: ${query}` : "Asignaturas impartidas";
-    }
-
     function exportVisibleRowsToWord() {
       const rows = getVisibleRowsOrdered();
 
@@ -776,7 +769,7 @@
         return;
       }
 
-      const title = buildExportTitle();
+      const query = normalizeText(searchInput.value);
       const now = new Date().toLocaleString("es-MX");
 
       const html = `
@@ -785,19 +778,52 @@
               xmlns="http://www.w3.org/TR/REC-html40">
           <head>
             <meta charset="utf-8">
-            <title>${escapeHtml(title)}</title>
+            <title>Asignaturas impartidas</title>
             <style>
-              body { font-family: Arial, sans-serif; color: #111827; }
-              h1 { font-size: 20pt; margin-bottom: 6px; }
-              p { margin-top: 0; color: #4b5563; }
-              table { border-collapse: collapse; width: 100%; margin-top: 18px; }
-              th, td { border: 1px solid #cbd5e1; padding: 8px; font-size: 10.5pt; text-align: left; }
-              th { background: #e2e8f0; }
+              body {
+                font-family: Arial, sans-serif;
+                color: #111827;
+              }
+
+              h1 {
+                font-size: 20pt;
+                margin: 0 0 8px 0;
+              }
+
+              p {
+                margin: 0 0 6px 0;
+                color: #111827;
+                font-size: 10.5pt;
+              }
+
+              table {
+                border-collapse: collapse;
+                width: 100%;
+                margin-top: 18px;
+              }
+
+              th, td {
+                border: 1px solid #cbd5e1;
+                padding: 6px 8px;
+                font-size: 10.5pt;
+                text-align: left;
+                vertical-align: middle;
+                line-height: 1.15;
+              }
+
+              th {
+                background: #e2e8f0;
+                font-weight: bold;
+                padding-top: 4px;
+                padding-bottom: 4px;
+                vertical-align: middle;
+              }
             </style>
           </head>
           <body>
-            <h1>${escapeHtml(title)}</h1>
-            <p>Profesor: Ildeberto de los Santos Ruiz</p>
+            <h1>Asignaturas impartidas</h1>
+            <p><strong>Profesor: Ildeberto de los Santos Ruiz</strong></p>
+            ${query ? `<p>Filtro: ${escapeHtml(query)}</p>` : ""}
             <p>Total de registros exportados: ${rows.length}</p>
             <p>Generado: ${escapeHtml(now)}</p>
 
@@ -844,24 +870,35 @@
         return;
       }
 
+      const query = normalizeText(searchInput.value);
       const { jsPDF } = window.jspdf;
-      const doc = new jsPDF({ orientation: "landscape", unit: "pt", format: "a4" });
-
-      const title = buildExportTitle();
+      const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "a4" });
       const now = new Date().toLocaleString("es-MX");
 
       doc.setFont("helvetica", "bold");
       doc.setFontSize(16);
-      doc.text(title, 40, 40);
+      doc.text("Asignaturas impartidas", 40, 40);
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      doc.text("Profesor: Ildeberto de los Santos Ruiz", 40, 60);
 
       doc.setFont("helvetica", "normal");
       doc.setFontSize(10);
-      doc.text("Profesor: Ildeberto de los Santos Ruiz", 40, 60);
-      doc.text(`Total de registros exportados: ${rows.length}`, 40, 75);
-      doc.text(`Generado: ${now}`, 40, 90);
+
+      let currentY = 75;
+
+      if (query) {
+        doc.text(`Filtro: ${query}`, 40, currentY);
+        currentY += 15;
+      }
+
+      doc.text(`Total de registros exportados: ${rows.length}`, 40, currentY);
+      currentY += 15;
+      doc.text(`Generado: ${now}`, 40, currentY);
 
       doc.autoTable({
-        startY: 110,
+        startY: currentY + 20,
         head: [["SEMESTRE", "ASIGNATURA", "NIVEL", "PROGRAMA"]],
         body: rows.map(row => [
           row.semestre,
@@ -871,20 +908,22 @@
         ]),
         styles: {
           font: "helvetica",
-          fontSize: 9,
-          cellPadding: 6,
-          overflow: "linebreak"
+          fontSize: 8.5,
+          cellPadding: 5,
+          overflow: "linebreak",
+          valign: "middle"
         },
         headStyles: {
           fillColor: [37, 99, 235],
           textColor: 255,
-          fontStyle: "bold"
+          fontStyle: "bold",
+          valign: "middle"
         },
         columnStyles: {
-          0: { cellWidth: 110 },
-          1: { cellWidth: 220 },
-          2: { cellWidth: 90 },
-          3: { cellWidth: 220 }
+          0: { cellWidth: 75 },
+          1: { cellWidth: 170 },
+          2: { cellWidth: 75 },
+          3: { cellWidth: 150 }
         },
         margin: { left: 40, right: 40 }
       });

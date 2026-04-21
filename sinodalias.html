@@ -501,6 +501,11 @@
     const mainSectionTitleEl = document.getElementById("mainSectionTitle");
     const topSectionTitleEl = document.getElementById("topSectionTitle");
 
+    const MONTHS_ES = [
+      "enero", "febrero", "marzo", "abril", "mayo", "junio",
+      "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+    ];
+
     function setStatus(message = "") {
       statusEl.textContent = message;
     }
@@ -556,37 +561,50 @@
       );
     }
 
+    function formatDateOnly(dateObj) {
+      const dd = dateObj.getDate();
+      const mes = MONTHS_ES[dateObj.getMonth()];
+      const yyyy = dateObj.getFullYear();
+      return `${dd}/${mes}/${yyyy}`;
+    }
+
     function formatDateValue(value) {
       if (value === null || value === undefined || value === "") return "";
 
       let d = null;
 
-      if (typeof value === "number" && Number.isFinite(value)) {
-        d = excelDateToJSDate(value);
-      } else {
-        const text = normalizeText(value);
-
-        if (/^\d{4}-\d{2}-\d{2}/.test(text)) {
-          const [yyyy, mm, dd] = text.slice(0, 10).split("-").map(Number);
-          d = new Date(yyyy, mm - 1, dd);
-        } else if (/^\d{2}\/\d{2}\/\d{4}$/.test(text)) {
-          const [dd, mm, yyyy] = text.split("/").map(Number);
-          d = new Date(yyyy, mm - 1, dd);
-        } else {
-          return text;
-        }
+      if (value instanceof Date && !isNaN(value.getTime())) {
+        d = new Date(value.getFullYear(), value.getMonth(), value.getDate());
+        return formatDateOnly(d);
       }
 
-      const meses = [
-        "enero", "febrero", "marzo", "abril", "mayo", "junio",
-        "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
-      ];
+      if (typeof value === "number" && Number.isFinite(value)) {
+        d = excelDateToJSDate(value);
+        d = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+        return formatDateOnly(d);
+      }
 
-      const dd = d.getDate();
-      const mes = meses[d.getMonth()];
-      const yyyy = d.getFullYear();
+      const text = normalizeText(value);
 
-      return `${dd}/${mes}/${yyyy}`;
+      const isoMatch = text.match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if (isoMatch) {
+        const yyyy = Number(isoMatch[1]);
+        const mm = Number(isoMatch[2]);
+        const dd = Number(isoMatch[3]);
+        d = new Date(yyyy, mm - 1, dd);
+        return formatDateOnly(d);
+      }
+
+      const slashMatch = text.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+      if (slashMatch) {
+        const dd = Number(slashMatch[1]);
+        const mm = Number(slashMatch[2]);
+        const yyyy = Number(slashMatch[3]);
+        d = new Date(yyyy, mm - 1, dd);
+        return formatDateOnly(d);
+      }
+
+      return text;
     }
 
     function extractYearFromDateText(dateText) {
@@ -845,7 +863,7 @@
         <article class="top-card">
           <div class="rank">${index + 1}</div>
           <div class="subject-name">${escapeHtml(item.nombre)}</div>
-          <div class="subject-count">${item.total} vez/veces registrada(s)</div>
+          <div class="subject-count">${item.total} veces registrada</div>
         </article>
       `).join("");
     }
@@ -868,6 +886,10 @@
       });
     }
 
+    function getTodaySpanishDate() {
+      return formatDateOnly(new Date());
+    }
+
     async function exportVisibleRowsToDocx() {
       const rows = getVisibleRowsOrdered();
 
@@ -878,11 +900,7 @@
 
       const query = normalizeText(searchInput.value);
       const groupingLabel = groupBySelect.options[groupBySelect.selectedIndex].text;
-      const now = new Date().toLocaleString("es-MX", {
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      });
+      const now = getTodaySpanishDate();
 
       const {
         Document,
@@ -1067,11 +1085,7 @@
       const groupingLabel = groupBySelect.options[groupBySelect.selectedIndex].text;
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "a4" });
-      const now = new Date().toLocaleString("es-MX", {
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      });
+      const now = getTodaySpanishDate();
 
       doc.setFont("helvetica", "bold");
       doc.setFontSize(16);

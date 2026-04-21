@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sinodalías</title>
+
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.3/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/5.0.2/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --card-border: #dbe4ee;
+      --text: #0f172a;
+      --muted: #64748b;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --success: #16a34a;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.05), transparent 25%),
+        linear-gradient(180deg, #f8fafc 0%, #eef4fb 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .container {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 48px;
+    }
+
+    .hero {
+      margin-bottom: 24px;
+      padding: 28px;
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .hero h1 {
+      margin: 0 0 14px;
+      font-size: clamp(1.75rem, 3.6vw, 2.7rem);
+      line-height: 1.1;
+      color: #0b1324;
+    }
+
+    .hero-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .status {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      min-height: 1.2em;
+    }
+
+    .status:empty {
+      display: none;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 24px 0 32px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
+      color: #0b1324;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 36px 0 16px;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 1.4rem;
+      color: #0b1324;
+    }
+
+    .section-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      background: white;
+      color: var(--text);
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: #f8fbff;
+      transform: translateY(-1px);
+    }
+
+    .group-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .group-card,
+    .search-card {
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      background: var(--card);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .group-card summary,
+    .search-card summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .group-card summary::-webkit-details-marker,
+    .search-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .group-summary,
+    .search-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      font-weight: 700;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    }
+
+    .group-summary {
+      font-size: 1.05rem;
+    }
+
+    .summary-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .summary-title {
+      word-break: break-word;
+    }
+
+    .collapse-indicator {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: #1d4ed8;
+      font-weight: 800;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .group-card[open] .collapse-indicator::before,
+    .search-card[open] .collapse-indicator::before {
+      content: "−";
+    }
+
+    .group-card:not([open]) .collapse-indicator::before,
+    .search-card:not([open]) .collapse-indicator::before {
+      content: "+";
+    }
+
+    .group-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: var(--accent-soft);
+      color: #1d4ed8;
+    }
+
+    .group-body {
+      padding: 2px 20px 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    th {
+      background: transparent;
+      color: #334155;
+      font-size: 0.88rem;
+      letter-spacing: 0.02em;
+    }
+
+    td {
+      color: #0f172a;
+      font-size: 0.95rem;
+    }
+
+    tr:hover td {
+      background: #f8fbff;
+    }
+
+    .top-section {
+      margin-top: 36px;
+    }
+
+    .top5 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .top-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .rank {
+      display: inline-flex;
+      width: 32px;
+      height: 32px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: 800;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--success), #15803d);
+      color: white;
+    }
+
+    .subject-name {
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .subject-count {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .search-card {
+      margin-top: 36px;
+    }
+
+    .search-card-body {
+      padding: 0 20px 20px;
+    }
+
+    .search-grid {
+      display: grid;
+      grid-template-columns: 1fr 260px auto;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .search-grid input,
+    .search-grid select,
+    .search-grid button {
+      width: 100%;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      background: #fff;
+      color: var(--text);
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .primary-btn {
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), #1d4ed8) !important;
+      color: white !important;
+      border: none !important;
+      font-weight: 600;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .secondary-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .empty,
+    .error {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid var(--card-border);
+      background: white;
+      color: var(--muted);
+    }
+
+    .error {
+      color: #b91c1c;
+      border-color: #fecaca;
+      background: #fef2f2;
+    }
+
+    @media (max-width: 980px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .top5 {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .search-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .group-summary,
+      .search-summary {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(100% - 20px, 1200px);
+        padding-top: 20px;
+      }
+
+      .hero {
+        padding: 20px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .top5 {
+        grid-template-columns: 1fr;
+      }
+
+      .group-summary {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .group-meta {
+        justify-content: flex-start;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>Sinodalías</h1>
+      <p class="hero-subtitle">Profesor: Ildeberto de los Santos Ruiz</p>
+      <div class="status" id="status">Cargando datos automáticamente...</div>
+    </section>
+
+    <section class="stats" id="stats"></section>
+
+    <div class="section-header">
+      <h2 class="section-title" id="mainSectionTitle">Registros agrupados</h2>
+      <div class="section-actions">
+        <button class="action-btn" id="expandAllBtn">Expandir todo</button>
+        <button class="action-btn" id="collapseAllBtn">Colapsar todo</button>
+      </div>
+    </div>
+
+    <section class="group-list" id="groupList"></section>
+
+    <section class="top-section">
+      <h2 class="section-title" id="topSectionTitle">Top 5 funciones más frecuentes</h2>
+      <section class="top5" id="top5List"></section>
+    </section>
+
+    <details class="search-card" id="searchCard">
+      <summary class="search-summary">
+        <span class="summary-left">
+          <span class="collapse-indicator" aria-hidden="true"></span>
+          <span>Búsqueda</span>
+        </span>
+      </summary>
+
+      <div class="search-card-body">
+        <div class="search-grid">
+          <input type="text" id="searchInput" placeholder="Buscar función, sustentante, fecha o programa">
+          <select id="groupBySelect" aria-label="Criterio de agrupación">
+            <option value="anio">Agrupar por año</option>
+            <option value="programa">Agrupar por programa</option>
+            <option value="funcion">Agrupar por función</option>
+          </select>
+          <button id="reloadBtn" class="primary-btn">Recargar datos</button>
+        </div>
+
+        <div class="secondary-actions">
+          <button class="action-btn" id="exportWordBtn">Exportar Word</button>
+          <button class="action-btn" id="exportPdfBtn">Exportar PDF</button>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <script>
+    const EXCEL_FILE = "sinodalias.xlsx";
+    let allRows = [];
+
+    const statusEl = document.getElementById("status");
+    const statsEl = document.getElementById("stats");
+    const groupListEl = document.getElementById("groupList");
+    const top5ListEl = document.getElementById("top5List");
+    const reloadBtn = document.getElementById("reloadBtn");
+    const searchInput = document.getElementById("searchInput");
+    const groupBySelect = document.getElementById("groupBySelect");
+    const expandAllBtn = document.getElementById("expandAllBtn");
+    const collapseAllBtn = document.getElementById("collapseAllBtn");
+    const exportWordBtn = document.getElementById("exportWordBtn");
+    const exportPdfBtn = document.getElementById("exportPdfBtn");
+    const mainSectionTitleEl = document.getElementById("mainSectionTitle");
+    const topSectionTitleEl = document.getElementById("topSectionTitle");
+
+    function setStatus(message = "") {
+      statusEl.textContent = message;
+    }
+
+    function normalizeText(value) {
+      return String(value ?? "").trim().replace(/\s+/g, " ");
+    }
+
+    function safeUpper(value) {
+      return normalizeText(value).toUpperCase();
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function normalizeFunction(value) {
+      const v = safeUpper(value);
+
+      if (v === "VOCAL PROPIETARIO" || v === "VOCAL SUPLENTE") {
+        return "Vocal";
+      }
+
+      return normalizeText(value);
+    }
+
+    function excelDateToJSDate(serial) {
+      const utcDays = Math.floor(serial - 25569);
+      const utcValue = utcDays * 86400;
+      const dateInfo = new Date(utcValue * 1000);
+
+      const fractionalDay = serial - Math.floor(serial) + 0.0000001;
+      let totalSeconds = Math.floor(86400 * fractionalDay);
+
+      const seconds = totalSeconds % 60;
+      totalSeconds -= seconds;
+
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor(totalSeconds / 60) % 60;
+
+      return new Date(
+        dateInfo.getUTCFullYear(),
+        dateInfo.getUTCMonth(),
+        dateInfo.getUTCDate(),
+        hours,
+        minutes,
+        seconds
+      );
+    }
+
+    function formatDateValue(value) {
+      if (value === null || value === undefined || value === "") return "";
+
+      if (typeof value === "number" && Number.isFinite(value)) {
+        const d = excelDateToJSDate(value);
+        const dd = String(d.getDate()).padStart(2, "0");
+        const mm = String(d.getMonth() + 1).padStart(2, "0");
+        const yyyy = d.getFullYear();
+        return `${dd}/${mm}/${yyyy}`;
+      }
+
+      const text = normalizeText(value);
+
+      if (/^\d{4}-\d{2}-\d{2}/.test(text)) {
+        const [yyyy, mm, dd] = text.slice(0, 10).split("-");
+        return `${dd}/${mm}/${yyyy}`;
+      }
+
+      return text;
+    }
+
+    function extractYearFromDateText(dateText) {
+      const t = normalizeText(dateText);
+      const match = t.match(/(19\d{2}|20\d{2})/);
+      return match ? parseInt(match[1], 10) : null;
+    }
+
+    function dateSortValue(dateText) {
+      const t = normalizeText(dateText);
+
+      if (/^\d{2}\/\d{2}\/\d{4}$/.test(t)) {
+        const [dd, mm, yyyy] = t.split("/").map(Number);
+        return yyyy * 10000 + mm * 100 + dd;
+      }
+
+      if (/^\d{4}-\d{2}-\d{2}/.test(t)) {
+        const [yyyy, mm, dd] = t.slice(0, 10).split("-").map(Number);
+        return yyyy * 10000 + mm * 100 + dd;
+      }
+
+      const year = extractYearFromDateText(t);
+      return year ? year * 10000 : 0;
+    }
+
+    function cleanRows(rows) {
+      return rows
+        .map(row => ({
+          funcion: normalizeFunction(row["FUNCIÓN"] ?? row["FUNCION"]),
+          sustentante: normalizeText(row["NOMBRE DEL SUSTENTANTE"]),
+          fecha: formatDateValue(row["FECHA"]),
+          programa: normalizeText(row["PROGRAMA"])
+        }))
+        .filter(r => r.funcion || r.sustentante || r.fecha || r.programa)
+        .filter(r => r.funcion && r.sustentante);
+    }
+
+    function getFilteredRows(rows) {
+      const query = safeUpper(searchInput.value);
+
+      return rows.filter(r => {
+        if (!query) return true;
+        const haystack = `${r.funcion} ${r.sustentante} ${r.fecha} ${r.programa}`.toUpperCase();
+        return haystack.includes(query);
+      });
+    }
+
+    function getGroupingConfig() {
+      const value = groupBySelect.value;
+
+      if (value === "programa") {
+        return {
+          key: row => normalizeText(row.programa) || "Sin programa",
+          sortKeys: keys => keys.sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" })),
+          sortRows: rows => rows.sort((a, b) => dateSortValue(b.fecha) - dateSortValue(a.fecha)),
+          sectionTitle: "Registros por programa",
+          topTitle: "Top 5 funciones más frecuentes"
+        };
+      }
+
+      if (value === "funcion") {
+        return {
+          key: row => normalizeText(row.funcion) || "Sin función",
+          sortKeys: keys => keys.sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" })),
+          sortRows: rows => rows.sort((a, b) => dateSortValue(b.fecha) - dateSortValue(a.fecha)),
+          sectionTitle: "Registros por función",
+          topTitle: "Top 5 funciones más frecuentes"
+        };
+      }
+
+      return {
+        key: row => {
+          const year = extractYearFromDateText(row.fecha);
+          return year ? String(year) : "Sin año";
+        },
+        sortKeys: keys => keys.sort((a, b) => {
+          const na = a === "Sin año" ? -Infinity : Number(a);
+          const nb = b === "Sin año" ? -Infinity : Number(b);
+          return nb - na;
+        }),
+        sortRows: rows => rows.sort((a, b) => dateSortValue(b.fecha) - dateSortValue(a.fecha)),
+        sectionTitle: "Registros por año",
+        topTitle: "Top 5 funciones más frecuentes"
+      };
+    }
+
+    function getGroupedRows(rows) {
+      const filteredRows = getFilteredRows(rows);
+      const config = getGroupingConfig();
+
+      const grouped = filteredRows.reduce((acc, row) => {
+        const key = config.key(row);
+        if (!acc[key]) acc[key] = [];
+        acc[key].push(row);
+        return acc;
+      }, {});
+
+      const sortedKeys = config.sortKeys(Object.keys(grouped));
+
+      sortedKeys.forEach(key => {
+        config.sortRows(grouped[key]);
+      });
+
+      return { grouped, sortedKeys, config };
+    }
+
+    function getVisibleRowsOrdered() {
+      const { grouped, sortedKeys } = getGroupedRows(allRows);
+      const orderedRows = [];
+
+      sortedKeys.forEach(key => {
+        grouped[key].forEach(item => orderedRows.push(item));
+      });
+
+      return orderedRows;
+    }
+
+    function renderStats(rows) {
+      const totalRegistros = rows.length;
+      const totalAnios = new Set(rows.map(r => extractYearFromDateText(r.fecha)).filter(Boolean)).size;
+      const totalFunciones = new Set(rows.map(r => safeUpper(r.funcion))).size;
+      const totalProgramas = new Set(rows.map(r => safeUpper(r.programa)).filter(Boolean)).size;
+
+      statsEl.innerHTML = `
+        <div class="stat-card">
+          <div class="stat-label">Registros</div>
+          <div class="stat-value">${totalRegistros}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Años</div>
+          <div class="stat-value">${totalAnios}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Funciones únicas</div>
+          <div class="stat-value">${totalFunciones}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Programas</div>
+          <div class="stat-value">${totalProgramas}</div>
+        </div>
+      `;
+    }
+
+    function renderGrouped(rows) {
+      const filteredRows = getFilteredRows(rows);
+
+      if (!filteredRows.length) {
+        groupListEl.innerHTML = `<div class="empty">No hay registros para mostrar con el filtro actual.</div>`;
+        return;
+      }
+
+      const { grouped, sortedKeys, config } = getGroupedRows(rows);
+
+      mainSectionTitleEl.textContent = config.sectionTitle;
+      topSectionTitleEl.textContent = config.topTitle;
+
+      groupListEl.innerHTML = sortedKeys.map((groupKey, index) => {
+        const items = grouped[groupKey];
+        const programas = [...new Set(items.map(i => i.programa).filter(Boolean))].length;
+        const funciones = [...new Set(items.map(i => i.funcion).filter(Boolean))].length;
+
+        return `
+          <details class="group-card" ${index === 0 ? "open" : ""}>
+            <summary class="group-summary">
+              <span class="summary-left">
+                <span class="collapse-indicator" aria-hidden="true"></span>
+                <span class="summary-title">${escapeHtml(String(groupKey))}</span>
+              </span>
+              <span class="group-meta">
+                <span class="badge">${items.length} registro(s)</span>
+                <span class="badge">${funciones} función(es)</span>
+                <span class="badge">${programas} programa(s)</span>
+              </span>
+            </summary>
+
+            <div class="group-body">
+              <table>
+                <thead>
+                  <tr>
+                    <th>FUNCIÓN</th>
+                    <th>NOMBRE DEL SUSTENTANTE</th>
+                    <th>FECHA</th>
+                    <th>PROGRAMA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${items.map(item => `
+                    <tr>
+                      <td>${escapeHtml(item.funcion)}</td>
+                      <td>${escapeHtml(item.sustentante)}</td>
+                      <td>${escapeHtml(item.fecha)}</td>
+                      <td>${escapeHtml(item.programa)}</td>
+                    </tr>
+                  `).join("")}
+                </tbody>
+              </table>
+            </div>
+          </details>
+        `;
+      }).join("");
+    }
+
+    function renderTop5(rows) {
+      const counts = new Map();
+
+      rows.forEach(r => {
+        const key = safeUpper(r.funcion);
+        if (!key) return;
+
+        if (!counts.has(key)) {
+          counts.set(key, { nombre: r.funcion, total: 0 });
+        }
+
+        counts.get(key).total += 1;
+      });
+
+      const top5 = [...counts.values()]
+        .sort((a, b) => b.total - a.total || a.nombre.localeCompare(b.nombre, "es"))
+        .slice(0, 5);
+
+      if (!top5.length) {
+        top5ListEl.innerHTML = `<div class="empty">No hay información suficiente para calcular el top 5.</div>`;
+        return;
+      }
+
+      top5ListEl.innerHTML = top5.map((item, index) => `
+        <article class="top-card">
+          <div class="rank">${index + 1}</div>
+          <div class="subject-name">${escapeHtml(item.nombre)}</div>
+          <div class="subject-count">${item.total} vez/veces registrada(s)</div>
+        </article>
+      `).join("");
+    }
+
+    function renderAll(rows) {
+      renderStats(rows);
+      renderGrouped(rows);
+      renderTop5(rows);
+    }
+
+    function expandAllGroups() {
+      document.querySelectorAll(".group-card").forEach(card => {
+        card.open = true;
+      });
+    }
+
+    function collapseAllGroups() {
+      document.querySelectorAll(".group-card").forEach(card => {
+        card.open = false;
+      });
+    }
+
+    async function exportVisibleRowsToDocx() {
+      const rows = getVisibleRowsOrdered();
+
+      if (!rows.length) {
+        alert("No hay registros para exportar.");
+        return;
+      }
+
+      const query = normalizeText(searchInput.value);
+      const groupingLabel = groupBySelect.options[groupBySelect.selectedIndex].text;
+      const now = new Date().toLocaleString("es-MX");
+
+      const {
+        Document,
+        Packer,
+        Paragraph,
+        TextRun,
+        Table,
+        TableRow,
+        TableCell,
+        WidthType,
+        BorderStyle,
+        AlignmentType,
+        VerticalAlign,
+        HeadingLevel,
+        ShadingType
+      } = window.docx;
+
+      const borderColor = "CBD5E1";
+      const headerFill = "E2E8F0";
+
+      const makeCell = (text, options = {}) => new TableCell({
+        verticalAlign: VerticalAlign.CENTER,
+        shading: options.header ? { type: ShadingType.CLEAR, color: "auto", fill: headerFill } : undefined,
+        margins: options.header
+          ? { top: 60, bottom: 60, left: 100, right: 100 }
+          : { top: 80, bottom: 80, left: 100, right: 100 },
+        borders: {
+          top: { style: BorderStyle.SINGLE, size: 1, color: borderColor },
+          bottom: { style: BorderStyle.SINGLE, size: 1, color: borderColor },
+          left: { style: BorderStyle.SINGLE, size: 1, color: borderColor },
+          right: { style: BorderStyle.SINGLE, size: 1, color: borderColor }
+        },
+        children: [
+          new Paragraph({
+            spacing: { before: 0, after: 0, line: 240 },
+            children: [
+              new TextRun({
+                text: text ?? "",
+                bold: !!options.header,
+                size: 21
+              })
+            ]
+          })
+        ]
+      });
+
+      const tableRows = [
+        new TableRow({
+          tableHeader: true,
+          children: [
+            makeCell("FUNCIÓN", { header: true }),
+            makeCell("NOMBRE DEL SUSTENTANTE", { header: true }),
+            makeCell("FECHA", { header: true }),
+            makeCell("PROGRAMA", { header: true })
+          ]
+        }),
+        ...rows.map(row =>
+          new TableRow({
+            children: [
+              makeCell(row.funcion),
+              makeCell(row.sustentante),
+              makeCell(row.fecha),
+              makeCell(row.programa)
+            ]
+          })
+        )
+      ];
+
+      const extraParagraphs = [];
+
+      extraParagraphs.push(
+        new Paragraph({
+          spacing: { after: 100 },
+          children: [
+            new TextRun({
+              text: `Agrupación: ${groupingLabel}`,
+              size: 21
+            })
+          ]
+        })
+      );
+
+      if (query) {
+        extraParagraphs.push(
+          new Paragraph({
+            spacing: { after: 100 },
+            children: [
+              new TextRun({
+                text: `Filtro: ${query}`,
+                size: 21
+              })
+            ]
+          })
+        );
+      }
+
+      extraParagraphs.push(
+        new Paragraph({
+          spacing: { after: 100 },
+          children: [
+            new TextRun({
+              text: `Total de registros exportados: ${rows.length}`,
+              size: 21
+            })
+          ]
+        })
+      );
+
+      extraParagraphs.push(
+        new Paragraph({
+          spacing: { after: 180 },
+          children: [
+            new TextRun({
+              text: `Generado: ${now}`,
+              size: 21
+            })
+          ]
+        })
+      );
+
+      const doc = new Document({
+        sections: [
+          {
+            properties: {},
+            children: [
+              new Paragraph({
+                heading: HeadingLevel.TITLE,
+                spacing: { after: 140 },
+                children: [
+                  new TextRun({
+                    text: "Sinodalías",
+                    bold: true,
+                    size: 32
+                  })
+                ]
+              }),
+              new Paragraph({
+                spacing: { after: 100 },
+                children: [
+                  new TextRun({
+                    text: "Profesor: Ildeberto de los Santos Ruiz",
+                    bold: true,
+                    size: 22
+                  })
+                ]
+              }),
+              ...extraParagraphs,
+              new Table({
+                width: {
+                  size: 100,
+                  type: WidthType.PERCENTAGE
+                },
+                columnWidths: [1800, 4200, 1600, 3400],
+                rows: tableRows,
+                alignment: AlignmentType.CENTER
+              })
+            ]
+          }
+        ]
+      });
+
+      const blob = await Packer.toBlob(doc);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "sinodalias_exportadas.docx";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function exportVisibleRowsToPdf() {
+      const rows = getVisibleRowsOrdered();
+
+      if (!rows.length) {
+        alert("No hay registros para exportar.");
+        return;
+      }
+
+      const query = normalizeText(searchInput.value);
+      const groupingLabel = groupBySelect.options[groupBySelect.selectedIndex].text;
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "a4" });
+      const now = new Date().toLocaleString("es-MX");
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(16);
+      doc.text("Sinodalías", 40, 40);
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      doc.text("Profesor: Ildeberto de los Santos Ruiz", 40, 60);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(10);
+
+      let currentY = 75;
+
+      doc.text(`Agrupación: ${groupingLabel}`, 40, currentY);
+      currentY += 15;
+
+      if (query) {
+        doc.text(`Filtro: ${query}`, 40, currentY);
+        currentY += 15;
+      }
+
+      doc.text(`Total de registros exportados: ${rows.length}`, 40, currentY);
+      currentY += 15;
+      doc.text(`Generado: ${now}`, 40, currentY);
+
+      doc.autoTable({
+        startY: currentY + 20,
+        head: [["FUNCIÓN", "NOMBRE DEL SUSTENTANTE", "FECHA", "PROGRAMA"]],
+        body: rows.map(row => [
+          row.funcion,
+          row.sustentante,
+          row.fecha,
+          row.programa
+        ]),
+        styles: {
+          font: "helvetica",
+          fontSize: 8.2,
+          cellPadding: 5,
+          overflow: "linebreak",
+          valign: "middle"
+        },
+        headStyles: {
+          fillColor: [37, 99, 235],
+          textColor: 255,
+          fontStyle: "bold",
+          valign: "middle"
+        },
+        columnStyles: {
+          0: { cellWidth: 70 },
+          1: { cellWidth: 170 },
+          2: { cellWidth: 75 },
+          3: { cellWidth: 170 }
+        },
+        margin: { left: 40, right: 40 }
+      });
+
+      doc.save("sinodalias_exportadas.pdf");
+    }
+
+    async function parseExcelArrayBuffer(arrayBuffer) {
+      const workbook = XLSX.read(arrayBuffer, { type: "array", cellDates: true });
+      const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+      const json = XLSX.utils.sheet_to_json(firstSheet, { defval: "" });
+      return cleanRows(json);
+    }
+
+    async function loadExcelAutomatically() {
+      setStatus("Cargando datos automáticamente...");
+
+      const response = await fetch(EXCEL_FILE, { cache: "no-store" });
+
+      if (!response.ok) {
+        throw new Error(`No se pudo cargar el archivo (${response.status}).`);
+      }
+
+      const arrayBuffer = await response.arrayBuffer();
+      allRows = await parseExcelArrayBuffer(arrayBuffer);
+      renderAll(allRows);
+
+      setStatus("");
+    }
+
+    reloadBtn.addEventListener("click", async () => {
+      try {
+        await loadExcelAutomatically();
+      } catch (error) {
+        groupListEl.innerHTML = `<div class="error">${escapeHtml(error.message)}</div>`;
+        top5ListEl.innerHTML = "";
+        statsEl.innerHTML = "";
+        setStatus("Error al recargar los datos.");
+      }
+    });
+
+    searchInput.addEventListener("input", () => {
+      renderGrouped(allRows);
+    });
+
+    groupBySelect.addEventListener("change", () => {
+      renderGrouped(allRows);
+    });
+
+    expandAllBtn.addEventListener("click", () => {
+      expandAllGroups();
+    });
+
+    collapseAllBtn.addEventListener("click", () => {
+      collapseAllGroups();
+    });
+
+    exportWordBtn.addEventListener("click", async () => {
+      try {
+        await exportVisibleRowsToDocx();
+      } catch (error) {
+        console.error(error);
+        alert("No fue posible exportar el archivo Word.");
+      }
+    });
+
+    exportPdfBtn.addEventListener("click", () => {
+      try {
+        exportVisibleRowsToPdf();
+      } catch (error) {
+        console.error(error);
+        alert("No fue posible exportar el archivo PDF.");
+      }
+    });
+
+    window.addEventListener("DOMContentLoaded", async () => {
+      try {
+        await loadExcelAutomatically();
+      } catch (error) {
+        statsEl.innerHTML = "";
+        groupListEl.innerHTML = `
+          <div class="error">
+            No fue posible cargar automáticamente los datos.
+          </div>
+        `;
+        top5ListEl.innerHTML = "";
+        setStatus("Error de carga automática.");
+      }
+    });
+  </script>
+</body>
+</html>

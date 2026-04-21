@@ -452,7 +452,7 @@
     <section class="group-list" id="groupList"></section>
 
     <section class="top-section">
-      <h2 class="section-title" id="topSectionTitle">Top 5 funciones más frecuentes</h2>
+      <h2 class="section-title" id="topSectionTitle">Funciones más frecuentes</h2>
       <section class="top5" id="top5List"></section>
     </section>
 
@@ -525,8 +525,8 @@
     function normalizeFunction(value) {
       const v = safeUpper(value);
 
-      if (v === "VOCAL PROPIETARIO" || v === "VOCAL SUPLENTE") {
-        return "Vocal";
+      if (v === "VOCAL PROPIETARIO" || v === "VOCAL SUPLENTE" || v === "VOCAL") {
+        return "VOCAL";
       }
 
       return normalizeText(value);
@@ -559,22 +559,34 @@
     function formatDateValue(value) {
       if (value === null || value === undefined || value === "") return "";
 
+      let d = null;
+
       if (typeof value === "number" && Number.isFinite(value)) {
-        const d = excelDateToJSDate(value);
-        const dd = String(d.getDate()).padStart(2, "0");
-        const mm = String(d.getMonth() + 1).padStart(2, "0");
-        const yyyy = d.getFullYear();
-        return `${dd}/${mm}/${yyyy}`;
+        d = excelDateToJSDate(value);
+      } else {
+        const text = normalizeText(value);
+
+        if (/^\d{4}-\d{2}-\d{2}/.test(text)) {
+          const [yyyy, mm, dd] = text.slice(0, 10).split("-").map(Number);
+          d = new Date(yyyy, mm - 1, dd);
+        } else if (/^\d{2}\/\d{2}\/\d{4}$/.test(text)) {
+          const [dd, mm, yyyy] = text.split("/").map(Number);
+          d = new Date(yyyy, mm - 1, dd);
+        } else {
+          return text;
+        }
       }
 
-      const text = normalizeText(value);
+      const meses = [
+        "enero", "febrero", "marzo", "abril", "mayo", "junio",
+        "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+      ];
 
-      if (/^\d{4}-\d{2}-\d{2}/.test(text)) {
-        const [yyyy, mm, dd] = text.slice(0, 10).split("-");
-        return `${dd}/${mm}/${yyyy}`;
-      }
+      const dd = d.getDate();
+      const mes = meses[d.getMonth()];
+      const yyyy = d.getFullYear();
 
-      return text;
+      return `${dd}/${mes}/${yyyy}`;
     }
 
     function extractYearFromDateText(dateText) {
@@ -584,15 +596,44 @@
     }
 
     function dateSortValue(dateText) {
-      const t = normalizeText(dateText);
+      const t = normalizeText(dateText).toLowerCase();
 
-      if (/^\d{2}\/\d{2}\/\d{4}$/.test(t)) {
-        const [dd, mm, yyyy] = t.split("/").map(Number);
+      const meses = {
+        enero: 1,
+        febrero: 2,
+        marzo: 3,
+        abril: 4,
+        mayo: 5,
+        junio: 6,
+        julio: 7,
+        agosto: 8,
+        septiembre: 9,
+        octubre: 10,
+        noviembre: 11,
+        diciembre: 12
+      };
+
+      const matchTexto = t.match(/^(\d{1,2})\/([a-záéíóúñ]+)\/(\d{4})$/);
+      if (matchTexto) {
+        const dd = Number(matchTexto[1]);
+        const mm = meses[matchTexto[2]] || 0;
+        const yyyy = Number(matchTexto[3]);
         return yyyy * 10000 + mm * 100 + dd;
       }
 
-      if (/^\d{4}-\d{2}-\d{2}/.test(t)) {
-        const [yyyy, mm, dd] = t.slice(0, 10).split("-").map(Number);
+      const matchNumerico = t.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+      if (matchNumerico) {
+        const dd = Number(matchNumerico[1]);
+        const mm = Number(matchNumerico[2]);
+        const yyyy = Number(matchNumerico[3]);
+        return yyyy * 10000 + mm * 100 + dd;
+      }
+
+      const matchISO = t.match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if (matchISO) {
+        const yyyy = Number(matchISO[1]);
+        const mm = Number(matchISO[2]);
+        const dd = Number(matchISO[3]);
         return yyyy * 10000 + mm * 100 + dd;
       }
 
@@ -631,7 +672,7 @@
           sortKeys: keys => keys.sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" })),
           sortRows: rows => rows.sort((a, b) => dateSortValue(b.fecha) - dateSortValue(a.fecha)),
           sectionTitle: "Registros por programa",
-          topTitle: "Top 5 funciones más frecuentes"
+          topTitle: "Funciones más frecuentes"
         };
       }
 
@@ -641,7 +682,7 @@
           sortKeys: keys => keys.sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" })),
           sortRows: rows => rows.sort((a, b) => dateSortValue(b.fecha) - dateSortValue(a.fecha)),
           sectionTitle: "Registros por función",
-          topTitle: "Top 5 funciones más frecuentes"
+          topTitle: "Funciones más frecuentes"
         };
       }
 
@@ -657,7 +698,7 @@
         }),
         sortRows: rows => rows.sort((a, b) => dateSortValue(b.fecha) - dateSortValue(a.fecha)),
         sectionTitle: "Registros por año",
-        topTitle: "Top 5 funciones más frecuentes"
+        topTitle: "Funciones más frecuentes"
       };
     }
 
@@ -755,7 +796,7 @@
                 <thead>
                   <tr>
                     <th>FUNCIÓN</th>
-                    <th>NOMBRE DEL SUSTENTANTE</th>
+                    <th>SUSTENTANTE</th>
                     <th>FECHA</th>
                     <th>PROGRAMA</th>
                   </tr>
@@ -837,7 +878,11 @@
 
       const query = normalizeText(searchInput.value);
       const groupingLabel = groupBySelect.options[groupBySelect.selectedIndex].text;
-      const now = new Date().toLocaleString("es-MX");
+      const now = new Date().toLocaleString("es-MX", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      });
 
       const {
         Document,
@@ -889,7 +934,7 @@
           tableHeader: true,
           children: [
             makeCell("FUNCIÓN", { header: true }),
-            makeCell("NOMBRE DEL SUSTENTANTE", { header: true }),
+            makeCell("SUSTENTANTE", { header: true }),
             makeCell("FECHA", { header: true }),
             makeCell("PROGRAMA", { header: true })
           ]
@@ -1022,7 +1067,11 @@
       const groupingLabel = groupBySelect.options[groupBySelect.selectedIndex].text;
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: "portrait", unit: "pt", format: "a4" });
-      const now = new Date().toLocaleString("es-MX");
+      const now = new Date().toLocaleString("es-MX", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      });
 
       doc.setFont("helvetica", "bold");
       doc.setFontSize(16);
@@ -1051,7 +1100,7 @@
 
       doc.autoTable({
         startY: currentY + 20,
-        head: [["FUNCIÓN", "NOMBRE DEL SUSTENTANTE", "FECHA", "PROGRAMA"]],
+        head: [["FUNCIÓN", "SUSTENTANTE", "FECHA", "PROGRAMA"]],
         body: rows.map(row => [
           row.funcion,
           row.sustentante,
@@ -1074,8 +1123,8 @@
         columnStyles: {
           0: { cellWidth: 70 },
           1: { cellWidth: 170 },
-          2: { cellWidth: 75 },
-          3: { cellWidth: 170 }
+          2: { cellWidth: 95 },
+          3: { cellWidth: 150 }
         },
         margin: { left: 40, right: 40 }
       });
